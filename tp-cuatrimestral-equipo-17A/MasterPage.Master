@@ -34,12 +34,23 @@
                             <a class="nav-link" style="color: black;" id="a-3" aria-disabled="true" href="Turnos.aspx">Turnos</a>
                         </li>
                     </ul>
+
+                    <ul class="nav ms-auto d-flex align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: black;" id="a-4" aria-current="true" href="Login.aspx">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: black;" id="a-5" aria-current="true" href="Registrarse.aspx">Registrarse</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="card-body">
-                    <div>
-                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                        </asp:ContentPlaceHolder>
-                    </div>
+
+
+            </div>
+            <div class="card-body">
+                <div>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
                 </div>
             </div>
         </header>
@@ -52,6 +63,8 @@
         const a1 = document.getElementById("a-1");
         const a2 = document.getElementById("a-2");
         const a3 = document.getElementById("a-3");
+        const a4 = document.getElementById("a-4");
+        const a5 = document.getElementById("a-5");
 
         var pagina = "<%= System.IO.Path.GetFileName(Request.PhysicalPath) %>";
 
@@ -67,6 +80,14 @@
             a3.className = "nav-link active";
             a3.style = "color: blue;"
         }
-     </script>
+        else if (pagina == "Login.aspx") {
+            a4.className = "nav-link active";
+            a4.style = "color: blue;"
+        }
+        else if (pagina == "Registrarse.aspx") {
+            a5.className = "nav-link active";
+            a5.style = "color: blue;"
+        }
+    </script>
 </body>
 </html>
