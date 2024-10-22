@@ -104,8 +104,11 @@
     <Content Include="About.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Script\MasterPage.js" />
+    <Content Include="Script\Turnos.js" />
     <Content Include="Styles\Default.css" />
     <Content Include="Styles\MasterPage.css" />
+    <Content Include="Styles\Turnos.css" />
+    <Content Include="Turnos.aspx" />
     <Content Include="Web.config" />
     <Content Include="Default.aspx" />
   </ItemGroup>
@@ -136,6 +139,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Turnos.aspx.cs">
+      <DependentUpon>Turnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Turnos.aspx.designer.cs">
+      <DependentUpon>Turnos.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
