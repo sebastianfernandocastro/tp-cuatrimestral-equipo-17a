@@ -4,7 +4,7 @@ create database LAVADERO_DB
 
 use LAVADERO_DB
 
-create TABLE CLIENTES(
+create TABLE USUARIOS(
 ID Int PRIMARY key,
 Nombre varchar(30) not null,
 Apellido varchar(30) not null,
