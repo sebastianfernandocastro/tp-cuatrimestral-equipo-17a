@@ -7,11 +7,26 @@
 .divContenedor {
     width: 100%;
     display: flex;
+
 }
 
-.divContenedor div{
-    width: 500px;
-    background-color:black;
-    padding:10px;
-    color:white;
+.divContenedor div {
+    width: 33.33%;
+    background-color: #126186;
+
+    color: white;
+
+}
+
+.divContenedor h3{
+    justify-content:center;
+    text-align:center;
+    margin-top:20px;
+}
+
+.divContenedor p {
+    justify-content: center;
+    text-align: justify;
+    font-size:18px;
+    margin: 20px;
 }

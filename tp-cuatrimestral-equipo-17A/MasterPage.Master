@@ -40,8 +40,8 @@
 
             </div>
         </header>
-        <div style="display: flex; width:100%; justify-content:center; padding-top:10px;">
-            <div style="width: 60%; padding:20px;">
+        <div style="display:flex; width:100%; justify-content: center; padding-top:10px;">
+            <div style="width: 60%;">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
