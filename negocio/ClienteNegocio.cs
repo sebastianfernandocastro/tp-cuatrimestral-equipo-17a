@@ -9,48 +9,6 @@ namespace negocio
 {
     public class ClienteNegocio
     {
-
-        //public List<Cliente> listar()
-        //{
-        //    //List<Cliente> Clientes = new List<Cliente>();
-        //    //AccesoDatos datos = new AccesoDatos();
-
-        //    //try
-        //    //{
-        //    //    datos.setearConsulta("SELECT A.Id, A.Precio, A.IdCategoria, A.IdMarca, A.Codigo, A.Nombre, A.Descripcion ,C.Descripcion AS DesCategoria, M.Descripcion AS DesMarca FROM ClienteS A JOIN CATEGORIAS C ON A.IdCategoria = C.Id JOIN MARCAS M ON A.IdMarca = M.Id");
-        //    //    datos.EjecutarLectura();
-        //    //    while (datos.Lector.Read())
-        //    //    {
-        //    //        Cliente Cliente = new Cliente();
-        //    //        Cliente.Id = (int)datos.Lector["Id"];
-        //    //        Cliente.Codigo = (string)datos.Lector["Codigo"];
-        //    //        Cliente.Nombre = (string)datos.Lector["Nombre"];
-        //    //        Cliente.Descripcion = (string)datos.Lector["Descripcion"];
-        //    //        Cliente.Precio = (decimal)datos.Lector["Precio"];
-        //    //        Cliente.Categoria = new Categoria();
-        //    //        Cliente.Categoria.Id = (int)datos.Lector["IdCategoria"];
-        //    //        Cliente.Categoria.Descripcion = (string)datos.Lector["DesCategoria"];
-        //    //        Cliente.Marca = new Marca();
-        //    //        Cliente.Marca.Id = (int)datos.Lector["IdMarca"];
-        //    //        Cliente.Marca.Descripcion = (string)datos.Lector["DesMarca"];
-        //    //        Clientes.Add(Cliente);
-
-        //    //    }
-
-
-        //    //    return Clientes;
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-
-        //    //    throw ex;
-        //    //}
-        //    //finally
-        //    //{
-        //    //    datos.CerrarConexion();
-        //    //}
-        //}
-
         public Cliente buscarCliente(string dni)
         {
             Cliente cliente = new Cliente();
@@ -58,7 +16,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Documento, Nombre, Apellido, Email, Direccion, Ciudad, CP FROM Clientes where Documento = @dni");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, MAIL, TELEFONO, Usuario, Contrasenia where Usuario = @usuario");
                 datos.Comando.Parameters.AddWithValue("@dni", dni);
                 datos.EjecutarLectura();
 
@@ -67,11 +25,9 @@ namespace negocio
                     cliente.id = (int)datos.Lector["Id"];
                     cliente.nombre = (string)datos.Lector["Nombre"];
                     cliente.apellido = (string)datos.Lector["Apellido"];
-                    cliente.dni = (string)datos.Lector["Documento"];
+                    cliente.dni = (string)datos.Lector["DNI"];
                     cliente.email = (string)datos.Lector["Email"];
-                    cliente.direccion = (string)datos.Lector["Direccion"];
-                    cliente.ciudad = (string)datos.Lector["Ciudad"];
-                    cliente.cp = (int)datos.Lector["CP"];
+                    cliente.telefono = (string)datos.Lector["TELEFONO"];
                 }
 
                 return cliente;

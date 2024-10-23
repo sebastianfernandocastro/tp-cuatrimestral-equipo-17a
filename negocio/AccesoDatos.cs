@@ -12,9 +12,9 @@ namespace negocio
 {
     public class AccesoDatos
     {
-        private SqlConnection conexion; //Me crea la conexion con la DB
-        private SqlCommand comando; // Declara acciones, comandos
-        private SqlDataReader lector; // lee los objetos de la DB
+        private SqlConnection conexion;
+        private SqlCommand comando;
+        private SqlDataReader lector;
         public SqlDataReader Lector
         {
             get { return lector; }
