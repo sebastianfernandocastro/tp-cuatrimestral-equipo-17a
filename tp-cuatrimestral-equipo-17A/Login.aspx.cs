@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using dominio;
+using negocio;
 
 namespace tp_cuatrimestral_equipo_17A
 {
@@ -20,12 +22,32 @@ namespace tp_cuatrimestral_equipo_17A
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string usuario = txtUsuario.Text;
-            string contraseña = txtContraseña.Text;
+            string usuario = "";
+            string contraseña = txtContraseña.Text.Trim();
 
-            if (usuario == "admin" && contraseña == "admin") 
+            if(txtUsuario.Text.Trim() == null || txtUsuario.Text.Trim() == "")
             {
-                //FormsAuthentication.RedirectFromLoginPage(username, false);
+                lblMsgError.Visible = true;
+                lblMsgError.Text = "Debe ingresar el Usuario.";
+                return;
+            }
+            else usuario = txtUsuario.Text.Trim();
+
+            if (txtContraseña.Text.Trim() == null || txtContraseña.Text.Trim() == "")
+            {
+                lblMsgError.Visible = true;
+                lblMsgError.Text = "Debe ingresar la contrasenia.";
+                return;
+            }
+            else contraseña = txtContraseña.Text.Trim();
+
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            Usuario usu = negocio.Login(usuario, contraseña);
+
+            if (usu != null && usu.Id > 0) 
+            {
+                
                 Session.Add("usuario", usuario);
                 Response.Redirect("Turnos.aspx", false);
             }

@@ -24,15 +24,21 @@
             <%--DNI--%>
             <div class="col-md-6">
                 <asp:Label ID="lblDNI" runat="server" AssociatedControlID="txtDNI" Text="DNI"></asp:Label>
-                <asp:TextBox ID="txtDNI" runat="server"  MaxLength="8" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="txtDNI" runat="server" MaxLength="8" CssClass="form-control"></asp:TextBox>
             </div>
+            <%--Telefono--%>
+            <div class="col-md-6">
+                <asp:Label ID="lblTelefono" runat="server" AssociatedControlID="txtTelefono" Text="Teléfono"></asp:Label>
+                <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control"></asp:TextBox>
+            </div>
+        </div>
+        <div class="row mb-3">
             <%--mail--%>
             <div class="col-md-6">
                 <asp:Label ID="lblEmail" runat="server" AssociatedControlID="txtEmail" Text="Email"></asp:Label>
                 <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
             </div>
         </div>
-
         <div class="row mb-3">
             <%--Usuario--%>
             <div class="col-md-6">
