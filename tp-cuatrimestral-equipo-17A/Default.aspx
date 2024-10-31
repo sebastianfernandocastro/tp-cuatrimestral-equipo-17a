@@ -8,7 +8,7 @@
         <div class="divContenedor">
             <img style="width: 66.66%;" src="Source/Lavado.jpg" alt="Alternate Text" />
             <div>
-                <h3>LAVEADERO</h3>
+                <h3>LAVADO</h3>
                 <p>
                     Nos encargamos de que tu vehículo luzca impecable con nuestro servicio
                 de lavado.
