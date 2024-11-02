@@ -61,18 +61,6 @@ body {
     color: #731817;
 }
 
-.navMenu .dot {
-    width: 6px;
-    height: 6px;
-    background: #731817;
-    border-radius: 50%;
-    opacity: 0;
-    -webkit-transform: translateX(30px);
-    transform: translateX(30px);
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-}
-
 .navMenu a:nth-child(1):hover ~ .dot {
     -webkit-transform: translateX(30px);
     transform: translateX(130px);

@@ -7,21 +7,22 @@
 .divContenedor {
     width: 100%;
     display: flex;
-
+    gap: 5px;
 }
 
 .divContenedor div {
     width: 33.33%;
-    background-color: black;
-
+    background-color: #222222;
     color: white;
-
+    align-content: center;
 }
 
 .divContenedor h3{
     justify-content:center;
     text-align:center;
     margin-top:20px;
+
+
 }
 
 .divContenedor p {
