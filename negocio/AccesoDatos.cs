@@ -38,6 +38,10 @@ namespace negocio
             comando.CommandType = System.Data.CommandType.Text; 
             comando.CommandText = consulta; //El nombre de las tablas 
         }
+        public void setearParametro(string nombre, object valor)
+        {
+            comando.Parameters.AddWithValue(nombre, valor);
+        }
 
         public void EjecutarLectura()
         {
