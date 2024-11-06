@@ -18,22 +18,22 @@ namespace tp_cuatrimestral_equipo_17A
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            Usuario usu = new Usuario();
+            Cliente cl = new Cliente();
 
             if (validaciones())
             {
                 try
                 {
-                    usu.Nombre = txtNombre.Text.Trim();
-                    usu.Apellido = txtApellido.Text.Trim();
-                    usu.Dni = Convert.ToInt32(txtDNI.Text);
-                    usu.Mail = txtEmail.Text.Trim();
-                    usu.Telefono = txtTelefono.Text.Trim();
-                    usu.User = txtUsuario.Text.Trim();
-                    usu.Pass = txtContraseña.Text.Trim();
+                    cl.Nombre = txtNombre.Text.Trim();
+                    cl.Apellido = txtApellido.Text.Trim();
+                    cl.DNI = txtDNI.Text.Trim();
+                    cl.Mail = txtEmail.Text.Trim();
+                    cl.Telefono = txtTelefono.Text.Trim();
+                    cl.NombreUsuario = txtUsuario.Text.Trim();
+                    cl.Contraseña = txtContraseña.Text.Trim();
 
                     UsuarioNegocio negocio = new UsuarioNegocio();
-                    negocio.agregarUsuario(usu);
+                    negocio.agregarCliente(cl);
 
                     Response.Redirect("Login.aspx", false);
                 }

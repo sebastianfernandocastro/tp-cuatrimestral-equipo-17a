@@ -42,20 +42,31 @@ namespace tp_cuatrimestral_equipo_17A
             else contraseña = txtContraseña.Text.Trim();
 
             UsuarioNegocio negocio = new UsuarioNegocio();
+            Usuario usu = new Usuario();
+            Cliente cl = new Cliente();
+            Empleado emp = new Empleado();
 
-            Usuario usu = negocio.Login(usuario, contraseña);
-
-            if (usu != null && usu.Id > 0) 
+            if(negocio.Login(usu, cl,emp))
             {
-                
                 Session.Add("usuario", usuario);
-                Response.Redirect("Turnos.aspx", false);
+
+                if(usu.tipo == 1)
+                {
+                    Session.Add("cliente", cl);
+                    Response.Redirect("Turnos.aspx", false);
+                }
+                else
+                {
+                    Session.Add("empleado", emp);
+                    Response.Redirect("Turnos.aspx", false);
+                }
             }
             else
             {
                 lblMsgError.Visible = true;
                 lblMsgError.Text = "Usuario o contraseña incorrectos.";
             }
+
         }
 
         protected void btnRegistrar_Click(object sender, EventArgs e)

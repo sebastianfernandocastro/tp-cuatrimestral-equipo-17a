@@ -11,10 +11,9 @@ namespace dominio
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public int Dni { get; set; }
-        public string Mail { get; set; }
-        public string Telefono { get; set; }
-        public string User { get; set; }
-        public string Pass { get; set; }
+        public string NombreUsuario { get; set; }
+        public string Contraseña { get; set; }
+        public int tipo { get; set; }
+        public int Estado { get; set; } 
     }
 }
