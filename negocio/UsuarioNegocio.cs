@@ -168,6 +168,7 @@ namespace negocio
                 datos.CerrarConexion();
             }
         }
+
         public void ModificarEmpleado(Empleado emp)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -209,6 +210,7 @@ namespace negocio
                 datos.setearParametro("@dni", cl.DNI);
                 datos.setearParametro("@tel", cl.Telefono);
                 datos.setearParametro("@mail", cl.Mail);
+                datos.setearParametro("@Id", cl.Id);
                 datos.EjecutarAccion();
             }
             catch (Exception ex)
@@ -221,6 +223,7 @@ namespace negocio
                 datos.CerrarConexion();
             }
         }
+       
 
         public List<Cliente> ListarClientes()
         {

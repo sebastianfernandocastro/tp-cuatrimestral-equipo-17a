@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-4">
-        <h2>Empleado</h2>
+        <h2>Cliente</h2>
         <asp:Label ID="lblMensage" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
         <asp:TextBox ID="txtId" Visible="false" runat="server" CssClass="form-control"></asp:TextBox>
 
@@ -55,6 +55,7 @@
         </div>
         <div class="col-md-6">
             <asp:Button ID="btnAgregar" runat="server" Text="Editar" CssClass="btn btn-primary" OnClick="btnAgregar_Click" />
+            <a href="Clientes.aspx" class="btn btn-light">Cancelar</a>
         </div>
     </div>
 </asp:Content>

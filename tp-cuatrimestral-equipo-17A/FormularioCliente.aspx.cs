@@ -54,7 +54,7 @@ namespace tp_cuatrimestral_equipo_17A
                 if (!String.IsNullOrEmpty(txtId.Text))
                 {
                     Cliente.Id = Convert.ToInt32(txtId.Text);
-                    //negocio.ModificarCliente(Cliente);
+                    negocio.ModificarMiPerfilCliente(Cliente);
                 }
                 else negocio.agregarCliente(Cliente);
 

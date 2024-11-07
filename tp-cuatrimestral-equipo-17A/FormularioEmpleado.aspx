@@ -48,6 +48,8 @@
         </div>
         <div class="col-md-6">
             <asp:Button ID="btnAgregar" runat="server" Text="Editar" CssClass="btn btn-primary" OnClick="btnAgregar_Click" />
+            <a href="Empleados.aspx" class="btn btn-light">Cancelar</a>
+
         </div>
     </div>
 </asp:Content>
