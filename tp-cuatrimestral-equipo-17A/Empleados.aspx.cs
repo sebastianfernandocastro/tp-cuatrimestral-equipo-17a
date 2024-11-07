@@ -14,11 +14,16 @@ namespace tp_cuatrimestral_equipo_17A
         {
             if (!IsPostBack)
             {
-                UsuarioNegocio negocio = new UsuarioNegocio();
-                Session.Add("listaEmpleados", negocio.ListarEmpleados());
-                dgvEmpleados.DataSource = Session["listaEmpleados"];
-                dgvEmpleados.DataBind();
+                cargarEmpleados();
             }
+        }
+        public void cargarEmpleados()
+        {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            dgvEmpleados.DataSource = negocio.ListarEmpleados();
+            dgvEmpleados.DataBind();
+
+            //si no tiene datos poner un texto no hay registros...
         }
 
         protected void dgvEmpleados_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -30,7 +35,34 @@ namespace tp_cuatrimestral_equipo_17A
         protected void dgvEmpleados_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = dgvEmpleados.SelectedDataKey.Value.ToString();
-            //Response.Redirect("FormularioEmpleado.aspx?id=" + id);
+            Response.Redirect("FormularioEmpleado.aspx?id=" + id);
+        }
+
+  
+
+        protected void btnConfirmarEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string idEmpleado = ""; 
+                idEmpleado = hfEmpleadoId.Value;
+
+                if (!String.IsNullOrEmpty(idEmpleado))
+                {
+                    UsuarioNegocio negocio = new UsuarioNegocio();
+                    negocio.eliminarUsuario(Convert.ToInt32(idEmpleado));
+                    cargarEmpleados();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+
         }
     }
 }

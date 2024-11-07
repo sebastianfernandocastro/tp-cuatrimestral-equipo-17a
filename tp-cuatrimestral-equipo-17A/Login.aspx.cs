@@ -23,7 +23,7 @@ namespace tp_cuatrimestral_equipo_17A
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             string usuario = "";
-            string contraseña = txtContraseña.Text.Trim();
+            string contraseña = "";
 
             if(txtUsuario.Text.Trim() == null || txtUsuario.Text.Trim() == "")
             {
@@ -45,6 +45,9 @@ namespace tp_cuatrimestral_equipo_17A
             Usuario usu = new Usuario();
             Cliente cl = new Cliente();
             Empleado emp = new Empleado();
+
+            usu.NombreUsuario = usuario;
+            usu.Contraseña = contraseña;
 
             if(negocio.Login(usu, cl,emp))
             {

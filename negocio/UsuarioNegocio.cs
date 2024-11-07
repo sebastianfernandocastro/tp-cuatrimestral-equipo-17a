@@ -104,13 +104,12 @@ namespace negocio
             try
             {
                 datos.setearConsulta("INSERT INTO Usuarios (Nombre,Apellido,Usuario,Contrasenia,Legajo,NivelAcceso,Estado,Tipo) Values " +
-                    "(@Nombre, @Apellido, @Usuario,@contrasenia,@Legajo,@NivelAcceso,1,1)");
+                    "(@Nombre, @Apellido, @Usuario,@contrasenia,@Legajo,@NivelAcceso,1,2)");
 
 
                 datos.Comando.Parameters.AddWithValue("@Nombre", emp.Nombre);
                 datos.Comando.Parameters.AddWithValue("@Apellido", emp.Apellido);
                 datos.Comando.Parameters.AddWithValue("@Usuario", emp.NombreUsuario);
-                datos.Comando.Parameters.AddWithValue("@contrasenia", emp.Contraseña);
                 datos.Comando.Parameters.AddWithValue("@contrasenia", emp.Contraseña);
                 datos.Comando.Parameters.AddWithValue("@Legajo", emp.legajo);
                 datos.Comando.Parameters.AddWithValue("@NivelAcceso", emp.nivelAcceso);
@@ -169,6 +168,33 @@ namespace negocio
                 datos.CerrarConexion();
             }
         }
+        public void ModificarEmpleado(Empleado emp)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("update Usuarios set Nombre = @nombre, Apellido = @Apellido,Legajo = @legajo,NivelAcceso = @nivelAcceso, Usuario = @usu,Contrasenia = @pass where Id = @Id");
+                datos.setearParametro("@nombre", emp.Nombre);
+                datos.setearParametro("@Apellido", emp.Apellido);
+                datos.setearParametro("@usu", emp.NombreUsuario);
+                datos.setearParametro("@pass", emp.Contraseña);
+                datos.setearParametro("@nivelAcceso", emp.nivelAcceso);
+                datos.setearParametro("@legajo", emp.legajo);
+                datos.setearParametro("@Id", emp.Id);
+                
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
         public void ModificarMiPerfilCliente(Cliente cl)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -202,7 +228,7 @@ namespace negocio
             List<Cliente> lista = new List<Cliente>();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Tipo,Estado from Usuarios where Tipo = 1 and estado = 1");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where Tipo = 1 and estado = 1");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
@@ -214,6 +240,8 @@ namespace negocio
                     cl.Apellido = (string)datos.Lector["Apellido"];
                     cl.DNI = (string)datos.Lector["DNI"];
                     cl.Mail = (string)datos.Lector["Mail"];
+                    cl.Contraseña = (string)datos.Lector["Contrasenia"];
+                    cl.NombreUsuario = (string)datos.Lector["Usuario"];
                     cl.Telefono = (string)datos.Lector["Telefono"];
                     cl.tipo = (int)datos.Lector["Tipo"];
                     cl.Estado = (int)datos.Lector["Estado"];
@@ -222,6 +250,45 @@ namespace negocio
                 }
 
                 return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        public Cliente ObtenerClienteById(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where Tipo = 1 and estado = 1");
+                datos.EjecutarLectura();
+
+                Cliente cl = new Cliente();
+
+                while (datos.Lector.Read())
+                {
+
+                    cl.Id = (int)datos.Lector["Id"];
+                    cl.Nombre = (string)datos.Lector["Nombre"];
+                    cl.Apellido = (string)datos.Lector["Apellido"];
+                    cl.DNI = (string)datos.Lector["DNI"];
+                    cl.Mail = (string)datos.Lector["Mail"];
+                    cl.Contraseña = (string)datos.Lector["Contrasenia"];
+                    cl.NombreUsuario = (string)datos.Lector["Usuario"];
+                    cl.Telefono = (string)datos.Lector["Telefono"];
+                    cl.tipo = (int)datos.Lector["Tipo"];
+                    cl.Estado = (int)datos.Lector["Estado"];
+
+                    
+                }
+
+                return cl;
             }
             catch (Exception ex)
             {
@@ -261,6 +328,43 @@ namespace negocio
                 }
 
                 return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        public Empleado ObtenerEmpleadoById(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT Id, Nombre, Apellido,Legajo,NivelAcceso,Tipo,Estado,Usuario,Contrasenia from Usuarios where Tipo = 2 and estado = 1 and id = @id");
+                datos.setearParametro("@id", id);
+                datos.EjecutarLectura();
+
+                Empleado emp = new Empleado();
+                while (datos.Lector.Read())
+                {
+
+                    emp.Id = (int)datos.Lector["Id"];
+                    emp.Nombre = (string)datos.Lector["Nombre"];
+                    emp.Apellido = (string)datos.Lector["Apellido"];
+                    emp.legajo = (string)datos.Lector["Legajo"];
+                    emp.nivelAcceso = (int)datos.Lector["NivelAcceso"];
+                    emp.tipo = (int)datos.Lector["Tipo"];
+                    emp.Estado = (int)datos.Lector["Estado"];
+                    emp.NombreUsuario = (string)datos.Lector["Usuario"];
+                    emp.Contraseña = (string)datos.Lector["Contrasenia"];
+                    
+                }
+
+                return emp;
             }
             catch (Exception ex)
             {

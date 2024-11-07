@@ -68,9 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Clientes.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="EditarPerfil.aspx" />
     <Content Include="Empleados.aspx" />
+    <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioEmpleado.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
@@ -98,6 +100,13 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Clientes.aspx.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Clientes.aspx.designer.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -118,6 +127,13 @@
     </Compile>
     <Compile Include="Empleados.aspx.designer.cs">
       <DependentUpon>Empleados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioCliente.aspx.cs">
+      <DependentUpon>FormularioCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioCliente.aspx.designer.cs">
+      <DependentUpon>FormularioCliente.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormularioEmpleado.aspx.cs">
       <DependentUpon>FormularioEmpleado.aspx</DependentUpon>

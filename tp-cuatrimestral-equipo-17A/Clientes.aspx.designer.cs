@@ -11,26 +11,26 @@ namespace tp_cuatrimestral_equipo_17A
 {
 
 
-    public partial class Empleados
+    public partial class Clientes
     {
 
         /// <summary>
-        /// Control dgvEmpleados.
+        /// Control dgvClientes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvEmpleados;
+        protected global::System.Web.UI.WebControls.GridView dgvClientes;
 
         /// <summary>
-        /// Control hfEmpleadoId.
+        /// Control hfClienteId.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfEmpleadoId;
+        protected global::System.Web.UI.WebControls.HiddenField hfClienteId;
 
         /// <summary>
         /// Control btnConfirmarEliminar.

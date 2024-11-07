@@ -1,20 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Empleados.aspx.cs" Inherits="tp_cuatrimestral_equipo_17A.Empleados" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Clientes.aspx.cs" Inherits="tp_cuatrimestral_equipo_17A.Clientes" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-
-    <asp:GridView ID="dgvEmpleados" runat="server" DataKeyNames="Id"
+        <asp:GridView ID="dgvClientes" runat="server" DataKeyNames="Id"
         CssClass="table" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="dgvEmpleados_SelectedIndexChanged"
-        OnPageIndexChanging="dgvEmpleados_PageIndexChanging"
+        OnSelectedIndexChanged="dgvClientes_SelectedIndexChanged"
+        OnPageIndexChanging="dgvClientes_PageIndexChanging"
         AllowPaging="True" PageSize="5">
         <Columns>
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
-            <asp:BoundField HeaderText="Legajo" DataField="legajo" />
-            <asp:BoundField HeaderText="Acceso" DataField="nivelAcceso" />
+            <asp:BoundField HeaderText="DNI" DataField="DNI" />
+            <asp:BoundField HeaderText="Mail" DataField="Mail" />
+            <asp:BoundField HeaderText="Telefono" DataField="Telefono" />
             <asp:BoundField HeaderText="Usuario" DataField="NombreUsuario" />
             <asp:BoundField HeaderText="Contraseña" DataField="Contraseña" />
             <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
@@ -29,12 +27,12 @@
         </Columns>
     </asp:GridView>
 
-    <asp:HiddenField ID="hfEmpleadoId" runat="server" />
+    <asp:HiddenField ID="hfClienteId" runat="server" />
 
 <asp:Button ID="btnConfirmarEliminar" runat="server" Text="Eliminar Confirmado" 
             OnClick="btnConfirmarEliminar_Click" style="display:none;" />
 
-    <a href="FormularioEmpleado.aspx" class="btn btn-primary">Agregar</a>
+    <a href="FormularioCliente.aspx" class="btn btn-primary">Agregar</a>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -44,7 +42,7 @@
 
             var idEmpleado = linkButton.getAttribute("data-id");
 
-            document.getElementById('<%=hfEmpleadoId.ClientID%>').value = idEmpleado;
+            document.getElementById('<%=hfClienteId.ClientID%>').value = idEmpleado;
 
         Swal.fire({
             title: '¿Estás seguro?',
@@ -67,4 +65,3 @@
 
     </script>
 </asp:Content>
-
