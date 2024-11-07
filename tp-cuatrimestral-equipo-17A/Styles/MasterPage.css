@@ -9,17 +9,17 @@
 
 .divNav {
     display: flex;
-    background-color: #1e81b0;
+    background-color: #222222;
     width: 100%;
     height: 70px;
-
 }
 
 .divDesplegable {
     width: 33.33%;
     justify-content: center;
     text-align: center;
-    align-content:center;
+    align-content: center;
+
 }
 
 .divDesplegable a{

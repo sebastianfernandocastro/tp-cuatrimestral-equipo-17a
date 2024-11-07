@@ -5,7 +5,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div>
-        <div class="divContenedor">
+        <div class="divContenedor" style="background-color:#222222; height:150px; color:white; justify-content:center; align-items:center; font-size:120px; margin-bottom:5px;">
+            <h1>
+                NUESTROS SERVICIOS
+            </h1>
+        </div>
+        <div class="divContenedor" style="margin-bottom:5px;">
             <img style="width: 66.66%;" src="Source/Lavado.jpg" alt="Alternate Text" />
             <div>
                 <h3>LAVADO</h3>
@@ -26,8 +31,7 @@
                 </p>
             </div>
         </div>
-        <br />
-        <div class="divContenedor">
+        <div class="divContenedor" style="margin-bottom:5px;">
             <div>
                 <h3>DETAILING</h3>
                 <p>
@@ -45,9 +49,7 @@
                 </p>
             </div>
             <img style="width: 66.66%;" src="Source/Detailing.jpg" alt="Alternate Text" />
-
         </div>
-        <br />
         <div class="divContenedor">
             <img style="width: 66.66%;" src="Source/Aceite.jpg" alt="Alternate Text" />
             <div>
@@ -68,5 +70,4 @@
             </div>
         </div>
     </div>
-
 </asp:Content>
