@@ -80,6 +80,9 @@
     <Content Include="Registrarse.aspx" />
     <Content Include="Script\MasterPage.js" />
     <Content Include="Script\Turnos.js" />
+    <Content Include="SeleccionarRubro.aspx" />
+    <Content Include="SeleccionarServicio.aspx" />
+    <Content Include="SeleccionarVehiculo.aspx" />
     <Content Include="Source\auto.png" />
     <Content Include="Source\camioneta.png" />
     <Content Include="Source\Logo.png" />
@@ -88,6 +91,7 @@
     <Content Include="Styles\Default.css" />
     <Content Include="Styles\Global.css" />
     <Content Include="Styles\MasterPage.css" />
+    <Content Include="Styles\Seleccionar.css" />
     <Content Include="Styles\Turnos.css" />
     <Content Include="Turnos.aspx" />
     <Content Include="Web.config" />
@@ -173,6 +177,27 @@
     </Compile>
     <Compile Include="Registrarse.aspx.designer.cs">
       <DependentUpon>Registrarse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SeleccionarRubro.aspx.cs">
+      <DependentUpon>SeleccionarRubro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SeleccionarRubro.aspx.designer.cs">
+      <DependentUpon>SeleccionarRubro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SeleccionarServicio.aspx.cs">
+      <DependentUpon>SeleccionarServicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SeleccionarServicio.aspx.designer.cs">
+      <DependentUpon>SeleccionarServicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SeleccionarVehiculo.aspx.cs">
+      <DependentUpon>SeleccionarVehiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SeleccionarVehiculo.aspx.designer.cs">
+      <DependentUpon>SeleccionarVehiculo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Turnos.aspx.cs">
       <DependentUpon>Turnos.aspx</DependentUpon>
