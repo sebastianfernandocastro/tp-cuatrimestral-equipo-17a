@@ -4,7 +4,7 @@
 .cuadrado {
     width: 300px; /* Ancho del rectángulo */
     height: 300px; /* Alto del rectángulo (más alto que ancho) */
-    background-color: #3498db; /* Color de fondo */
+    background-color: white; /* Color de fondo */
     transition: transform 0.3s ease; /* Suaviza la transición de agrandamiento */
     cursor: pointer; /* Cambia el cursor a pointer para indicar interactividad */
     user-select: text; /* Permite que el contenido del div sea seleccionable */
@@ -12,20 +12,27 @@
 
 /* Efecto al pasar el mouse */
 .cuadrado:hover {
-    transform: scale(1.2); 
+    transform: scale(1.1); 
 }
 
-.cuadrado:active {
-    background-color:red;
+
+.cuadrado img{
+    width:300px;
+    height:300px;
+}
+
+#imgBtn1 {
+    max-width: 100px;
+    max-height: 100px;
 }
 
 .rectangulo {
-width: 400px; /* Ancho del rectángulo */
-height: 600px; /* Alto del rectángulo (más alto que ancho) */
-background-color: #3498db; /* Color de fondo */
-transition: transform 0.3s ease; /* Suaviza la transición de agrandamiento */
-cursor: pointer; /* Cambia el cursor a pointer para indicar interactividad */
-user-select: text; /* Permite que el contenido del div sea seleccionable */
+    width: 400px; /* Ancho del rectángulo */
+    height: 600px; /* Alto del rectángulo (más alto que ancho) */
+    background-color: #3498db; /* Color de fondo */
+    transition: transform 0.3s ease; /* Suaviza la transición de agrandamiento */
+    cursor: pointer; /* Cambia el cursor a pointer para indicar interactividad */
+    user-select: text; /* Permite que el contenido del div sea seleccionable */
 }
 
 /* Efecto al pasar el mouse */

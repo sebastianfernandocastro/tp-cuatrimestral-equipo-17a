@@ -19,7 +19,7 @@
         <header>
             <div class="divNav">
                 <div style="width: 33.33%; padding-top: 4px; text-align: center;">
-                    <img style="width: 80px;" src="Source/Logo.png" alt="LOGO" />
+                    <img href="Default.aspx" style="width: 80px;" src="Source/Logo.png" alt="LOGO" />
                 </div>
                 <div style="width: 33.33%;">
                     <nav class="navMenu">

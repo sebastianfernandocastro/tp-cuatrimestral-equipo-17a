@@ -11,7 +11,12 @@ namespace tp_cuatrimestral_equipo_17A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+           
+        }
 
+        protected void ImgBtn1_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("SeleccionarRubro.aspx");
         }
     }
 }
