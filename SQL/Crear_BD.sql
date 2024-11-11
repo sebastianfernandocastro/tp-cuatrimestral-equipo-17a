@@ -1,30 +1,29 @@
-use master
+USE master;
 
-create database LAVADERO_DB
+CREATE DATABASE LAVADERO_DB;
 
+USE LAVADERO_DB;
 
-use LAVADERO_DB
+DROP TABLE IF EXISTS Turnos, Servicios, Rubros, TipoVehiculo, Imagenes, FechaHora, Usuarios, TipoVehiculoRubro, RubroServicio;
 
-drop table Usuarios
-create TABLE Usuarios(
-ID Int identity(1,1) PRIMARY key,
-Nombre varchar(30) not null,
-Apellido varchar(30) not null,
-Usuario varchar(20) not null unique,
-Contrasenia varchar(20) not null,
-Tipo int not null,
-DNI varchar(8) null ,
-MAIL varchar(40) null ,
-Telefono VARCHAR(20) null,
-Legajo varchar(5) null ,
-NivelAcceso int null,
-estado int not null 
-)
+CREATE TABLE Usuarios(
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(30) NOT NULL,
+    Apellido VARCHAR(30) NOT NULL,
+    Usuario VARCHAR(20) NOT NULL UNIQUE,
+    Contrasenia VARCHAR(20) NOT NULL,
+    Tipo INT NOT NULL,
+    DNI VARCHAR(8) NULL,
+    MAIL VARCHAR(40) NULL,
+    Telefono VARCHAR(20) NULL,
+    Legajo VARCHAR(5) NULL,
+    NivelAcceso INT NULL,
+    Estado INT NOT NULL
+);
 
 CREATE UNIQUE INDEX IX_Usuarios_DNI ON Usuarios(DNI) WHERE DNI IS NOT NULL;
 CREATE UNIQUE INDEX IX_Usuarios_MAIL ON Usuarios(MAIL) WHERE MAIL IS NOT NULL;
 CREATE UNIQUE INDEX IX_Usuarios_Legajo ON Usuarios(Legajo) WHERE Legajo IS NOT NULL;
-
 
 CREATE TABLE FechaHora (
     IdFechaHora INT PRIMARY KEY IDENTITY(1,1),
@@ -53,6 +52,14 @@ CREATE TABLE Rubros (
     Descripcion NVARCHAR(MAX)
 );
 
+CREATE TABLE TipoVehiculoRubro (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    IdTipoVehiculo INT NOT NULL,
+    IdRubro INT NOT NULL,
+    CONSTRAINT FK_TipoVehiculoRubro_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(IdTipoVehiculo),
+    CONSTRAINT FK_TipoVehiculoRubro_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(IdRubro)
+);
+
 CREATE TABLE Servicios (
     IdServicio INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
@@ -61,6 +68,13 @@ CREATE TABLE Servicios (
     Precio DECIMAL(10, 2) NOT NULL
 );
 
+CREATE TABLE RubroServicio (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    IdRubro INT NOT NULL,
+    IdServicio INT NOT NULL,
+    CONSTRAINT FK_RubroServicio_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(IdRubro),
+    CONSTRAINT FK_RubroServicio_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(IdServicio)
+);
 
 CREATE TABLE Turnos (
     Id INT PRIMARY KEY IDENTITY(1,1),
@@ -71,8 +85,7 @@ CREATE TABLE Turnos (
     Aclaracion NVARCHAR(MAX),
     IdFechaHora INT NOT NULL,
     Estado NVARCHAR(50),
-    
-    CONSTRAINT FK_Turno_Cliente FOREIGN KEY (IdCliente) REFERENCES Usuarios(Id),
+    CONSTRAINT FK_Turno_Cliente FOREIGN KEY (IdCliente) REFERENCES Usuarios(ID),
     CONSTRAINT FK_Turno_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(IdTipoVehiculo),
     CONSTRAINT FK_Turno_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(IdRubro),
     CONSTRAINT FK_Turno_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(IdServicio),
