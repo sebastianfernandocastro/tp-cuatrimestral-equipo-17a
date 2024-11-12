@@ -11,9 +11,10 @@ namespace tp_cuatrimestral_equipo_17A
 {
     public partial class FormularioCliente : System.Web.UI.Page
     {
+        string id = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+            id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
 
             UsuarioNegocio negocio = new UsuarioNegocio();
             if (id != "" && !IsPostBack)
@@ -43,6 +44,12 @@ namespace tp_cuatrimestral_equipo_17A
             UsuarioNegocio negocio = new UsuarioNegocio();
             try
             {
+                if (!validaciones())
+                {
+                    lblMensage.Visible = true;
+                    return;
+                }
+
                 Cliente.DNI = txtDNI.Text;
                 Cliente.Telefono = txtTelefono.Text;
                 Cliente.Mail= txtEmail.Text;
@@ -68,6 +75,85 @@ namespace tp_cuatrimestral_equipo_17A
 
 
 
+        }
+        public bool validaciones()
+        {
+            if (String.IsNullOrEmpty(txtNombre.Text))
+            {
+                lblMensage.Text = "El campo Nombre no puede estar vacío";
+                return false;
+            }
+            else if (String.IsNullOrEmpty(txtApellido.Text))
+            {
+                lblMensage.Text = "El campo Apellido no puede estar vacío";
+                return false;
+            }
+            else if (String.IsNullOrEmpty(txtUsuario.Text))
+            {
+                lblMensage.Text = "El campo Usuario no puede estar vacío";
+                return false;
+            }
+            else if (String.IsNullOrEmpty(txtContraseña.Text))
+            {
+                lblMensage.Text = "El campo Contraseña no puede estar vacío";
+                return false;
+            }
+            else if (String.IsNullOrEmpty(txtDNI.Text))
+            {
+                lblMensage.Text = "El campo DNI no puede estar vacío";
+                return false;
+            }
+            else if (String.IsNullOrEmpty(txtEmail.Text))
+            {
+                lblMensage.Text = "El campo Mail no puede estar vacío";
+                return false;
+            }
+            else if (String.IsNullOrEmpty(txtTelefono.Text))
+            {
+                lblMensage.Text = "El campo Teléfono no puede estar vacío";
+                return false;
+            }
+
+            if (!soloNumeros(txtTelefono.Text))
+            {
+                lblMensage.Text = "El campo Teléfono son solo números";
+                return false;
+            }
+            else if (!soloNumeros(txtDNI.Text))
+            {
+                lblMensage.Text = "El campo DNI son solo números";
+                return false;
+            }
+
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            if (negocio.existeUsuarioByDNI(txtDNI.Text, id))
+            {
+                lblMensage.Text = "el DNI ya existe en el sistema, ingrese otro ...";
+                return false;
+            }
+            else if (negocio.existeUsuarioByUsuario(txtUsuario.Text, id))
+            {
+                lblMensage.Text = "el Usuario ya existe en el sistema, ingrese otro ...";
+                return false;
+            }
+            else if (negocio.existeUsuarioByMail(txtEmail.Text, id))
+            {
+                lblMensage.Text = "el Mail ya existe en el sistema, ingrese otro ...";
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if (!(char.IsNumber(caracter)))
+                    return false;
+            }
+            return true;
         }
     }
 }

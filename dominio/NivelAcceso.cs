@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    public class Empleado : Usuario
+    public class NivelAcceso
     {
-        public string legajo { get; set; }
-        public NivelAcceso nivelAcceso { get; set; }
+        public int Id { get; set; }
+        public string Descripcion { get; set; }
     }
 }

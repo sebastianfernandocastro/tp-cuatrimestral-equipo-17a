@@ -14,7 +14,7 @@
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
             <asp:BoundField HeaderText="Legajo" DataField="legajo" />
-            <asp:BoundField HeaderText="Acceso" DataField="nivelAcceso" />
+            <asp:BoundField HeaderText="Acceso" DataField="nivelAcceso.Descripcion" />
             <asp:BoundField HeaderText="Usuario" DataField="NombreUsuario" />
             <asp:BoundField HeaderText="Contraseña" DataField="Contraseña" />
             <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />

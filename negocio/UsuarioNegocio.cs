@@ -46,7 +46,8 @@ namespace negocio
                         emp.Nombre = usu.Nombre;
                         emp.Apellido = usu.Apellido;
                         emp.legajo = (string)datos.Lector["legajo"];
-                        emp.nivelAcceso = (int)datos.Lector["NivelAcceso"];
+                        emp.nivelAcceso = new NivelAcceso();
+                        emp.nivelAcceso.Id = (int)datos.Lector["NivelAcceso"];
                         emp.tipo = usu.tipo;
                         emp.Estado = usu.Estado;
                     }
@@ -112,7 +113,7 @@ namespace negocio
                 datos.Comando.Parameters.AddWithValue("@Usuario", emp.NombreUsuario);
                 datos.Comando.Parameters.AddWithValue("@contrasenia", emp.Contraseña);
                 datos.Comando.Parameters.AddWithValue("@Legajo", emp.legajo);
-                datos.Comando.Parameters.AddWithValue("@NivelAcceso", emp.nivelAcceso);
+                datos.Comando.Parameters.AddWithValue("@NivelAcceso", emp.nivelAcceso.Id);
 
                 datos.EjecutarAccion();
             }
@@ -156,6 +157,7 @@ namespace negocio
                 datos.setearParametro("@Apellido",emp.Apellido);
                 datos.setearParametro("@usu",emp.NombreUsuario);
                 datos.setearParametro("@pass",emp.Contraseña);
+                datos.setearParametro("@Id", emp.Id);
                 datos.EjecutarAccion();
             }
             catch (Exception ex)
@@ -180,7 +182,7 @@ namespace negocio
                 datos.setearParametro("@Apellido", emp.Apellido);
                 datos.setearParametro("@usu", emp.NombreUsuario);
                 datos.setearParametro("@pass", emp.Contraseña);
-                datos.setearParametro("@nivelAcceso", emp.nivelAcceso);
+                datos.setearParametro("@nivelAcceso", emp.nivelAcceso.Id);
                 datos.setearParametro("@legajo", emp.legajo);
                 datos.setearParametro("@Id", emp.Id);
                 
@@ -310,7 +312,7 @@ namespace negocio
             List<Empleado> lista = new List<Empleado>();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido,Legajo,NivelAcceso,Tipo,Estado,Usuario,Contrasenia from Usuarios where Tipo = 2 and estado = 1");
+                datos.setearConsulta("SELECT u.Id, Nombre, Apellido,Legajo,u. NivelAcceso IdNivelAcceso,n.Descripcion DescNivelAcceso,Tipo,Estado,Usuario,Contrasenia from Usuarios u inner join nivelAcceso n on n.Id = u.NivelAcceso where Tipo = 2 and estado = 1");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
@@ -321,7 +323,12 @@ namespace negocio
                     emp.Nombre = (string)datos.Lector["Nombre"];
                     emp.Apellido = (string)datos.Lector["Apellido"];
                     emp.legajo = (string)datos.Lector["Legajo"];
-                    emp.nivelAcceso = (int)datos.Lector["NivelAcceso"];
+
+                    emp.nivelAcceso = new NivelAcceso();
+
+                    emp.nivelAcceso.Id = (int)datos.Lector["IdNivelAcceso"];
+                    emp.nivelAcceso.Descripcion= (string)datos.Lector["DescNivelAcceso"];
+
                     emp.tipo = (int)datos.Lector["Tipo"];
                     emp.Estado = (int)datos.Lector["Estado"];
                     emp.NombreUsuario = (string)datos.Lector["Usuario"];
@@ -347,7 +354,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido,Legajo,NivelAcceso,Tipo,Estado,Usuario,Contrasenia from Usuarios where Tipo = 2 and estado = 1 and id = @id");
+                datos.setearConsulta("SELECT u.Id, Nombre, Apellido,Legajo,u.NivelAcceso IdNivelAcceso,n.Descripcion DescNivelAcceso,Tipo,Estado,Usuario,Contrasenia from Usuarios u inner join NivelAcceso n on n.Id = u.NivelAcceso where Tipo = 2 and estado = 1 and u.id = @id");
                 datos.setearParametro("@id", id);
                 datos.EjecutarLectura();
 
@@ -359,7 +366,11 @@ namespace negocio
                     emp.Nombre = (string)datos.Lector["Nombre"];
                     emp.Apellido = (string)datos.Lector["Apellido"];
                     emp.legajo = (string)datos.Lector["Legajo"];
-                    emp.nivelAcceso = (int)datos.Lector["NivelAcceso"];
+                    
+                    emp.nivelAcceso = new NivelAcceso();
+
+                    emp.nivelAcceso.Id = (int)datos.Lector["IdNivelAcceso"];
+                    emp.nivelAcceso.Descripcion = (string)datos.Lector["DescNivelAcceso"];
                     emp.tipo = (int)datos.Lector["Tipo"];
                     emp.Estado = (int)datos.Lector["Estado"];
                     emp.NombreUsuario = (string)datos.Lector["Usuario"];
@@ -368,6 +379,165 @@ namespace negocio
                 }
 
                 return emp;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        public bool existeUsuarioByUsuario(string usuario, string id = "")
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where usuario = '" + usuario + "' ";
+                if (!String.IsNullOrEmpty(id)) consulta += " and id <> " + id;
+                
+                datos.setearConsulta(consulta);
+                datos.EjecutarLectura();
+
+
+                while (datos.Lector.Read())
+                {
+
+                    return true;
+
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        public bool existeUsuarioByDNI(string DNI, string id = "")
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where DNI = '" + DNI + "' ";
+                if (!String.IsNullOrEmpty(id)) consulta += "and id <> " + id;
+
+                datos.setearConsulta(consulta);
+                datos.EjecutarLectura();
+
+
+                while (datos.Lector.Read())
+                {
+
+                    return true;
+
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        public bool existeUsuarioByMail(string Mail,string id = "")
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where Mail = '" + Mail + "' ";
+                if (!String.IsNullOrEmpty(id)) consulta += "and id <> " + id;
+
+                datos.setearConsulta(consulta);
+                datos.EjecutarLectura();
+
+
+                while (datos.Lector.Read())
+                {
+
+                    return true;
+
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public bool existeUsuarioByLegajo(string legajo, string id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where legajo = '" + legajo + "' ";
+                
+                if (!String.IsNullOrEmpty(id))
+                    consulta += " and id <> " + id;
+                
+                datos.setearConsulta(consulta);
+                datos.EjecutarLectura();
+
+
+                while (datos.Lector.Read())
+                {
+
+                    return true;
+
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public List<NivelAcceso> listarNivelesAcceso()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<NivelAcceso> lista = new List<NivelAcceso>();
+            try
+            {
+                datos.setearConsulta("SELECT Id, Descripcion from NivelAcceso ");
+                datos.EjecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    NivelAcceso niv = new NivelAcceso();
+
+                    niv.Id = (int)datos.Lector["Id"];
+                    niv.Descripcion = (string)datos.Lector["Descripcion"];
+
+                    lista.Add(niv);
+                }
+
+                return lista;
             }
             catch (Exception ex)
             {

@@ -45,6 +45,7 @@
     <Compile Include="FechaHoraNegocio.cs" />
     <Compile Include="Herramientas.cs" />
     <Compile Include="ImagenNegocio.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoVehiculoNegocio.cs" />
     <Compile Include="UsuarioNegocio.cs" />
@@ -54,6 +55,24 @@
       <Project>{124bf4b3-35a8-48fd-8867-6f8fe21969f1}</Project>
       <Name>dominio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\dominio.dll" />
+    <Content Include="bin\Debug\dominio.pdb" />
+    <Content Include="bin\Debug\negocio.dll" />
+    <Content Include="bin\Debug\negocio.pdb" />
+    <Content Include="obj\Debug\negocio.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\negocio.dll" />
+    <Content Include="obj\Debug\negocio.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\negocio.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\negocio.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\negocio.csproj.Up2Date" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

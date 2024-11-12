@@ -16,14 +16,65 @@ namespace tp_cuatrimestral_equipo_17A
         public Empleado emp = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            usu = (Usuario)Session["usuario"];
+            cl = (Cliente)Session["cliente"];
+            emp = (Empleado)Session["empleado"]; 
+
             if (!IsPostBack)
             {
-                usu = (Usuario)Session["usuario"];
-                cl = (Cliente)Session["cliente"];
-                emp = (Empleado)Session["empleado"];
+          
+                if(usu != null)
+                {
+                    txtApellido.Text = usu.Apellido;
+                    txtNombre.Text = usu.Nombre;
+                    txtUsuario.Text = usu.NombreUsuario;
+                    txtId.Text = usu.Id.ToString();
+                    txtContraseña.Text = usu.Contraseña;
+                }
+
+            }
+
+
+            if (cl != null && !IsPostBack)
+            {
+                txtEmail.Visible = true;
+                txtDNI.Visible = true;
+                txtTelefono.Visible = true;
+                txtLegajo.Visible = false;
+                ddlNivelAcceso.Visible = false;
+
+                txtDNI.Text = cl.DNI;
+                txtEmail.Text = cl.Mail;
+                txtTelefono.Text = cl.Telefono;
+            }
+            else if(emp != null && !IsPostBack)
+            {
+                txtEmail.Visible = false;
+                txtDNI.Visible = false;
+                txtTelefono.Visible = false;
+                txtLegajo.Visible = true;
+                ddlNivelAcceso.Visible = true;
+
+                txtLegajo.Text = emp.legajo.ToString();
+                cargarddlNivelAcceso(emp.nivelAcceso.Id);
+
             }
         }
 
+        public void cargarddlNivelAcceso(int id = 0)
+        {
+
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            ddlNivelAcceso.DataSource = negocio.listarNivelesAcceso();
+            ddlNivelAcceso.DataValueField = "Id";
+            ddlNivelAcceso.DataTextField = "Descripcion";
+            ddlNivelAcceso.DataBind();
+
+            if (id > 0) ddlNivelAcceso.SelectedValue = id.ToString();
+            else ddlNivelAcceso.SelectedValue = "2";//empleado x defecto
+
+        }
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             try
@@ -40,6 +91,7 @@ namespace tp_cuatrimestral_equipo_17A
                         cl.Contraseña = txtContraseña.Text;
                         cl.Mail = txtEmail.Text;
                         cl.Telefono = txtTelefono.Text;
+                        cl.Id = Convert.ToInt32(txtId.Text);
 
                         negocio.ModificarMiPerfilCliente(cl);
                     }
@@ -49,9 +101,34 @@ namespace tp_cuatrimestral_equipo_17A
                         emp.Apellido = txtApellido.Text;
                         emp.NombreUsuario = txtUsuario.Text;
                         emp.Contraseña = txtContraseña.Text;
+                        emp.Id = Convert.ToInt32(txtId.Text);
 
                         negocio.ModificarMiPerfilEmpleado(emp);
                     }
+
+
+                    if (negocio.Login(usu, cl, emp))
+                    {
+                        Session.Add("usuario", usu);
+
+                        if (usu.tipo == 1)
+                        {
+                            Session.Add("cliente", cl);
+                            Response.Redirect("Turnos.aspx", false);
+                        }
+                        else
+                        {
+                            Session.Add("empleado", emp);
+                            Response.Redirect("Turnos.aspx", false);
+                        }
+                    }
+                    else
+                    {
+                        lblMensage.Visible = true;
+                        lblMensage.Text = "Ocurrió un error";
+                    }
+
+                    Response.Redirect("Default.aspx", false);
                 }
             }
             catch (Exception ex)
@@ -76,8 +153,9 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMensage.Text = "Debe completar el campo Apellido";
                 return false;
             }
-            
-            if(usu.tipo == 1)
+                UsuarioNegocio negocio = new UsuarioNegocio();
+
+            if (usu.tipo == 1)
             {
                 if (txtDNI.Text.Trim() == null || txtDNI.Text.Trim() == "")
                 {
@@ -85,16 +163,33 @@ namespace tp_cuatrimestral_equipo_17A
                     lblMensage.Text = "Debe completar el campo DNI";
                     return false;
                 }
-                if (txtEmail.Text.Trim() == null || txtEmail.Text.Trim() == "")
+                else if (txtEmail.Text.Trim() == null || txtEmail.Text.Trim() == "")
                 {
                     lblMensage.Visible = true;
                     lblMensage.Text = "Debe completar el campo Mail";
                     return false;
                 }
-                if (txtTelefono.Text.Trim() == null || txtTelefono.Text.Trim() == "")
+                else if (txtTelefono.Text.Trim() == null || txtTelefono.Text.Trim() == "")
                 {
                     lblMensage.Visible = true;
                     lblMensage.Text = "Debe completar el campo Teléfono";
+                    return false;
+                }
+               
+
+                if (negocio.existeUsuarioByDNI(txtDNI.Text,txtId.Text))
+                {
+                    lblMensage.Text = "el DNI ya existe en el sistema, ingrese otro ...";
+                    return false;
+                }
+                else if (negocio.existeUsuarioByUsuario(txtUsuario.Text, txtId.Text))
+                {
+                    lblMensage.Text = "el Usuario ya existe en el sistema, ingrese otro ...";
+                    return false;
+                }
+                else if (negocio.existeUsuarioByMail(txtEmail.Text, txtId.Text))
+                {
+                    lblMensage.Text = "el Mail ya existe en el sistema, ingrese otro ...";
                     return false;
                 }
             }
@@ -106,13 +201,14 @@ namespace tp_cuatrimestral_equipo_17A
                     lblMensage.Text = "Debe completar el campo Legajo";
                     return false;
                 }
-                if (txtNivelAcceso.Text.Trim() == null || txtNivelAcceso.Text.Trim() == "")
+                if (ddlNivelAcceso.SelectedValue == null)
                 {
                     lblMensage.Visible = true;
                     lblMensage.Text = "Debe completar el campo Nivel Acceso";
                     return false;
                 }
             }
+
             if (txtUsuario.Text.Trim() == null || txtUsuario.Text.Trim() == "")
             {
                 lblMensage.Visible = true;
