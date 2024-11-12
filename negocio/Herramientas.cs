@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -62,6 +63,29 @@ namespace negocio
             {
                 smtp.Send(message);
             }
+        }
+
+
+        public static bool sesionActiva(object user)
+        {
+            Usuario usu = user != null ? (Usuario)user : null;
+            if (usu != null && usu.Id != 0 && usu.Estado == 1)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool esAdmin(object user)
+        {
+            Empleado emp = user != null ? (Empleado)user : null;
+
+            if (emp != null)
+            {
+                if (emp.Id != 0 && emp.Estado == 1 && emp.nivelAcceso.Id == 1) return true;
+            }
+            
+            return false;
+
         }
     }
 }

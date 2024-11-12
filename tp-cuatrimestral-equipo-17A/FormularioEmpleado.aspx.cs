@@ -13,10 +13,13 @@ namespace tp_cuatrimestral_equipo_17A
     public partial class FormularioEmpleado : System.Web.UI.Page
     {
         string id = "";
+        public Usuario usu = null;
+        public Empleado empAdmin = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
 
+            
             UsuarioNegocio negocio = new UsuarioNegocio();
             if(id != "" && !IsPostBack)
             {

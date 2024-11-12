@@ -22,8 +22,14 @@ namespace tp_cuatrimestral_equipo_17A
 
             if (!IsPostBack)
             {
-          
-                if(usu != null)
+                if (!Herramientas.sesionActiva(usu))
+                {
+                    Response.Redirect("Login.aspx", false);
+                    Response.End();
+                }
+                
+
+                if (usu != null)
                 {
                     txtApellido.Text = usu.Apellido;
                     txtNombre.Text = usu.Nombre;
