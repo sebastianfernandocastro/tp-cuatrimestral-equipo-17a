@@ -11,7 +11,7 @@ namespace tp_cuatrimestral_equipo_17A
 {
 
 
-    public partial class WebForm1
+    public partial class Default
     {
     }
 }

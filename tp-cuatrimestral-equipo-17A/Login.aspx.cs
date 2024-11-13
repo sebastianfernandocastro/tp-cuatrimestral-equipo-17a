@@ -51,7 +51,7 @@ namespace tp_cuatrimestral_equipo_17A
 
             if(negocio.Login(usu, cl,emp))
             {
-                Session.Add("usuario", usuario);
+                Session.Add("usuario", usu);
 
                 if(usu.tipo == 1)
                 {

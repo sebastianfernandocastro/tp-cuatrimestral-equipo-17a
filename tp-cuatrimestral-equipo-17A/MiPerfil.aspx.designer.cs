@@ -24,6 +24,15 @@ namespace tp_cuatrimestral_equipo_17A
         protected global::System.Web.UI.WebControls.Label lblMensage;
 
         /// <summary>
+        /// Control txtId.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtId;
+
+        /// <summary>
         /// Control lblNombre.
         /// </summary>
         /// <remarks>
@@ -141,13 +150,13 @@ namespace tp_cuatrimestral_equipo_17A
         protected global::System.Web.UI.WebControls.Label lblNivelAcceso;
 
         /// <summary>
-        /// Control txtNivelAcceso.
+        /// Control ddlNivelAcceso.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNivelAcceso;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNivelAcceso;
 
         /// <summary>
         /// Control lblUsuario.

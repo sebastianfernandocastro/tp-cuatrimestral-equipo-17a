@@ -25,6 +25,15 @@ CREATE UNIQUE INDEX IX_Usuarios_DNI ON Usuarios(DNI) WHERE DNI IS NOT NULL;
 CREATE UNIQUE INDEX IX_Usuarios_MAIL ON Usuarios(MAIL) WHERE MAIL IS NOT NULL;
 CREATE UNIQUE INDEX IX_Usuarios_Legajo ON Usuarios(Legajo) WHERE Legajo IS NOT NULL;
 
+drop table NivelAcceso
+create table NivelAcceso(
+	Id int identity(1,1) primary key,
+	Descripcion varchar(40) not null
+)
+delete NivelAcceso
+insert into NivelAcceso (Descripcion) values('Admin'), ('Empleado')
+
+
 CREATE TABLE FechaHora (
     IdFechaHora INT PRIMARY KEY IDENTITY(1,1),
     Fecha DATE NOT NULL,

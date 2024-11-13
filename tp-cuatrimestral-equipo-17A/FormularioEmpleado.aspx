@@ -16,8 +16,8 @@
             </div>
             <%--NivelAcceso--%>
             <div class="col-md-6">
-                <asp:Label ID="lblNivelAcceso" runat="server" AssociatedControlID="txtNivelAcceso" Text="Nivel Acceso"></asp:Label>
-                <asp:TextBox ID="txtNivelAcceso" runat="server"  CssClass="form-control"></asp:TextBox>
+                <asp:Label ID="lblNivelAcceso" runat="server" AssociatedControlID="ddlNivelAcceso" Text="Nivel Acceso"></asp:Label>
+                <asp:DropDownList ID="ddlNivelAcceso"  CssClass="form-control" runat="server"> </asp:DropDownList>
             </div>
         </div>
         <div class="row mb-3">

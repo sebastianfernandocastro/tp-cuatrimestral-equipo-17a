@@ -7,6 +7,7 @@
         <h2>Registrarse</h2>
         <asp:Label ID="lblMensage" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 
+        <asp:TextBox ID="txtId" runat="server" Visible="false" CssClass="form-control"></asp:TextBox>
         <div class="row mb-3">
             <%--Nombre--%>
             <div class="col-md-6">
@@ -20,9 +21,10 @@
             </div>
         </div>
 
+        <%if (usu.tipo == 1)
+
+            { %>
         <div class="row mb-3">
-            <%if (usu.tipo == 1)
-                { %>
             <%--DNI--%>
             <div class="col-md-6">
                 <asp:Label ID="lblDNI" runat="server" AssociatedControlID="txtDNI" Text="DNI"></asp:Label>
@@ -34,41 +36,43 @@
                 <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control"></asp:TextBox>
             </div>
         </div>
-        <div class="row mb-3">
-            <%--mail--%>
-            <div class="col-md-6">
-                <asp:Label ID="lblEmail" runat="server" AssociatedControlID="txtEmail" Text="Email"></asp:Label>
-                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-        </div>
-        <%} %>
-        <%else
-    { %>
-            <%--Legajo--%>
-            <div class="col-md-6">
-                <asp:Label ID="lblLegajo" runat="server" AssociatedControlID="txtLegajo" Text="Legajo"></asp:Label>
-                <asp:TextBox ID="txtLegajo" runat="server"  CssClass="form-control" ReadOnly="true" ></asp:TextBox>
-            </div>
-            <%--NivelAcceso--%>
-            <div class="col-md-6">
-                <asp:Label ID="lblNivelAcceso" runat="server" AssociatedControlID="txtNivelAcceso" Text="Nivel Acceso"></asp:Label>
-                <asp:TextBox ID="txtNivelAcceso" runat="server"  ReadOnly="true" CssClass="form-control"></asp:TextBox>
-            </div>
-        <%} %>
-        <div class="row mb-3">
-            <%--Usuario--%>
-            <div class="col-md-6">
-                <asp:Label ID="lblUsuario" runat="server" AssociatedControlID="txtUsuario" Text="Usuario"></asp:Label>
-                <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <%--Contraseña--%>
-            <div class="col-md-6">
-                <asp:Label ID="lblContraseña" runat="server" AssociatedControlID="txtContraseña" Text="Contraseña"></asp:Label>
-                <asp:TextBox ID="txtContraseña" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
-            </div>
-        </div>
+    <div class="row mb-3">
+        <%--mail--%>
         <div class="col-md-6">
-            <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-primary" OnClick="btnEditar_Click" />
+            <asp:Label ID="lblEmail" runat="server" AssociatedControlID="txtEmail" Text="Email"></asp:Label>
+            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
+    </div>
+    <%} %>
+    <%else
+        { %>
+    <div class="row mb-3">
+        <%--Legajo--%>
+        <div class="col-md-6">
+            <asp:Label ID="lblLegajo" runat="server" AssociatedControlID="txtLegajo" Text="Legajo"></asp:Label>
+            <asp:TextBox ID="txtLegajo" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+        </div>
+        <%--NivelAcceso--%>
+        <div class="col-md-6">
+            <asp:Label ID="lblNivelAcceso" runat="server" AssociatedControlID="ddlNivelAcceso" Text="Nivel Acceso"></asp:Label>
+            <asp:DropDownList ID="ddlNivelAcceso" Enabled="false" CssClass="form-control" runat="server"></asp:DropDownList>
+        </div>
+    </div>
+    <%} %>
+    <div class="row mb-3">
+        <%--Usuario--%>
+        <div class="col-md-6">
+            <asp:Label ID="lblUsuario" runat="server" AssociatedControlID="txtUsuario" Text="Usuario"></asp:Label>
+            <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control"></asp:TextBox>
+        </div>
+        <%--Contraseña--%>
+        <div class="col-md-6">
+            <asp:Label ID="lblContraseña" runat="server" AssociatedControlID="txtContraseña" Text="Contraseña"></asp:Label>
+            <asp:TextBox ID="txtContraseña" runat="server" CssClass="form-control"></asp:TextBox>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-primary" OnClick="btnEditar_Click" />
+    </div>
     </div>
 </asp:Content>
