@@ -100,3 +100,40 @@ CREATE TABLE Turnos (
     CONSTRAINT FK_Turno_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(IdServicio),
     CONSTRAINT FK_Turno_FechaHora FOREIGN KEY (IdFechaHora) REFERENCES FechaHora(IdFechaHora)
 );
+
+
+-- Relacionar servicios con el rubro 'Lavado'
+INSERT INTO RubroServicio (IdRubro, IdServicio)
+VALUES 
+((SELECT IdRubro FROM Rubros WHERE Nombre = 'Lavado'), (SELECT IdServicio FROM Servicios WHERE Nombre = 'Lavado Básico')),
+((SELECT IdRubro FROM Rubros WHERE Nombre = 'Lavado'), (SELECT IdServicio FROM Servicios WHERE Nombre = 'Lavado Premium')),
+((SELECT IdRubro FROM Rubros WHERE Nombre = 'Lavado'), (SELECT IdServicio FROM Servicios WHERE Nombre = 'Pulido y Encerado'));
+
+-- Relacionar servicios con el rubro 'Lubricentro'
+INSERT INTO RubroServicio (IdRubro, IdServicio)
+VALUES 
+((SELECT IdRubro FROM Rubros WHERE Nombre = 'Lubricentro'), (SELECT IdServicio FROM Servicios WHERE Nombre = 'Cambio de Aceite'));
+
+-- Relacionar servicios con el rubro 'Detailing'
+INSERT INTO RubroServicio (IdRubro, IdServicio)
+VALUES 
+((SELECT IdRubro FROM Rubros WHERE Nombre = 'Detailing'), (SELECT IdServicio FROM Servicios WHERE Nombre = 'Detailing Completo'));
+
+
+SELECT R.Nombre AS Rubro, S.Nombre AS Servicio
+FROM Rubros R
+INNER JOIN RubroServicio RS ON R.IdRubro = RS.IdRubro
+INNER JOIN Servicios S ON RS.IdServicio = S.IdServicio;
+
+
+
+SELECT COLUMN_NAME, IS_NULLABLE, DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Turnos';
+
+
+INSERT INTO FechaHora (Fecha, Hora, Disponible)
+VALUES ('2023-12-01', '10:00:00', 1);
+
+INSERT INTO Turnos (IdCliente, IdTipoVehiculo, IdRubro, IdServicio, IdFechaHora, Estado, Aclaracion)
+VALUES (1, 1, 1, 1, 1, 'Pendiente', 'Ninguna aclaración');
