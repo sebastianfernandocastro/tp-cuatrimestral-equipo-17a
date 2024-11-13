@@ -42,15 +42,14 @@ namespace negocio
             List<Rubro> lista = new List<Rubro>();
             try
             {
-                string query = "SELECT Id, Nombre, Descripcion FROM Rubros";
-                accesoDatos.setearConsulta(query);
+                accesoDatos.setearConsulta("SELECT IdRubro, Nombre, Descripcion FROM Rubros");
                 accesoDatos.EjecutarLectura();
 
                 while (accesoDatos.Lector.Read())
                 {
                     Rubro nuevoRubro = new Rubro
                     {
-                        Id = (int)accesoDatos.Lector["Id"],
+                        Id = (int)accesoDatos.Lector["IdRubro"], 
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString()
                     };

@@ -14,10 +14,10 @@ namespace negocio
 
         public FechaHoraNegocio()
         {
-            accesoDatos = new AccesoDatos(); // Clase de acceso a datos ya existente
+            accesoDatos = new AccesoDatos(); 
         }
 
-        // Método para agregar una nueva FechaHora
+        
         public bool Agregar(FechaHora nuevaFechaHora)
         {
             try
@@ -34,13 +34,38 @@ namespace negocio
             }
             catch (Exception ex)
             {
-                // Manejo de errores
+               
                 Console.WriteLine("Error al agregar FechaHora: " + ex.Message);
                 return false;
             }
         }
+        private int ObtenerIdFechaHora(DateTime fecha)
+        {
+            int id = 0;
+            try
+            {
+                string query = "SELECT IdFechaHora FROM FechaHora WHERE Fecha = @Fecha";
+                accesoDatos.setearConsulta(query);
+                accesoDatos.setearParametro("@Fecha", fecha);
 
-        // Método para obtener una lista de FechaHora (búsqueda general)
+                accesoDatos.EjecutarLectura();
+                if (accesoDatos.Lector.Read())
+                {
+                    id = (int)accesoDatos.Lector["IdFechaHora"];
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener IdFechaHora: {ex.Message}");
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return id;
+        }
+
+
         public List<FechaHora> Listar()
         {
             List<FechaHora> lista = new List<FechaHora>();
@@ -72,7 +97,6 @@ namespace negocio
             return lista;
         }
 
-        // Método para modificar un registro de FechaHora existente
         public bool Modificar(FechaHora fechaHoraModificada)
         {
             try
@@ -94,7 +118,6 @@ namespace negocio
             }
         }
 
-        // Método para eliminar un registro de FechaHora
         public bool Eliminar(FechaHora fechaHoraAEliminar)
         {
             try

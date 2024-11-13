@@ -44,7 +44,7 @@ namespace negocio
             List<TipoVehiculo> lista = new List<TipoVehiculo>();
             try
             {
-                string query = "SELECT Codigo, Nombre, Descripcion, Imagen FROM TipoVehiculo";
+                string query = "SELECT IdTipoVehiculo, Codigo, Nombre, Descripcion, IdImagen FROM TipoVehiculo"; 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
 
@@ -52,10 +52,12 @@ namespace negocio
                 {
                     TipoVehiculo tipoVehiculo = new TipoVehiculo
                     {
+                        Id = (int)accesoDatos.Lector["IdTipoVehiculo"], 
                         Codigo = (int)accesoDatos.Lector["Codigo"],
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                       // Imagen = accesoDatos.Lector["Imagen"].ToString()
+                        IdImagen = accesoDatos.Lector["IdImagen"].ToString()
+
                     };
                     lista.Add(tipoVehiculo);
                 }
@@ -70,6 +72,7 @@ namespace negocio
             }
             return lista;
         }
+
 
         public bool Modificar(TipoVehiculo tipoVehiculoModificado)
         {

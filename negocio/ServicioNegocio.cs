@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace negocio
 {
-    internal class ServicioNegocio
+    public class ServicioNegocio
     {
         private AccesoDatos accesoDatos;
 
@@ -53,7 +53,7 @@ namespace negocio
                 {
                     Servicio nuevoServicio = new Servicio
                     {
-                        Id = (int)accesoDatos.Lector["Int"],
+                        Id = (int)accesoDatos.Lector["Id"],
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
                         Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
@@ -72,6 +72,47 @@ namespace negocio
             }
             return lista;
         }
+
+        public List<Servicio> ListarPorRubro(int idRubro)
+        {
+            List<Servicio> lista = new List<Servicio>();
+            try
+            {
+                string query = @"
+            SELECT S.IdServicio, S.Nombre, S.Descripcion, S.Tiempo, S.Precio
+            FROM Servicios S
+            INNER JOIN RubroServicio RS ON S.IdServicio = RS.IdServicio
+            WHERE RS.IdRubro = @IdRubro";
+
+                accesoDatos.setearConsulta(query);
+                accesoDatos.setearParametro("@IdRubro", idRubro);
+                accesoDatos.EjecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Servicio nuevoServicio = new Servicio
+                    {
+                        Id = (int)accesoDatos.Lector["IdServicio"],
+                        Nombre = accesoDatos.Lector["Nombre"].ToString(),
+                        Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
+                        Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
+                        Precio = (decimal)accesoDatos.Lector["Precio"]
+                    };
+                    lista.Add(nuevoServicio);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al listar Servicios por Rubro: " + ex.Message);
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return lista;
+        }
+
+
 
         public bool Modificar(Servicio ServicioModificado)
         {
