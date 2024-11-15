@@ -26,12 +26,10 @@ CREATE UNIQUE INDEX IX_Usuarios_DNI ON Usuarios(DNI) WHERE DNI IS NOT NULL;
 CREATE UNIQUE INDEX IX_Usuarios_MAIL ON Usuarios(MAIL) WHERE MAIL IS NOT NULL;
 CREATE UNIQUE INDEX IX_Usuarios_Legajo ON Usuarios(Legajo) WHERE Legajo IS NOT NULL;
 
-drop table NivelAcceso
 create table NivelAcceso(
 	Id int identity(1,1) primary key,
 	Descripcion varchar(40) not null
 )
-delete NivelAcceso
 insert into NivelAcceso (Descripcion) values('Admin'), ('Empleado')
 
 
@@ -97,7 +95,6 @@ CREATE TABLE Turnos (
     IdFechaHora INT NOT NULL,
     Estado NVARCHAR(50),
     CONSTRAINT FK_Turno_Cliente FOREIGN KEY (IdCliente) REFERENCES Usuarios(ID),
-<<<<<<< HEAD
     CONSTRAINT FK_Turno_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(Id),
     CONSTRAINT FK_Turno_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(Id),
     CONSTRAINT FK_Turno_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(Id),
@@ -107,22 +104,26 @@ CREATE TABLE Turnos (
 
 --ADMIN--
 INSERT INTO Usuarios (Nombre, Apellido, Usuario, Contrasenia, Tipo, DNI, MAIL, Telefono, Legajo, NivelAcceso, Estado) VALUES ('Admin', 'Admin', 'Admin', 'Admin', 1, '0', 'admin', '123456789', 'A001', 1, 1);
+INSERT INTO Usuarios (Nombre, Apellido, Usuario, Contrasenia, Tipo, DNI, MAIL, Telefono, Legajo, NivelAcceso, Estado) VALUES ('Miguel', 'Aitor', 'Miguel1', '12345', 3, '1', 'Trabajador', '12345678', 'A002', 2, 1);
+INSERT INTO Usuarios (Nombre, Apellido, Usuario, Contrasenia, Tipo, DNI, MAIL, Telefono, Legajo, NivelAcceso, Estado) VALUES ('Jose', 'Sanchez', 'Jose09', '1234', 2, '2', 'Cliente', '1234567', 'A003', 3, 1);
+
 
 --IMAGENES AUTOS--
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFNYyx');
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFNcTQ');
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFNljV');
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFN7vj');
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFNM6F');
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFNGG1');
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFNW3g');
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFNXaa');
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/2uFNh8J');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNYyx.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNcTQ.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNljV.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFN7vj.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNM6F.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNGG1.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNW3g.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNXaa.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNh8J.png');
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2AOnZFa.png');
 
 --IMAGENES RUBROS--
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/lavadob.2uKGP24'); --LAVADERO
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/detailingb.2uKGiYl'); -- DETAILING
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://freeimage.host/i/lubricentrob.2uKG44f'); -- LUBRICENTRO
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uKGP24.png'); --LAVADERO
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uKGiYl.png'); -- DETAILING
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uKG44f.png'); -- LUBRICENTRO
 
 --AUTOS--
 INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('COUPE','Auto chico',1)
@@ -134,6 +135,7 @@ INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('SEDAN','Auto me
 INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('SUV','Auto grande', 7)
 INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('VAN','Auto grande', 8)
 INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('FAMILIAR','Auto grande', 9)
+INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('MOTO','Vehiculo chico', 13)
 
 --RUBROS--
 

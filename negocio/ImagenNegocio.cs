@@ -16,14 +16,13 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, IdArticulo, ImagenUrl FROM IMAGENES");
+                datos.setearConsulta("SELECT Id, UrlImagen FROM IMAGENES");
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Imagen imagen = new Imagen();
                     imagen.Id = (int)datos.Lector["Id"];
-                    imagen.IdArticulo = (int)datos.Lector["IdArticulo"];
-                    imagen.UrlImagen = (string)datos.Lector["ImagenUrl"];
+                    imagen.UrlImagen = (string)datos.Lector["UrlImagen"];
                     imagenes.Add(imagen);   
                 }
 
@@ -48,9 +47,8 @@ namespace negocio
             try
             {
 
-                datos.setearConsulta("INSERT INTO IMAGENES (idArticulo, ImagenUrl) VALUES (@ArticuloId, @UrlImagen)");
+                datos.setearConsulta("INSERT INTO IMAGENES ( UrlImagen) VALUES ( @ImagenUrl)");
 
-                datos.Comando.Parameters.AddWithValue("@ArticuloId", imagenNueva.IdArticulo);
                 datos.Comando.Parameters.AddWithValue("@UrlImagen", imagenNueva.UrlImagen);
                 datos.EjecutarAccion();
 

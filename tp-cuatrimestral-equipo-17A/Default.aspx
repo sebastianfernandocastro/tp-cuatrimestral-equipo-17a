@@ -5,12 +5,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div>
-        <div class="divContenedor" style="background-color:#222222; height:150px; color:white; justify-content:center; align-items:center; font-size:120px; margin-bottom:5px;">
-            <h1>
-                NUESTROS SERVICIOS
+        <div class="divContenedor" style="background-color: #222222; height: 150px; color: white; justify-content: center; align-items: center; font-size: 120px; margin-bottom: 5px;">
+            <h1>NUESTROS SERVICIOS
             </h1>
         </div>
-        <div class="divContenedor" style="margin-bottom:5px;">
+        <div class="divContenedor" style="margin-bottom: 5px;">
             <img style="width: 66.66%;" src="Source/Lavado.jpg" alt="Alternate Text" />
             <div>
                 <h3>LAVADO</h3>
@@ -27,15 +26,14 @@
                     <br />
                     Es una opción rápida y eficiente, ideal para quienes quieren mantener su 
                 vehículo en óptimas condiciones de manera regular.
-
                 </p>
             </div>
         </div>
-        <div class="divContenedor" style="margin-bottom:5px;">
+        <div class="divContenedor" style="margin-bottom: 5px;">
             <div>
                 <h3>DETAILING</h3>
                 <p>
-                No solo es un lavado, sino que nos dedicamos a cuidar cada
+                    No solo es un lavado, sino que nos dedicamos a cuidar cada
                 rincón de tu vehículo, tanto por fuera como por dentro.
                 <br />
                     <br />

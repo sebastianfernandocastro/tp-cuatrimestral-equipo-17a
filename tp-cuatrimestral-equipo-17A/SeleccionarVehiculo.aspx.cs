@@ -1,4 +1,7 @@
-﻿using System;
+﻿using dominio;
+using negocio;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,54 +14,74 @@ namespace tp_cuatrimestral_equipo_17A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                GenerarVehiculos();
+            }
+            else
+            {
+                GenerarVehiculos();
+            }
         }
 
-        protected void ImgBtn1_Click(object sender, EventArgs e)
+        private void GenerarVehiculos()
         {
-            Session["IdTipoVehiculo"] = 1;
-            Response.Redirect("SeleccionarRubro.aspx"); 
+            List<TipoVehiculo> vehiculos;
+            List<Imagen> imagenes;
+
+            ImagenNegocio imagenNegocio = new ImagenNegocio();
+            imagenes = imagenNegocio.listar();
+
+            TipoVehiculoNegocio negocio = new TipoVehiculoNegocio();
+
+            vehiculos = negocio.Listar();
+            int cantidadDiv = (int)Math.Ceiling((double)vehiculos.Count / 5);
+            int auxiliar = 0;
+            for (int i = 0; i < cantidadDiv; i++)
+            {
+                var div = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                div.Attributes["class"] = "divisorVehiculos";
+                for (int b = auxiliar; b < vehiculos.Count; b++)
+                {
+                    Imagen img  = imagenes.Find(o => o.Id == vehiculos[b].IdImagen);
+                    ImageButton imgButton = new ImageButton
+                    {
+                        ID = $"{vehiculos[b].Id}",
+                        CssClass = "cuadrado",
+                        ImageUrl = img.UrlImagen,
+                        Width = 300,
+                        Height = 300,
+                        CommandArgument = vehiculos[b].Id.ToString()
+                    };
+
+                    imgButton.Click += ImgBtn_Click;
+                    div.Controls.Add(imgButton);
+                    phVehiculos.Controls.Add(div);
+                    if(b==4)
+                    {
+                        auxiliar = 5;
+                        break;
+                    }
+                    if (b == 9)
+                    {
+                        auxiliar = 10;
+                        break;
+                    }
+                    if (b == 14)
+                    {
+                        auxiliar = 15;
+                        break;
+                    }
+                }
+            }
         }
 
-        protected void ImgBtn2_Click(object sender, EventArgs e)
+        protected void ImgBtn_Click(object sender, EventArgs e)
         {
-            Session["IdTipoVehiculo"] = 2; // Wagon
+            ImageButton btn = (ImageButton)sender;
+            Session["IdTipoVehiculo"] = int.Parse(btn.CommandArgument);
             Response.Redirect("SeleccionarRubro.aspx");
         }
 
-        protected void ImgBtn3_Click(object sender, EventArgs e)
-        {
-            Session["IdTipoVehiculo"] = 3; // Coupe
-            Response.Redirect("SeleccionarRubro.aspx");
-        }
-
-        protected void ImgBtn4_Click(object sender, EventArgs e)
-        {
-            Session["IdTipoVehiculo"] = 4; // SUV
-            Response.Redirect("SeleccionarRubro.aspx");
-        }
-
-        protected void ImgBtn5_Click(object sender, EventArgs e)
-        {
-            Session["IdTipoVehiculo"] = 5; // Deportivo
-            Response.Redirect("SeleccionarRubro.aspx");
-        }
-
-        protected void ImgBtn6_Click(object sender, EventArgs e)
-        {
-            Session["IdTipoVehiculo"] = 6; // PickUp
-            Response.Redirect("SeleccionarRubro.aspx");
-        }
-
-        protected void ImgBtn7_Click(object sender, EventArgs e)
-        {
-            Session["IdTipoVehiculo"] = 7; // Mini
-            Response.Redirect("SeleccionarRubro.aspx");
-        }
-
-        protected void ImgBtn8_Click(object sender, EventArgs e)
-        {
-            Session["IdTipoVehiculo"] = 8; // Van
-            Response.Redirect("SeleccionarRubro.aspx");
-        }
     }
 }

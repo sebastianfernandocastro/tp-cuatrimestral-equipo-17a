@@ -26,10 +26,13 @@
                         <a href="Default.aspx">Inicio</a>
                         <a href="#">Nosotros</a>
                         <a href="#">Trabajos</a>
-                        <a href="Turnos.aspx">Turnos</a>
+                        <a href="SeleccionarVehiculo.aspx">Turnos</a>
                         <div class="dot"></div>
                     </nav>
                 </div>
+                <%switch (sesionActiva)
+                    {
+                        case 0:%>
                 <div class="divDesplegable">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">INGRESAR
                     </a>
@@ -39,6 +42,49 @@
                     </ul>
                 </div>
 
+                <%break;
+
+                    case 1:%>
+                <div class="divDesplegable">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <%=usu.Nombre%>
+                    </a>
+                    <ul class="dropdown-menu" style="background-color: #222222;">
+                        <li><a class="dropdown-item" href="MiPerfil.aspx">Usuarios</a></li>
+                        <li><a class="dropdown-item" href="Turnos.aspx">Turnos</a></li>
+                        <li><a class="dropdown-item" href="">Vehiculos</a></li>
+                        <li><a class="dropdown-item" href="">Rubros</a></li>
+                        <li><a class="dropdown-item" href="">Servicios</a></li>
+                        <li><a class="dropdown-item" href="">Cerrar sesion</a></li>
+                    </ul>
+                </div>
+                <%break;
+                    case 2:%>
+                <div class="divDesplegable">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <%=usu.Nombre%>
+                    </a>
+                    <ul class="dropdown-menu" style="background-color: #222222;">
+                        <li><a class="dropdown-item" href="MiPerfil.aspx">Turnos</a></li>
+                        <li><a class="dropdown-item" href="Turnos.aspx">Usuarios</a></li>
+                        <li><a class="dropdown-item" href="">Cerrar sesion</a></li>
+                    </ul>
+                </div>
+                <%break;
+                    case 3:%>
+
+                <div class="divDesplegable">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <%=usu.Nombre%>
+                    </a>
+                    <ul class="dropdown-menu" style="background-color: #222222;">
+                        <li><a class="dropdown-item" href="MiPerfil.aspx">Mi Perfil</a></li>
+                        <li><a class="dropdown-item" href="Turnos.aspx">Mis Turnos</a></li>
+                        <li><a class="dropdown-item" href="">Cerrar sesion</a></li>
+                    </ul>
+                </div>
+                <%break;
+                    } %>
             </div>
         </header>
         <div style="display: flex; width: 100%; justify-content: center; padding-top: 10px;">

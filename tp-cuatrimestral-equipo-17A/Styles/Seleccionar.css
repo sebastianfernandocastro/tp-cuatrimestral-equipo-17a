@@ -43,3 +43,11 @@
 .rectangulo:active {
     background-color: red;
 }
+
+.divisorVehiculos {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
