@@ -114,13 +114,13 @@ namespace tp_cuatrimestral_equipo_17A
         protected global::System.Web.UI.WebControls.Label lblFechaHora;
 
         /// <summary>
-        /// Control txtFechaHora.
+        /// Control ddlFechaHora.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaHora;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFechaHora;
 
         /// <summary>
         /// Control lblEstado.

@@ -79,10 +79,10 @@ namespace negocio
             try
             {
                 string query = @"
-            SELECT S.IdServicio, S.Nombre, S.Descripcion, S.Tiempo, S.Precio
-            FROM Servicios S
-            INNER JOIN RubroServicio RS ON S.IdServicio = RS.IdServicio
-            WHERE RS.IdRubro = @IdRubro";
+            SELECT s.Id, s.Nombre, s.Descripcion, s.Tiempo, s.Precio 
+            FROM Servicios s
+            INNER JOIN RubroServicio rs ON rs.IdServicio = s.Id
+            WHERE rs.IdRubro = @IdRubro";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@IdRubro", idRubro);
@@ -92,7 +92,7 @@ namespace negocio
                 {
                     Servicio nuevoServicio = new Servicio
                     {
-                        Id = (int)accesoDatos.Lector["IdServicio"],
+                        Id = (int)accesoDatos.Lector["Id"],
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
                         Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
@@ -103,7 +103,7 @@ namespace negocio
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al listar Servicios por Rubro: " + ex.Message);
+                Console.WriteLine("Error al listar servicios por rubro: " + ex.Message);
             }
             finally
             {
@@ -111,6 +111,7 @@ namespace negocio
             }
             return lista;
         }
+
 
 
 

@@ -21,17 +21,17 @@ namespace negocio
             try
             {
                 string query = @"
-            INSERT INTO Turnos (IdCliente, IdTipoVehiculo, IdRubro, IdServicio, IdFechaHora, Estado, Aclaracion)
-            VALUES (@IdCliente, @IdTipoVehiculo, @IdRubro, @IdServicio, @IdFechaHora, @Estado, @Aclaracion)";
+        INSERT INTO Turnos (IdCliente, IdTipoVehiculo, IdRubro, IdServicio, IdFechaHora, Estado, Aclaracion)
+        VALUES (@IdCliente, @IdTipoVehiculo, @IdRubro, @IdServicio, @IdFechaHora, @Estado, @Aclaracion)";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@IdCliente", nuevoTurno.Usuario.Id);
                 accesoDatos.setearParametro("@IdTipoVehiculo", nuevoTurno.Vehiculo.Codigo);
                 accesoDatos.setearParametro("@IdRubro", nuevoTurno.Rubro.Id);
                 accesoDatos.setearParametro("@IdServicio", nuevoTurno.Servicio.Id);
-                accesoDatos.setearParametro("@IdFechaHora", 1);
+                accesoDatos.setearParametro("@IdFechaHora", nuevoTurno.FechaHora.Id);
                 accesoDatos.setearParametro("@Estado", nuevoTurno.Estado);
-                accesoDatos.setearParametro("@Aclaracion", nuevoTurno.Aclaracion ?? ""); 
+                accesoDatos.setearParametro("@Aclaracion", nuevoTurno.Aclaracion ?? "");
 
                 accesoDatos.EjecutarAccion();
                 return true;
@@ -50,18 +50,18 @@ namespace negocio
             try
             {
                 string query = @"
-            SELECT T.Id, T.IdCliente, T.IdTipoVehiculo, T.IdRubro, T.IdServicio, T.IdFechaHora, T.Estado, T.Aclaracion,
-                   U.Nombre AS ClienteNombre, 
-                   TV.Nombre AS VehiculoNombre, 
-                   R.Nombre AS RubroNombre, 
-                   S.Nombre AS ServicioNombre,
-                   FH.Fecha
-            FROM Turnos T
-            INNER JOIN Usuarios U ON T.IdCliente = U.Id
-            INNER JOIN TipoVehiculo TV ON T.IdTipoVehiculo = TV.IdTipoVehiculo
-            INNER JOIN Rubros R ON T.IdRubro = R.IdRubro
-            INNER JOIN Servicios S ON T.IdServicio = S.IdServicio
-            INNER JOIN FechaHora FH ON T.IdFechaHora = FH.IdFechaHora";
+                SELECT T.Id, T.IdCliente, T.IdTipoVehiculo, T.IdRubro, T.IdServicio, T.IdFechaHora, T.Estado, T.Aclaracion,
+                       U.Nombre AS ClienteNombre,
+                       TV.Nombre AS VehiculoNombre,
+                       R.Nombre AS RubroNombre,
+                       S.Nombre AS ServicioNombre,
+                       FH.Fecha
+                FROM Turnos T
+                INNER JOIN Usuarios U ON T.IdCliente = U.Id
+                INNER JOIN TipoVehiculo TV ON T.IdTipoVehiculo = TV.Id
+                INNER JOIN Rubros R ON T.IdRubro = R.Id
+                INNER JOIN Servicios S ON T.IdServicio = S.Id
+                INNER JOIN FechaHora FH ON T.IdFechaHora = FH.Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
@@ -113,27 +113,24 @@ namespace negocio
             return lista;
         }
 
-
         public Turno ObtenerPorId(int idTurno)
         {
             Turno turno = null;
             try
             {
                 string query = @"
-            SELECT T.Id, 
-                   U.Id AS IdCliente, U.Nombre AS Cliente, 
-                   TV.IdTipoVehiculo AS IdVehiculo, TV.Nombre AS Vehiculo, 
-                   R.IdRubro AS IdRubro, R.Nombre AS Rubro, 
-                   S.IdServicio AS IdServicio, S.Nombre AS Servicio, 
-                   T.IdFechaHora, 
-                   T.Estado, 
-                   T.Aclaracion
-            FROM Turnos T
-            INNER JOIN Usuarios U ON T.IdCliente = U.ID
-            INNER JOIN TipoVehiculo TV ON T.IdTipoVehiculo = TV.IdTipoVehiculo
-            INNER JOIN Rubros R ON T.IdRubro = R.IdRubro
-            INNER JOIN Servicios S ON T.IdServicio = S.IdServicio
-            WHERE T.Id = @Id";
+                SELECT T.Id, 
+                       U.Id AS IdCliente, U.Nombre AS Cliente,
+                       TV.Id AS IdVehiculo, TV.Nombre AS Vehiculo,
+                       R.Id AS IdRubro, R.Nombre AS Rubro,
+                       S.Id AS IdServicio, S.Nombre AS Servicio,
+                       T.IdFechaHora, T.Estado, T.Aclaracion
+                FROM Turnos T
+                INNER JOIN Usuarios U ON T.IdCliente = U.Id
+                INNER JOIN TipoVehiculo TV ON T.IdTipoVehiculo = TV.Id
+                INNER JOIN Rubros R ON T.IdRubro = R.Id
+                INNER JOIN Servicios S ON T.IdServicio = S.Id
+                WHERE T.Id = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", idTurno);
@@ -166,7 +163,7 @@ namespace negocio
                         },
                         FechaHora = new FechaHora
                         {
-                            Id = (int)accesoDatos.Lector["IdFechaHora"] 
+                            Id = (int)accesoDatos.Lector["IdFechaHora"]
                         },
                         Estado = accesoDatos.Lector["Estado"].ToString(),
                         Aclaracion = accesoDatos.Lector["Aclaracion"].ToString()
@@ -184,22 +181,20 @@ namespace negocio
             return turno;
         }
 
-
-
         public bool Modificar(Turno turno)
         {
             try
             {
                 string query = @"
-            UPDATE Turnos
-            SET IdCliente = @IdCliente,
-                IdTipoVehiculo = @IdTipoVehiculo,
-                IdRubro = @IdRubro,
-                IdServicio = @IdServicio,
-                IdFechaHora = @IdFechaHora,
-                Estado = @Estado,
-                Aclaracion = @Aclaracion
-            WHERE Id = @Id";
+                UPDATE Turnos
+                SET IdCliente = @IdCliente,
+                    IdTipoVehiculo = @IdTipoVehiculo,
+                    IdRubro = @IdRubro,
+                    IdServicio = @IdServicio,
+                    IdFechaHora = @IdFechaHora,
+                    Estado = @Estado,
+                    Aclaracion = @Aclaracion
+                WHERE Id = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", turno.Id);
@@ -211,16 +206,6 @@ namespace negocio
                 accesoDatos.setearParametro("@Estado", turno.Estado);
                 accesoDatos.setearParametro("@Aclaracion", turno.Aclaracion);
 
-                Console.WriteLine($"Id: {turno.Id}");
-                Console.WriteLine($"IdCliente: {turno.Usuario.Id}");
-                Console.WriteLine($"IdTipoVehiculo: {turno.Vehiculo.Codigo}");
-                Console.WriteLine($"IdRubro: {turno.Rubro.Id}");
-                Console.WriteLine($"IdServicio: {turno.Servicio.Id}");
-                Console.WriteLine($"IdFechaHora: {turno.FechaHora.Id}");
-                Console.WriteLine($"Estado: {turno.Estado}");
-                Console.WriteLine($"Aclaracion: {turno.Aclaracion}");
-
-
                 accesoDatos.EjecutarAccion();
                 return true;
             }
@@ -230,7 +215,6 @@ namespace negocio
                 return false;
             }
         }
-
 
         public bool Eliminar(int Id)
         {
@@ -246,9 +230,10 @@ namespace negocio
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al eliminar Turno: " + ex.Message);
+                Console.WriteLine($"Error al eliminar Turno: {ex.Message}");
                 return false;
             }
         }
     }
 }
+

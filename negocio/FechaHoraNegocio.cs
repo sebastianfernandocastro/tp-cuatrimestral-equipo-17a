@@ -71,7 +71,7 @@ namespace negocio
             List<FechaHora> lista = new List<FechaHora>();
             try
             {
-                string query = "SELECT Fecha, Hora, Disponible FROM FechaHora";
+                string query = "SELECT Id, Fecha, Hora, Disponible FROM FechaHora";
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
 
@@ -79,7 +79,8 @@ namespace negocio
                 {
                     FechaHora fechaHora = new FechaHora
                     {
-                        Fecha = (DateTime)accesoDatos.Lector["Fecha"],
+                        Id = (int)accesoDatos.Lector["Id"],
+                        Fecha = accesoDatos.Lector["Fecha"] != DBNull.Value ? (DateTime)accesoDatos.Lector["Fecha"] : DateTime.MinValue,
                         Hora = (TimeSpan)accesoDatos.Lector["Hora"],
                         Disponible = (bool)accesoDatos.Lector["Disponible"]
                     };
@@ -96,6 +97,7 @@ namespace negocio
             }
             return lista;
         }
+
 
         public bool Modificar(FechaHora fechaHoraModificada)
         {

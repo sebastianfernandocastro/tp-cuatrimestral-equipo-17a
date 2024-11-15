@@ -69,8 +69,9 @@
         </div>
         <div class="row mt-3">
             <div class="col-md-6">
-                <asp:Label ID="lblFechaHora" runat="server" AssociatedControlID="txtFechaHora" Text="Fecha y Hora"></asp:Label>
-                <asp:TextBox ID="txtFechaHora" runat="server" CssClass="form-control" Placeholder="AAAA-MM-DD"></asp:TextBox>
+                     <asp:Label ID="lblFechaHora" runat="server" AssociatedControlID="ddlFechaHora" Text="Hora"></asp:Label>
+                    <asp:DropDownList ID="ddlFechaHora" runat="server" CssClass="form-select">
+                  </asp:DropDownList>
             </div>
             <div class="col-md-6">
                 <asp:Label ID="lblEstado" runat="server" AssociatedControlID="txtEstado" Text="Estado"></asp:Label>

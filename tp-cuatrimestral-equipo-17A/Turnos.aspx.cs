@@ -17,13 +17,15 @@ namespace tp_cuatrimestral_equipo_17A
         private TipoVehiculoNegocio tipoVehiculoNegocio = new TipoVehiculoNegocio();
         private RubroNegocio rubroNegocio = new RubroNegocio();
         private ServicioNegocio servicioNegocio = new ServicioNegocio();
+        private FechaHoraNegocio fechaHoraNegocio = new FechaHoraNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack || gvTurnos.Rows.Count == 0)
+            if (!Page.IsPostBack)
             {
                 CargarTurnos();
                 CargarListas();
+                CargarHorariosDisponibles();
             }
 
         }
@@ -136,6 +138,37 @@ namespace tp_cuatrimestral_equipo_17A
             }
         }
 
+        private void CargarHorariosDisponibles()
+        {
+            try
+            {
+                var horarios = fechaHoraNegocio.Listar();
+
+                if (horarios != null && horarios.Count > 0)
+                {
+                    ddlFechaHora.DataSource = horarios
+                        .Where(h => h.Disponible) // Filtra los horarios disponibles
+                        .Select(h => new
+                        {
+                            Text = h.Hora.ToString(@"hh\:mm"), // Muestra solo la hora
+                            Value = h.Id // Usamos el ID para referencias posteriores
+                        });
+
+                    ddlFechaHora.DataTextField = "Text";
+                    ddlFechaHora.DataValueField = "Value";
+                    ddlFechaHora.DataBind();
+                }
+
+                ddlFechaHora.Items.Insert(0, new ListItem("Seleccione un horario", "0"));
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = $"Error al cargar horarios: {ex.Message}";
+                lblMessage.CssClass = "text-danger";
+                lblMessage.Visible = true;
+            }
+        }
+
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -147,7 +180,7 @@ namespace tp_cuatrimestral_equipo_17A
                     Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) },
                     Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) },
                     Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) },
-                    FechaHora = new FechaHora { Fecha = DateTime.Parse(txtFechaHora.Text) },
+                    FechaHora = new FechaHora { Fecha = DateTime.Parse(ddlFechaHora.SelectedValue) },
                     Estado = txtEstado.Text
                 };
 
@@ -164,7 +197,7 @@ namespace tp_cuatrimestral_equipo_17A
                 }
 
                 lblMessage.Visible = true;
-                CargarTurnos(); // Refrescar el GridView
+                CargarTurnos(); 
             }
             catch (Exception ex)
             {
@@ -213,7 +246,7 @@ namespace tp_cuatrimestral_equipo_17A
                         lblMessage.Visible = true;
                     }
 
-                    txtFechaHora.Text = turno.FechaHora.Fecha.ToString("yyyy-MM-dd");
+                    ddlFechaHora.Text = turno.FechaHora.Fecha.ToString("yyyy-MM-dd");
                     txtEstado.Text = turno.Estado;
 
                     // Establecer el ID del turno en el HiddenField
@@ -281,7 +314,7 @@ namespace tp_cuatrimestral_equipo_17A
                     Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) },
                     Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) },
                     Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) },
-                    FechaHora = new FechaHora { Fecha = DateTime.Parse(txtFechaHora.Text) },
+                    FechaHora = new FechaHora { Fecha = DateTime.Parse(ddlFechaHora.SelectedValue) },
                     Estado = txtEstado.Text
                 };
 
@@ -309,7 +342,6 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMessage.Visible = true;
             }
         }
-
 
     }
 }

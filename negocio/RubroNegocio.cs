@@ -42,16 +42,17 @@ namespace negocio
             List<Rubro> lista = new List<Rubro>();
             try
             {
-                accesoDatos.setearConsulta("SELECT IdRubro, Nombre, Descripcion FROM Rubros");
+                accesoDatos.setearConsulta("SELECT Id, Nombre, Descripcion, IdImagen FROM Rubros");
                 accesoDatos.EjecutarLectura();
 
                 while (accesoDatos.Lector.Read())
                 {
                     Rubro nuevoRubro = new Rubro
                     {
-                        Id = (int)accesoDatos.Lector["IdRubro"], 
+                        Id = (int)accesoDatos.Lector["Id"], 
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
-                        Descripcion = accesoDatos.Lector["Descripcion"].ToString()
+                        Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
+                        IdImagen = (int)accesoDatos.Lector["IdImagen"] 
                     };
                     lista.Add(nuevoRubro);
                 }
@@ -66,6 +67,7 @@ namespace negocio
             }
             return lista;
         }
+
 
         public bool Modificar(Rubro rubroModificado)
         {
