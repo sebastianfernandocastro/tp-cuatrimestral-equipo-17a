@@ -44,7 +44,6 @@ namespace negocio
             List<TipoVehiculo> lista = new List<TipoVehiculo>();
             try
             {
-                // Consulta corregida según el esquema actual de la tabla
                 string query = "SELECT Id, Nombre, Descripcion, IdImagen FROM TipoVehiculo";
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
