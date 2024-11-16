@@ -93,10 +93,50 @@
                 </asp:ContentPlaceHolder>
             </div>
         </div>
+        <footer>
+            <div>
+                <h3>HOLA</h3>
+            </div>
+            <div>
+                <h3>HOLA</h3>
+            </div>
+            <div>
+                <h3>HOLA</h3>
+            </div>
+        </footer>
 
 
     </form>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        footer {
+            background-color: #222222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            color: white;
+            margin-top: 5px;
+        }
+
+        footer > div {
+            width:30%;
+        }
+    </style>
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="Script/MasterPage.js" crossorigin="anonymous"></script>
 <script src="Scripts/Turnos.js"></script>

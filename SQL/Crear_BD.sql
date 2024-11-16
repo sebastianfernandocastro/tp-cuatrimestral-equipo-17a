@@ -122,8 +122,10 @@ INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2AOnZFa.png');
 
 --IMAGENES RUBROS--
 INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uKGP24.png'); --LAVADERO
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uKGiYl.png'); -- DETAILING
-INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uKG44f.png'); -- LUBRICENTRO
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uKGiYl.png'); --DETAILING
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uKG44f.png'); --LUBRICENTRO
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2RF4GrG.png'); --MECANICA 
+INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2RF4V2f.png'); --CUBIERTAS 
 
 --AUTOS--
 INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('COUPE','Auto chico',1)
@@ -142,6 +144,8 @@ INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('MOTO','Vehiculo
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LAVADERO','Servicio: Lavado, aspirado y encerado', 10)
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('DETAILING','Servicio: Detallado, pulido y encerado', 11)
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LUBRICENTRO','Servicio: Cambio aceite, cambio de filtros y cambio de fluidos', 12)
+INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('MECANICA','Servicio: Mecanica integral', 13)
+INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('CUBIERTAS','Servicio: Cambio de cubiertas, alineacion y balanceo', 14)
 
 INSERT INTO Servicios (Nombre, Descripcion, Tiempo, Precio)
 VALUES 
