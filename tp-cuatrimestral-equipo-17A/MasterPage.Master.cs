@@ -16,7 +16,7 @@ namespace tp_cuatrimestral_equipo_17A
         public int sesionActiva { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
 
             if (!(Page is Login || Page is Default || Page is About || Page is Registrarse))
             {
@@ -35,6 +35,12 @@ namespace tp_cuatrimestral_equipo_17A
             {
                 sesionActiva = 0;
             }
+        }
+        protected void CerrarSesion(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("Default.aspx");
         }
     }
 }

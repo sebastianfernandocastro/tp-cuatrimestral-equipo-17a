@@ -55,7 +55,7 @@
                         <li><a class="dropdown-item" href="">Vehiculos</a></li>
                         <li><a class="dropdown-item" href="">Rubros</a></li>
                         <li><a class="dropdown-item" href="">Servicios</a></li>
-                        <li><a class="dropdown-item" href="">Cerrar sesion</a></li>
+                        <li><asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>
                 </div>
                 <%break;
@@ -67,7 +67,7 @@
                     <ul class="dropdown-menu" style="background-color: #222222;">
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Turnos</a></li>
                         <li><a class="dropdown-item" href="Turnos.aspx">Usuarios</a></li>
-                        <li><a class="dropdown-item" href="">Cerrar sesion</a></li>
+                        <li><asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion1" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>
                 </div>
                 <%break;
@@ -80,59 +80,60 @@
                     <ul class="dropdown-menu" style="background-color: #222222;">
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Mi Perfil</a></li>
                         <li><a class="dropdown-item" href="Turnos.aspx">Mis Turnos</a></li>
-                        <li><a class="dropdown-item" href="">Cerrar sesion</a></li>
+                        <li><asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion2" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>
                 </div>
                 <%break;
                     } %>
             </div>
         </header>
-        <div style="display: flex; width: 100%; justify-content: center; padding-top: 10px;">
+        <div style="display: flex;  justify-content: center; padding-top: 5px;">
             <div style="width: 60%;">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
         </div>
-        <footer>
-            <div>
-                <h3>HOLA</h3>
-            </div>
-            <div>
-                <h3>HOLA</h3>
-            </div>
-            <div>
-                <h3>HOLA</h3>
+        <footer id="siteFooter" runat="server">
+            <div class="footer-content">
+                <p>&copy; 2024 TuEmpresa. Todos los derechos reservados.</p>
+                <p>
+                    <a href="about.aspx">Sobre nosotros</a> | 
+           
+                    <a href="contact.aspx">Contacto</a> | 
+           
+                    <a href="privacy.aspx">Política de privacidad</a>
+                </p>
             </div>
         </footer>
-
-
     </form>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        #siteFooter {
+            background-color: #222;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            margin-top:5px;
         }
 
-        html, body {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        #siteFooter .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-
-        footer {
-            background-color: #222222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 300px;
-            color: white;
-            margin-top: 5px;
+        #siteFooter a {
+            color: #4caf50;
+            text-decoration: none;
+            margin: 0 5px;
         }
 
-        footer > div {
-            width:30%;
+        #siteFooter a:hover {
+            text-decoration: underline;
         }
     </style>
 </body>

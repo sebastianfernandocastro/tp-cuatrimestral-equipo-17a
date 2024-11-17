@@ -6,7 +6,6 @@ USE LAVADERO_DB;
 
 DROP TABLE IF EXISTS Turnos, Servicios, Rubros, TipoVehiculo, Imagenes, FechaHora, TipoVehiculoRubro, RubroServicio;
 
-
 CREATE TABLE Usuarios(
     ID INT IDENTITY(1,1) PRIMARY KEY,
     Nombre VARCHAR(30) NOT NULL,
@@ -137,15 +136,15 @@ INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('SEDAN','Auto me
 INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('SUV','Auto grande', 7)
 INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('VAN','Auto grande', 8)
 INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('FAMILIAR','Auto grande', 9)
-INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('MOTO','Vehiculo chico', 13)
+INSERT INTO TipoVehiculo(Nombre, Descripcion, IdImagen) values ('MOTO','Vehiculo chico', 10)
 
 --RUBROS--
 
-INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LAVADERO','Servicio: Lavado, aspirado y encerado', 10)
-INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('DETAILING','Servicio: Detallado, pulido y encerado', 11)
-INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LUBRICENTRO','Servicio: Cambio aceite, cambio de filtros y cambio de fluidos', 12)
-INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('MECANICA','Servicio: Mecanica integral', 13)
-INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('CUBIERTAS','Servicio: Cambio de cubiertas, alineacion y balanceo', 14)
+INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LAVADERO','Servicio: Lavado, aspirado y encerado', 11)
+INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('DETAILING','Servicio: Detallado, pulido y encerado', 12)
+INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LUBRICENTRO','Servicio: Cambio aceite, cambio de filtros y cambio de fluidos', 13)
+INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('MECANICA','Servicio: Mecanica integral', 14)
+INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('CUBIERTAS','Servicio: Cambio de cubiertas, alineacion y balanceo', 15)
 
 INSERT INTO Servicios (Nombre, Descripcion, Tiempo, Precio)
 VALUES 
@@ -195,3 +194,5 @@ SELECT r.Nombre AS Rubro, s.Nombre AS Servicio
 FROM RubroServicio rs
 INNER JOIN Rubros r ON r.Id = rs.IdRubro
 INNER JOIN Servicios s ON s.Id = rs.IdServicio
+
+select * from Usuarios

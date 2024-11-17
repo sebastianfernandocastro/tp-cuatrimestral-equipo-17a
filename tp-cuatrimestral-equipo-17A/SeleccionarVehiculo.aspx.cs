@@ -35,7 +35,7 @@ namespace tp_cuatrimestral_equipo_17A
             TipoVehiculoNegocio negocio = new TipoVehiculoNegocio();
 
             vehiculos = negocio.Listar();
-            int cantidadDiv = (int)Math.Ceiling((double)vehiculos.Count / 5);
+            int cantidadDiv = (int)Math.Ceiling((double)vehiculos.Count / 4);
             int auxiliar = 0;
             for (int i = 0; i < cantidadDiv; i++)
             {
@@ -49,27 +49,25 @@ namespace tp_cuatrimestral_equipo_17A
                         ID = $"{vehiculos[b].Id}",
                         CssClass = "cuadrado",
                         ImageUrl = img.UrlImagen,
-                        Width = 300,
-                        Height = 300,
                         CommandArgument = vehiculos[b].Id.ToString()
                     };
-
+                    imgButton.Attributes.Add("title", vehiculos[b].Nombre);
                     imgButton.Click += ImgBtn_Click;
                     div.Controls.Add(imgButton);
                     phVehiculos.Controls.Add(div);
-                    if(b==4)
+                    if(b==3)
                     {
-                        auxiliar = 5;
+                        auxiliar = 4;
                         break;
                     }
-                    if (b == 9)
+                    if (b == 7)
                     {
-                        auxiliar = 10;
+                        auxiliar = 8;
                         break;
                     }
-                    if (b == 14)
+                    if (b == 11)
                     {
-                        auxiliar = 15;
+                        auxiliar = 12;
                         break;
                     }
                 }

@@ -44,7 +44,9 @@ namespace tp_cuatrimestral_equipo_17A
                     CssClass = "rectangulo",
                     ImageUrl = img.UrlImagen,
                     CommandArgument = rubros[i].Id.ToString()
+
                 };
+                imageButton.Attributes.Add("title", rubros[i].Nombre);
                 imageButton.Click += ImgBtn_Click;
                 div.Controls.Add(imageButton);
                 phRubros.Controls.Add(div);
