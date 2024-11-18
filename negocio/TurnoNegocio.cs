@@ -252,12 +252,12 @@ namespace negocio
             try
             {
                 string query = @"
-                SELECT Precio from precio where IdTipoVehiculo = @IdTipoVehiculo and IdServicio = @IdServicio and idRubro = @idRubro";
+                SELECT Precio FROM Precios WHERE IdTipoVehiculo = @IdTipoVehiculo AND IdRubro = @IdRubro AND IdServicio = @IdServicio";
 
                 accesoDatos.setearConsulta(query);
+                accesoDatos.setearParametro("@IdTipoVehiculo", idTipoVehiculo);
+                accesoDatos.setearParametro("@IdRubro", idRubro);
                 accesoDatos.setearParametro("@IdServicio", IdServicio);
-                accesoDatos.setearParametro("@idRubro", idRubro);
-                accesoDatos.setearParametro("@idTipoVehiculo", idTipoVehiculo);
                 accesoDatos.EjecutarLectura();
 
                 if (accesoDatos.Lector.Read())

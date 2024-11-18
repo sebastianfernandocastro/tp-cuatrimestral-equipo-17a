@@ -54,7 +54,7 @@
             </div>
             <div class="col-md-6">
                 <asp:Label ID="lblVehiculo" runat="server" AssociatedControlID="ddlVehiculo" Text="Vehículo"></asp:Label>
-                <asp:DropDownList ID="ddlVehiculo" runat="server" CssClass="form-select"></asp:DropDownList>
+                <asp:DropDownList ID="ddlVehiculo" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlVehiculo_SelectedIndexChanged"></asp:DropDownList>
             </div>
         </div>
         <div class="row mt-3">

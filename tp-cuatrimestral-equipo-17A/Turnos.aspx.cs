@@ -34,7 +34,7 @@ namespace tp_cuatrimestral_equipo_17A
             if(!IsPostBack && !String.IsNullOrEmpty(id))
             {
                 //cargar precio ....
-                //cargarPrecio()
+                cargarPrecio();
             }
 
         }
@@ -135,9 +135,93 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMessage.Visible = true;
             }
         }
+
         protected void ddlRubro_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idRubro;
+            ActualizarPrecio();
+            if (int.TryParse(ddlRubro.SelectedValue, out idRubro) && idRubro > 0)
+            {
+                // Cargar servicios relacionados con el rubro seleccionado
+                try
+                {
+                    var servicios = servicioNegocio.ListarPorRubro(idRubro);
+
+                    if (servicios != null && servicios.Count > 0)
+                    {
+                        ddlServicio.DataSource = servicios;
+                        ddlServicio.DataTextField = "Nombre";
+                        ddlServicio.DataValueField = "Id";
+                        ddlServicio.DataBind();
+                        ddlServicio.Items.Insert(0, new ListItem("Seleccione un servicio", "0"));
+                    }
+                    else
+                    {
+                        ddlServicio.Items.Clear();
+                        ddlServicio.Items.Insert(0, new ListItem("No hay servicios disponibles", "0"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Error al cargar los servicios: " + ex.Message;
+                    lblMessage.CssClass = "text-danger";
+                    lblMessage.Visible = true;
+                }
+            }
+            else
+            {
+                // Limpiar el dropdown si no se selecciona un rubro válido
+                ddlServicio.Items.Clear();
+                ddlServicio.Items.Insert(0, new ListItem("Seleccione un rubro primero", "0"));
+            }
+        }
+
+        protected void ddlServicio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarPrecio();
+        }
+
+        protected void ddlVehiculo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarPrecio();
+        }
+
+        private void ActualizarPrecio()
+        {
+            try
+            {
+               
+                int idVehiculo = int.Parse(ddlVehiculo.SelectedValue);
+                int idRubro = int.Parse(ddlRubro.SelectedValue);
+                int idServicio = int.Parse(ddlServicio.SelectedValue);
+
+                
+                if (idVehiculo > 0 && idRubro > 0 && idServicio > 0)
+                {
+                   
+                    TurnoNegocio turnoNegocio = new TurnoNegocio();
+                    decimal precio = turnoNegocio.obtenerPrecio(idVehiculo, idRubro, idServicio);
+
+                   
+                    txtPrecio.Text = precio.ToString("C");
+                }
+                else
+                {
+                    txtPrecio.Text = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error al actualizar el precio: " + ex.Message;
+                lblMessage.CssClass = "text-danger";
+                lblMessage.Visible = true;
+            }
+        }
+
+        protected void ddlRubro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idRubro;
+            ActualizarPrecio();
             if (int.TryParse(ddlRubro.SelectedValue, out idRubro) && idRubro > 0)
             {
                 // Cargar servicios relacionados con el rubro seleccionado
@@ -377,11 +461,6 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMessage.CssClass = "text-danger";
                 lblMessage.Visible = true;
             }
-        }
-
-        protected void ddlServicio_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

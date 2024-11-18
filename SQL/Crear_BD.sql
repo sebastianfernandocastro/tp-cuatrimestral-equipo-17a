@@ -6,6 +6,8 @@ USE LAVADERO_DB;
 
 DROP TABLE IF EXISTS Turnos, Servicios, Rubros, TipoVehiculo, Imagenes, FechaHora, TipoVehiculoRubro, RubroServicio;
 
+DROP TABLE IF EXISTS Precios
+
 CREATE TABLE Usuarios(
     ID INT IDENTITY(1,1) PRIMARY KEY,
     Nombre VARCHAR(30) NOT NULL,
@@ -72,8 +74,7 @@ CREATE TABLE Servicios (
     Id INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(MAX),
-    Tiempo DECIMAL(5, 2) NOT NULL,
-    Precio DECIMAL(10, 2) NOT NULL
+    Tiempo DECIMAL(5, 2) NOT NULL
 );
 
 CREATE TABLE RubroServicio (
@@ -91,14 +92,111 @@ CREATE TABLE Turnos (
     IdRubro INT NOT NULL,
     IdServicio INT NOT NULL,
     Aclaracion NVARCHAR(MAX),
-    IdFechaHora INT NOT NULL,
-    Estado NVARCHAR(50),
-    CONSTRAINT FK_Turno_Cliente FOREIGN KEY (IdCliente) REFERENCES Usuarios(ID),
+    FechaHoraId INT NOT NULL,
+    EstadoId INT NOT NULL,
+    PrecioId INT NOT NULL,
+    CONSTRAINT FK_Turno_Cliente FOREIGN KEY (IdCliente) REFERENCES Usuarios(Id),
     CONSTRAINT FK_Turno_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(Id),
     CONSTRAINT FK_Turno_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(Id),
     CONSTRAINT FK_Turno_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(Id),
-    CONSTRAINT FK_Turno_FechaHora FOREIGN KEY (IdFechaHora) REFERENCES FechaHora(Id)
+    CONSTRAINT FK_Turno_FechaHora FOREIGN KEY (FechaHoraId) REFERENCES FechaHora(Id),
+    CONSTRAINT FK_Turno_Estado FOREIGN KEY (EstadoId) REFERENCES EstadosTurnos(Id),
+    CONSTRAINT FK_Turno_Precio FOREIGN KEY (PrecioId) REFERENCES Precios(Id)
 );
+
+CREATE TABLE Precios (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    IdTipoVehiculo INT NOT NULL,
+    IdRubro INT NOT NULL,
+    IdServicio INT NOT NULL,
+    Precio DECIMAL(10, 2) NOT NULL,
+    CONSTRAINT FK_Precio_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(Id),
+    CONSTRAINT FK_Precio_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(Id),
+    CONSTRAINT FK_Precio_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(Id)
+);
+
+
+INSERT INTO Precios (IdTipoVehiculo, IdRubro, IdServicio, Precio)
+VALUES
+-- COUPE
+(1, 1, 1, 15.00), -- COUPE, LAVADERO, Lavado basico
+(1, 1, 2, 20.00), -- COUPE, LAVADERO, Lavado Premium
+(1, 1, 3, 30.00), -- COUPE, LAVADERO, Pulido y Encerado
+(1, 2, 5, 55.00), -- COUPE, DETAILING, Detailing Completo
+(1, 3, 4, 35.00), -- COUPE, LUBRICENTRO, Cambio de Aceite
+
+-- DEPORTIVO
+(2, 1, 1, 20.00), -- DEPORTIVO, LAVADERO, Lavado basico
+(2, 1, 2, 25.00), -- DEPORTIVO, LAVADERO, Lavado Premium
+(2, 1, 3, 35.00), -- DEPORTIVO, LAVADERO, Pulido y Encerado
+(2, 2, 5, 60.00), -- DEPORTIVO, DETAILING, Detailing Completo
+(2, 3, 4, 40.00), -- DEPORTIVO, LUBRICENTRO, Cambio de Aceite
+
+-- CAMION
+(3, 1, 1, 30.00), -- CAMION, LAVADERO, Lavado basico
+(3, 1, 2, 35.00), -- CAMION, LAVADERO, Lavado Premium
+(3, 1, 3, 45.00), -- CAMION, LAVADERO, Pulido y Encerado
+(3, 2, 5, 70.00), -- CAMION, DETAILING, Detailing Completo
+(3, 3, 4, 50.00), -- CAMION, LUBRICENTRO, Cambio de Aceite
+
+-- MINI
+(4, 1, 1, 10.00), -- MINI, LAVADERO, Lavado basico
+(4, 1, 2, 15.00), -- MINI, LAVADERO, Lavado Premium
+(4, 1, 3, 25.00), -- MINI, LAVADERO, Pulido y Encerado
+(4, 2, 5, 50.00), -- MINI, DETAILING, Detailing Completo
+(4, 3, 4, 30.00), -- MINI, LUBRICENTRO, Cambio de Aceite
+
+-- 4X4
+(5, 1, 1, 25.00), -- 4X4, LAVADERO, Lavado basico
+(5, 1, 2, 30.00), -- 4X4, LAVADERO, Lavado Premium
+(5, 1, 3, 40.00), -- 4X4, LAVADERO, Pulido y Encerado
+(5, 2, 5, 65.00), -- 4X4, DETAILING, Detailing Completo
+(5, 3, 4, 45.00), -- 4X4, LUBRICENTRO, Cambio de Aceite
+
+-- SEDAN
+(6, 1, 1, 15.00), -- SEDAN, LAVADERO, Lavado basico
+(6, 1, 2, 20.00), -- SEDAN, LAVADERO, Lavado Premium
+(6, 1, 3, 30.00), -- SEDAN, LAVADERO, Pulido y Encerado
+(6, 2, 5, 55.00), -- SEDAN, DETAILING, Detailing Completo
+(6, 3, 4, 35.00), -- SEDAN, LUBRICENTRO, Cambio de Aceite
+
+-- SUV
+(7, 1, 1, 25.00), -- SUV, LAVADERO, Lavado basico
+(7, 1, 2, 35.00), -- SUV, LAVADERO, Lavado Premium
+(7, 1, 3, 45.00), -- SUV, LAVADERO, Pulido y Encerado
+(7, 2, 5, 70.00), -- SUV, DETAILING, Detailing Completo
+(7, 3, 4, 50.00), -- SUV, LUBRICENTRO, Cambio de Aceite
+
+-- VAN
+(8, 1, 1, 30.00), -- VAN, LAVADERO, Lavado basico
+(8, 1, 2, 40.00), -- VAN, LAVADERO, Lavado Premium
+(8, 1, 3, 50.00), -- VAN, LAVADERO, Pulido y Encerado
+(8, 2, 5, 75.00), -- VAN, DETAILING, Detailing Completo
+(8, 3, 4, 55.00), -- VAN, LUBRICENTRO, Cambio de Aceite
+
+-- FAMILIAR
+(9, 1, 1, 30.00), -- FAMILIAR, LAVADERO, Lavado basico
+(9, 1, 2, 40.00), -- FAMILIAR, LAVADERO, Lavado Premium
+(9, 1, 3, 50.00), -- FAMILIAR, LAVADERO, Pulido y Encerado
+(9, 2, 5, 75.00), -- FAMILIAR, DETAILING, Detailing Completo
+(9, 3, 4, 55.00); -- FAMILIAR, LUBRICENTRO, Cambio de Aceite
+
+
+SELECT * from Precios
+
+
+CREATE TABLE EstadosTurnos (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Descripcion NVARCHAR(255)
+);
+
+INSERT INTO EstadosTurnos (Descripcion)
+VALUES 
+    ('Pendiente'), 
+    ('En Proceso'),
+    ('Completado'), 
+    ('Cancelado');
+
 
 
 --ADMIN--
@@ -146,13 +244,13 @@ INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LUBRICENTRO','Servici
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('MECANICA','Servicio: Mecanica integral', 14)
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('CUBIERTAS','Servicio: Cambio de cubiertas, alineacion y balanceo', 15)
 
-INSERT INTO Servicios (Nombre, Descripcion, Tiempo, Precio)
+INSERT INTO Servicios (Nombre, Descripcion, Tiempo)
 VALUES 
-('Lavado Básico', 'Limpieza exterior rápida', 0.5, 15.00),
-('Lavado Premium', 'Limpieza exterior e interior completa', 1.0, 25.00),
-('Pulido y Encerado', 'Pulido exterior y aplicación de cera protectora', 2.0, 50.00),
-('Cambio de Aceite', 'Cambio de aceite y revisión básica del motor', 1.5, 35.00),
-('Detailing Completo', 'Limpieza a fondo de todo el vehículo', 4.0, 100.00);
+('Lavado Básico', 'Limpieza exterior rápida', 0.5),
+('Lavado Premium', 'Limpieza exterior e interior completa', 1.0),
+('Pulido y Encerado', 'Pulido exterior y aplicación de cera protectora', 2.0),
+('Cambio de Aceite', 'Cambio de aceite y revisión básica del motor', 1.5),
+('Detailing Completo', 'Limpieza a fondo de todo el vehículo', 4.0);
 
 
 INSERT INTO RubroServicio (IdRubro, IdServicio)
@@ -195,4 +293,6 @@ FROM RubroServicio rs
 INNER JOIN Rubros r ON r.Id = rs.IdRubro
 INNER JOIN Servicios s ON s.Id = rs.IdServicio
 
-select * from Usuarios
+
+
+
