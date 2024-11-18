@@ -93,14 +93,14 @@ CREATE TABLE Turnos (
     IdServicio INT NOT NULL,
     Aclaracion NVARCHAR(MAX),
     FechaHoraId INT NOT NULL,
-    EstadoId INT NOT NULL,
-    PrecioId INT NOT NULL,
+    IdEstado INT NOT NULL,
+    Precio INT NOT NULL,
     CONSTRAINT FK_Turno_Cliente FOREIGN KEY (IdCliente) REFERENCES Usuarios(Id),
     CONSTRAINT FK_Turno_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(Id),
     CONSTRAINT FK_Turno_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(Id),
     CONSTRAINT FK_Turno_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(Id),
     CONSTRAINT FK_Turno_FechaHora FOREIGN KEY (FechaHoraId) REFERENCES FechaHora(Id),
-    CONSTRAINT FK_Turno_Estado FOREIGN KEY (EstadoId) REFERENCES EstadosTurnos(Id),
+    CONSTRAINT FK_Turno_Estado FOREIGN KEY (IdEstado) REFERENCES EstadosTurnos(Id),
     CONSTRAINT FK_Turno_Precio FOREIGN KEY (PrecioId) REFERENCES Precios(Id)
 );
 
@@ -185,12 +185,12 @@ VALUES
 SELECT * from Precios
 
 
-CREATE TABLE EstadosTurnos (
+CREATE TABLE EstadoTurnos (
     Id INT PRIMARY KEY IDENTITY(1,1),
     Descripcion NVARCHAR(255)
 );
 
-INSERT INTO EstadosTurnos (Descripcion)
+INSERT INTO EstadoTurnos (Descripcion)
 VALUES 
     ('Pendiente'), 
     ('En Proceso'),
