@@ -75,7 +75,7 @@ namespace negocio
                 return false;
         }
 
-        public static bool esAdmin(object user)
+        public bool esAdmin(object user)
         {
             Empleado emp = user != null ? (Empleado)user : null;
 

@@ -47,7 +47,7 @@
                     case 1:%>
                 <div class="divDesplegable">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <%=usu.Nombre%>
+                        <%=empleado.Nombre%>
                     </a>
                     <ul class="dropdown-menu" style="background-color: #222222;">
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Usuarios</a></li>
@@ -62,7 +62,7 @@
                     case 2:%>
                 <div class="divDesplegable">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <%=usu.Nombre%>
+                        <%=empleado.Nombre%>
                     </a>
                     <ul class="dropdown-menu" style="background-color: #222222;">
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Turnos</a></li>
@@ -75,7 +75,7 @@
 
                 <div class="divDesplegable">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <%=usu.Nombre%>
+                        <%=cliente.Nombre%>
                     </a>
                     <ul class="dropdown-menu" style="background-color: #222222;">
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Mi Perfil</a></li>

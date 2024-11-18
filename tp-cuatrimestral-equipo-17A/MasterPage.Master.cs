@@ -12,11 +12,12 @@ namespace tp_cuatrimestral_equipo_17A
 {
     public partial class MasterPage : System.Web.UI.MasterPage
     {
-        public Usuario usu { get; set; }
+        public Empleado empleado { get; set; }
+        public Cliente cliente { get; set; }
         public int sesionActiva { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Herramientas herramientas = new Herramientas();
 
             if (!(Page is Login || Page is Default || Page is About || Page is Registrarse))
             {
@@ -26,10 +27,23 @@ namespace tp_cuatrimestral_equipo_17A
                     Response.Redirect("Default.aspx", false);
             }
 
-            if ((Usuario)Session["usuario"] != null)
+            if ((Empleado)Session["empleado"] != null)
             {
-                usu = (Usuario)Session["usuario"];
-                sesionActiva = usu.tipo;
+                empleado = (Empleado)Session["empleado"];
+                if (herramientas.esAdmin(empleado))
+                {
+                    sesionActiva = 1;
+                }
+                else
+                {
+                    sesionActiva = 2;
+                }
+
+            }
+            else if ((Cliente)Session["cliente"] != null)
+            {
+                cliente = (Cliente)Session["cliente"];
+                sesionActiva = 3;
             }
             else
             {

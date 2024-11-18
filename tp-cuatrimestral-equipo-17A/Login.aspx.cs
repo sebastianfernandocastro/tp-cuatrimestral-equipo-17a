@@ -49,7 +49,7 @@ namespace tp_cuatrimestral_equipo_17A
             usu.NombreUsuario = usuario;
             usu.Contraseña = contraseña;
 
-            if(negocio.Login(usu, cl,emp))
+            if(negocio.Login(usu,cl,emp))
             {
                 Session.Add("usuario", usu);
 
