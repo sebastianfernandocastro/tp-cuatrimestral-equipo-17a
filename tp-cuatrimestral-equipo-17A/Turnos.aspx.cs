@@ -8,6 +8,8 @@ using negocio;
 using dominio;
 using System.Web.Services.Description;
 
+
+
 namespace tp_cuatrimestral_equipo_17A
 {
     public partial class Turnos : System.Web.UI.Page
@@ -18,6 +20,8 @@ namespace tp_cuatrimestral_equipo_17A
         private RubroNegocio rubroNegocio = new RubroNegocio();
         private ServicioNegocio servicioNegocio = new ServicioNegocio();
         private FechaHoraNegocio fechaHoraNegocio = new FechaHoraNegocio();
+        private EstadoTurnosNegocio EstadoTurnoNegocio = new EstadoTurnosNegocio();
+        private string id = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,6 +30,11 @@ namespace tp_cuatrimestral_equipo_17A
                 CargarTurnos();
                 CargarListas();
                 CargarHorariosDisponibles();
+            }
+            if(!IsPostBack && !String.IsNullOrEmpty(id))
+            {
+                //cargar precio ....
+                //cargarPrecio()
             }
 
         }
@@ -58,7 +67,27 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMessage.Visible = true;
             }
         }
-
+        public void cargarPrecio()
+        {
+            try
+            {
+                if(ddlRubro.SelectedValue != null && Convert.ToInt32(ddlRubro.SelectedValue) > 0
+                    &&   ddlServicio.SelectedValue != null && Convert.ToInt32(ddlServicio.SelectedValue) > 0
+                    && ddlVehiculo.SelectedValue != null && Convert.ToInt32(ddlVehiculo.SelectedValue) > 0)
+                {
+                    int idServicio = Convert.ToInt32(ddlServicio.SelectedValue);   
+                    int idRubro = Convert.ToInt32(ddlRubro.SelectedValue);   
+                    int idVehiculo = Convert.ToInt32(ddlVehiculo.SelectedValue);
+                    txtPrecio.Text = turnoNegocio.obtenerPrecio(idServicio, idRubro, idVehiculo).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = $"Error al cargar el precio: {ex.Message}";
+                lblMessage.CssClass = "text-danger";
+                lblMessage.Visible = true;
+            }
+        }
 
         private void CargarListas()
         {
@@ -91,6 +120,13 @@ namespace tp_cuatrimestral_equipo_17A
                 ddlServicio.DataValueField = "Id";   // ID del servicio
                 ddlServicio.DataBind();
                 ddlServicio.Items.Insert(0, new ListItem("Seleccione un servicio", "0"));
+
+                // Cargar Estado Turnos
+                ddlEstado.DataSource = EstadoTurnoNegocio.Listar();
+                ddlEstado.DataTextField = "descripcion"; // Campo que muestra el nombre del Estado
+                ddlEstado.DataValueField = "Id";   // ID del Estado
+                ddlEstado.DataBind();
+                ddlEstado.Items.Insert(0, new ListItem("Seleccione un Estado", "0"));
             }
             catch (Exception ex)
             {
@@ -181,7 +217,7 @@ namespace tp_cuatrimestral_equipo_17A
                     Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) },
                     Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) },
                     FechaHora = new FechaHora { Fecha = DateTime.Parse(ddlFechaHora.SelectedValue) },
-                    Estado = txtEstado.Text
+                    Estado = new EstadoTurnos { Id = int.Parse(ddlEstado.SelectedValue) } 
                 };
 
                 if (turnoNegocio.Agregar(nuevoTurno))
@@ -247,7 +283,7 @@ namespace tp_cuatrimestral_equipo_17A
                     }
 
                     ddlFechaHora.Text = turno.FechaHora.Fecha.ToString("yyyy-MM-dd");
-                    txtEstado.Text = turno.Estado;
+                    ddlEstado.SelectedValue = turno.Estado.Id.ToString();
 
                     // Establecer el ID del turno en el HiddenField
                     hfTurnoId.Value = turno.Id.ToString();
@@ -315,7 +351,7 @@ namespace tp_cuatrimestral_equipo_17A
                     Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) },
                     Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) },
                     FechaHora = new FechaHora { Fecha = DateTime.Parse(ddlFechaHora.SelectedValue) },
-                    Estado = txtEstado.Text
+                    Estado = new EstadoTurnos { Id = int.Parse(ddlEstado.SelectedValue) }
                 };
 
                 if (turnoNegocio.Modificar(turnoEditado))
@@ -343,6 +379,10 @@ namespace tp_cuatrimestral_equipo_17A
             }
         }
 
+        protected void ddlServicio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
  

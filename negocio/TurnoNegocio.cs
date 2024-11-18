@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,7 +31,7 @@ namespace negocio
                 accesoDatos.setearParametro("@IdRubro", nuevoTurno.Rubro.Id);
                 accesoDatos.setearParametro("@IdServicio", nuevoTurno.Servicio.Id);
                 accesoDatos.setearParametro("@IdFechaHora", nuevoTurno.FechaHora.Id);
-                accesoDatos.setearParametro("@Estado", nuevoTurno.Estado);
+                accesoDatos.setearParametro("@Estado", nuevoTurno.Estado.Id);
                 accesoDatos.setearParametro("@Aclaracion", nuevoTurno.Aclaracion ?? "");
 
                 accesoDatos.EjecutarAccion();
@@ -50,7 +51,7 @@ namespace negocio
             try
             {
                 string query = @"
-                SELECT T.Id, T.IdCliente, T.IdTipoVehiculo, T.IdRubro, T.IdServicio, T.IdFechaHora, T.Estado, T.Aclaracion,
+                SELECT T.Id, T.IdCliente, T.IdTipoVehiculo, T.IdRubro, T.IdServicio, T.IdFechaHora, T.IdEstado, et.descripcion descripEstado , T.Aclaracion,
                        U.Nombre AS ClienteNombre,
                        TV.Nombre AS VehiculoNombre,
                        R.Nombre AS RubroNombre,
@@ -61,7 +62,8 @@ namespace negocio
                 INNER JOIN TipoVehiculo TV ON T.IdTipoVehiculo = TV.Id
                 INNER JOIN Rubros R ON T.IdRubro = R.Id
                 INNER JOIN Servicios S ON T.IdServicio = S.Id
-                INNER JOIN FechaHora FH ON T.IdFechaHora = FH.Id";
+                INNER JOIN FechaHora FH ON T.IdFechaHora = FH.Id
+                inner join EstadoTurnos et on et.Id = t.IdEstado";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
@@ -96,7 +98,11 @@ namespace negocio
                             Id = (int)accesoDatos.Lector["IdFechaHora"],
                             Fecha = (DateTime)accesoDatos.Lector["Fecha"]
                         },
-                        Estado = accesoDatos.Lector["Estado"].ToString(),
+                        Estado = new EstadoTurnos
+                        {
+                          Id = (int)accesoDatos.Lector["IdEstado"],
+                          descripcion = accesoDatos.Lector["descripEstado"].ToString()
+                        },
                         Aclaracion = accesoDatos.Lector["Aclaracion"].ToString()
                     };
                     lista.Add(turno);
@@ -124,12 +130,13 @@ namespace negocio
                        TV.Id AS IdVehiculo, TV.Nombre AS Vehiculo,
                        R.Id AS IdRubro, R.Nombre AS Rubro,
                        S.Id AS IdServicio, S.Nombre AS Servicio,
-                       T.IdFechaHora, T.Estado, T.Aclaracion
+                       T.IdFechaHora, T.IdEstado, et.descripcion descripEstado, T.Aclaracion
                 FROM Turnos T
                 INNER JOIN Usuarios U ON T.IdCliente = U.Id
                 INNER JOIN TipoVehiculo TV ON T.IdTipoVehiculo = TV.Id
                 INNER JOIN Rubros R ON T.IdRubro = R.Id
                 INNER JOIN Servicios S ON T.IdServicio = S.Id
+                inner join EstadoTurnos et on et.Id = t.IdEstado
                 WHERE T.Id = @Id";
 
                 accesoDatos.setearConsulta(query);
@@ -165,7 +172,11 @@ namespace negocio
                         {
                             Id = (int)accesoDatos.Lector["IdFechaHora"]
                         },
-                        Estado = accesoDatos.Lector["Estado"].ToString(),
+                        Estado = new EstadoTurnos
+                        {
+                            Id = (int)accesoDatos.Lector["IdEstado"],
+                            descripcion = accesoDatos.Lector["descripEstado"].ToString()
+                        },
                         Aclaracion = accesoDatos.Lector["Aclaracion"].ToString()
                     };
                 }
@@ -203,7 +214,7 @@ namespace negocio
                 accesoDatos.setearParametro("@IdRubro", turno.Rubro.Id);
                 accesoDatos.setearParametro("@IdServicio", turno.Servicio.Id);
                 accesoDatos.setearParametro("@IdFechaHora", turno.FechaHora.Id);
-                accesoDatos.setearParametro("@Estado", turno.Estado);
+                accesoDatos.setearParametro("@Estado", turno.Estado.Id);
                 accesoDatos.setearParametro("@Aclaracion", turno.Aclaracion);
 
                 accesoDatos.EjecutarAccion();
@@ -233,6 +244,36 @@ namespace negocio
                 Console.WriteLine($"Error al eliminar Turno: {ex.Message}");
                 return false;
             }
+        }
+        public decimal obtenerPrecio(int IdServicio, int idRubro, int idTipoVehiculo)
+        {
+            decimal precio = 0;
+            
+            try
+            {
+                string query = @"
+                SELECT Precio from precio where IdTipoVehiculo = @IdTipoVehiculo and IdServicio = @IdServicio and idRubro = @idRubro";
+
+                accesoDatos.setearConsulta(query);
+                accesoDatos.setearParametro("@IdServicio", IdServicio);
+                accesoDatos.setearParametro("@idRubro", idRubro);
+                accesoDatos.setearParametro("@idTipoVehiculo", idTipoVehiculo);
+                accesoDatos.EjecutarLectura();
+
+                if (accesoDatos.Lector.Read())
+                {
+                    precio = (decimal)accesoDatos.Lector["precio"];
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener turno por ID: {ex.Message}");
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return precio;
         }
     }
 }

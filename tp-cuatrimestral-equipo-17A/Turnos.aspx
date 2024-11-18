@@ -14,33 +14,33 @@
         <!-- Listado de Turnos -->
         <div class="row mt-3">
             <div class="col-md-12">
-               <asp:GridView ID="gvTurnos" runat="server" CssClass="table table-striped" AutoGenerateColumns="false" 
-    OnRowCommand="gvTurnos_RowCommand" DataKeyNames="Id">
-    <Columns>
-        <asp:BoundField DataField="Id" HeaderText="ID" />
-        <asp:BoundField DataField="Usuario.Nombre" HeaderText="Cliente" />
-        <asp:BoundField DataField="Vehiculo.Nombre" HeaderText="Vehículo" />
-        <asp:BoundField DataField="Rubro.Nombre" HeaderText="Rubro" />
-        <asp:BoundField DataField="Servicio.Nombre" HeaderText="Servicio" />
-        <asp:BoundField DataField="Estado" HeaderText="Estado" />
-        <asp:BoundField DataField="Aclaracion" HeaderText="Aclaración" />
-        <asp:TemplateField>
-            <ItemTemplate>
-                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' 
-                    CssClass="btn btn-secondary btn-sm" Text="Modificar">
-                </asp:LinkButton>
-            </ItemTemplate>
-        </asp:TemplateField>
-        <asp:TemplateField>
-            <ItemTemplate>
-                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'
-                    CssClass="btn btn-danger btn-sm" Text="Eliminar"
-                    OnClientClick="return confirm('¿Está seguro de que desea eliminar este turno?');">
-                </asp:LinkButton>
-            </ItemTemplate>
-        </asp:TemplateField>
-    </Columns>
-</asp:GridView>
+                <asp:GridView ID="gvTurnos" runat="server" CssClass="table table-striped" AutoGenerateColumns="false"
+                    OnRowCommand="gvTurnos_RowCommand" DataKeyNames="Id">
+                    <Columns>
+                        <asp:BoundField DataField="Id" HeaderText="ID" />
+                        <asp:BoundField DataField="Usuario.Nombre" HeaderText="Cliente" />
+                        <asp:BoundField DataField="Vehiculo.Nombre" HeaderText="Vehículo" />
+                        <asp:BoundField DataField="Rubro.Nombre" HeaderText="Rubro" />
+                        <asp:BoundField DataField="Servicio.Nombre" HeaderText="Servicio" />
+                        <asp:BoundField DataField="Estado" HeaderText="Estado.Descripcion" />
+                        <asp:BoundField DataField="Aclaracion" HeaderText="Aclaración" />
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>'
+                                    CssClass="btn btn-secondary btn-sm" Text="Modificar">
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'
+                                    CssClass="btn btn-danger btn-sm" Text="Eliminar"
+                                    OnClientClick="return confirm('¿Está seguro de que desea eliminar este turno?');">
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
 
 
             </div>
@@ -64,20 +64,40 @@
             </div>
             <div class="col-md-6">
                 <asp:Label ID="lblServicio" runat="server" AssociatedControlID="ddlServicio" Text="Servicio"></asp:Label>
-                <asp:DropDownList ID="ddlServicio" runat="server" CssClass="form-select"></asp:DropDownList>
+                <asp:DropDownList ID="ddlServicio" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlServicio_SelectedIndexChanged" CssClass="form-select"></asp:DropDownList>
             </div>
         </div>
+
         <div class="row mt-3">
             <div class="col-md-6">
-                     <asp:Label ID="lblFechaHora" runat="server" AssociatedControlID="ddlFechaHora" Text="Hora"></asp:Label>
-                    <asp:DropDownList ID="ddlFechaHora" runat="server" CssClass="form-select">
-                  </asp:DropDownList>
-            </div>
-            <div class="col-md-6">
-                <asp:Label ID="lblEstado" runat="server" AssociatedControlID="txtEstado" Text="Estado"></asp:Label>
-                <asp:TextBox ID="txtEstado" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:Label ID="lblPrecio" runat="server" AssociatedControlID="txtPrecio" Text="Precio"></asp:Label>
+                <asp:TextBox ID="txtPrecio" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
             </div>
         </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <asp:Label ID="lblFecha" runat="server" AssociatedControlID="txtFecha" Text="Fecha"></asp:Label>
+                <asp:TextBox ID="txtFecha" runat="server" CssClass="form-control" TextMode="Date" />
+            </div>
+            <div class="col-md-6">
+                <asp:Label ID="lblFechaHora" runat="server" AssociatedControlID="ddlFechaHora" Text="Hora"></asp:Label>
+                <asp:DropDownList ID="ddlFechaHora" runat="server" CssClass="form-select">
+                </asp:DropDownList>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <asp:Label ID="lblEstado" runat="server" AssociatedControlID="ddlEstado" Text="Estado"></asp:Label>
+                <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control"></asp:DropDownList>
+            </div>
+            <div class="col-md-6">
+                <asp:Label ID="lblAclaraciones" runat="server" AssociatedControlID="txtAclaraciones" Text="Aclaraciones"></asp:Label>
+                <asp:TextBox ID="txtAclaraciones" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4"></asp:TextBox>
+            </div>
+        </div>
+
 
         <!-- HiddenField para almacenar el ID del turno -->
         <asp:HiddenField ID="hfTurnoId" runat="server" />

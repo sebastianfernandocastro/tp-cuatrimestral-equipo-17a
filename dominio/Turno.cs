@@ -15,6 +15,7 @@ namespace dominio
         public Servicio Servicio { get; set; }
         public string Aclaracion { get; set; }
         public FechaHora FechaHora { get; set; }
-        public String Estado {  get; set; }
+        public EstadoTurnos Estado { get; set; }
+        public decimal Precio { get; set; }
     }
 }

@@ -68,14 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="bin\dominio.dll" />
-    <Content Include="bin\dominio.pdb" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
-    <Content Include="bin\negocio.dll" />
-    <Content Include="bin\negocio.pdb" />
-    <Content Include="bin\tp-cuatrimestral-equipo-17A.dll" />
-    <Content Include="bin\tp-cuatrimestral-equipo-17A.pdb" />
     <Content Include="Clientes.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="EditarPerfil.aspx" />
@@ -217,7 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MasterPage.Master" />
-    <Content Include="bin\tp-cuatrimestral-equipo-17A.dll.config" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
