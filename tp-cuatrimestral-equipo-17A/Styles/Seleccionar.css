@@ -16,7 +16,7 @@
 }
 
 .rectangulo {
-    width: 200px;
+    width: 250px;
     height: 400px;
     background-color: #3498db; 
     transition: transform 0.3s ease;

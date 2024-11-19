@@ -20,10 +20,10 @@ namespace tp_cuatrimestral_equipo_17A
             if (!IsPostBack)
             {
                 DateTime today = DateTime.Today;
-                DateTime tomorrow = today.AddDays(1);
+                DateTime nextSunday = today.AddDays(7 - (int)today.DayOfWeek);
 
                 string todayFormatted = today.ToString("yyyy-MM-dd");
-                string tomorrowFormatted = tomorrow.ToString("yyyy-MM-dd");
+                string tomorrowFormatted = nextSunday.ToString("yyyy-MM-dd");
 
                 calendarInput.Attributes["min"] = todayFormatted;
                 calendarInput.Attributes["max"] = tomorrowFormatted;

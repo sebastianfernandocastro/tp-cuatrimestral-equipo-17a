@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container mt-4">
+    <div class="container mt-4" style="height:76.1vh;">
         <h2>Registrarse</h2>
         <asp:Label ID="lblMensage" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 
