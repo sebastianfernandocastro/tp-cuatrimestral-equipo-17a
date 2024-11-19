@@ -82,6 +82,7 @@
     <Content Include="Empleados.aspx" />
     <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioEmpleado.aspx" />
+    <Content Include="Styles\SeleccionarServicio.css" />
     <Content Include="TurnosListado.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />

@@ -1,0 +1,23 @@
+﻿body {
+}
+
+.calendar-container {
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input[type="date"] {
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+    input[type="date"]:disabled {
+        background-color: #eaeaea;
+        cursor: not-allowed;
+    }
