@@ -22,61 +22,54 @@ namespace tp_cuatrimestral_equipo_17A
         private FechaHoraNegocio fechaHoraNegocio = new FechaHoraNegocio();
         private EstadoTurnosNegocio EstadoTurnoNegocio = new EstadoTurnosNegocio();
         private string id = null;
+        private Usuario usu = null;
+        private Turno turno = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            usu = (Usuario)Session["usuario"];
+            id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
             if (!Page.IsPostBack)
             {
-                CargarTurnos();
                 CargarListas();
-                CargarHorariosDisponibles();
+                txtFecha.Text = DateTime.Now.ToString();
+                CargarHorariosDisponibles(DateTime.Now.Date);
             }
-            if(!IsPostBack && !String.IsNullOrEmpty(id))
+            if (!IsPostBack && !String.IsNullOrEmpty(id))
             {
                 //cargar precio ....
+                turno = turnoNegocio.ObtenerPorId(Convert.ToInt32(id));
+                
+                if(turno != null)
+                {
+                    ddlRubro.SelectedValue = turno.Rubro.Id.ToString();
+                    ddlUsuario.SelectedValue = turno.Usuario.Id.ToString();
+                    ddlVehiculo.SelectedValue = turno.Vehiculo.Id.ToString();
+                    ddlServicio.SelectedValue = turno.Servicio.Id.ToString();
+                    ddlEstado.SelectedValue = turno.Estado.Id.ToString();
+                    txtFecha.Text = turno.Fecha.ToString();
+                    //ddlFechaHora.SelectedValue = turno.Hora.ToString();
+                    ddlFechaHora.SelectedValue = "1";
+                    if (usu.tipo == 1) ddlEstado.Enabled = false;
+                    else ddlEstado.Enabled = true;
+                }
+
                 cargarPrecio();
             }
 
         }
 
-        private void CargarTurnos()
-        {
-            try
-            {
-                var turnos = turnoNegocio.Listar(); 
-
-                if (turnos != null && turnos.Count > 0)
-                {
-                    gvTurnos.DataSource = turnos;
-                    gvTurnos.DataBind();
-                    lblMessage.Visible = false; 
-                }
-                else
-                {
-                    gvTurnos.DataSource = null;
-                    gvTurnos.DataBind(); 
-                    lblMessage.Text = "No hay turnos registrados.";
-                    lblMessage.CssClass = "text-warning";
-                    lblMessage.Visible = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = $"Error al cargar los turnos: {ex.Message}";
-                lblMessage.CssClass = "text-danger";
-                lblMessage.Visible = true;
-            }
-        }
+     
         public void cargarPrecio()
         {
             try
             {
-                if(ddlRubro.SelectedValue != null && Convert.ToInt32(ddlRubro.SelectedValue) > 0
-                    &&   ddlServicio.SelectedValue != null && Convert.ToInt32(ddlServicio.SelectedValue) > 0
+                if (ddlRubro.SelectedValue != null && Convert.ToInt32(ddlRubro.SelectedValue) > 0
+                    && ddlServicio.SelectedValue != null && Convert.ToInt32(ddlServicio.SelectedValue) > 0
                     && ddlVehiculo.SelectedValue != null && Convert.ToInt32(ddlVehiculo.SelectedValue) > 0)
                 {
-                    int idServicio = Convert.ToInt32(ddlServicio.SelectedValue);   
-                    int idRubro = Convert.ToInt32(ddlRubro.SelectedValue);   
+                    int idServicio = Convert.ToInt32(ddlServicio.SelectedValue);
+                    int idRubro = Convert.ToInt32(ddlRubro.SelectedValue);
                     int idVehiculo = Convert.ToInt32(ddlVehiculo.SelectedValue);
                     txtPrecio.Text = turnoNegocio.obtenerPrecio(idServicio, idRubro, idVehiculo).ToString();
                 }
@@ -139,7 +132,8 @@ namespace tp_cuatrimestral_equipo_17A
         protected void ddlRubro_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idRubro;
-            ActualizarPrecio();
+            txtPrecio.Text = "0";
+            //ActualizarPrecio();
             if (int.TryParse(ddlRubro.SelectedValue, out idRubro) && idRubro > 0)
             {
                 // Cargar servicios relacionados con el rubro seleccionado
@@ -178,87 +172,47 @@ namespace tp_cuatrimestral_equipo_17A
 
         protected void ddlServicio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ActualizarPrecio();
+            cargarPrecio();
         }
 
         protected void ddlVehiculo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ActualizarPrecio();
+            cargarPrecio();
         }
 
-        private void ActualizarPrecio()
-        {
-            try
-            {
-               
-                int idVehiculo = int.Parse(ddlVehiculo.SelectedValue);
-                int idRubro = int.Parse(ddlRubro.SelectedValue);
-                int idServicio = int.Parse(ddlServicio.SelectedValue);
+        //private void ActualizarPrecio()
+        //{
+        //    try
+        //    {
 
-                
-                if (idVehiculo > 0 && idRubro > 0 && idServicio > 0)
-                {
-                   
-                    TurnoNegocio turnoNegocio = new TurnoNegocio();
-                    decimal precio = turnoNegocio.obtenerPrecio(idVehiculo, idRubro, idServicio);
+        //        int idVehiculo = int.Parse(ddlVehiculo.SelectedValue);
+        //        int idRubro = int.Parse(ddlRubro.SelectedValue);
+        //        int idServicio = int.Parse(ddlServicio.SelectedValue);
 
-                   
-                    txtPrecio.Text = precio.ToString("C");
-                }
-                else
-                {
-                    txtPrecio.Text = string.Empty;
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Error al actualizar el precio: " + ex.Message;
-                lblMessage.CssClass = "text-danger";
-                lblMessage.Visible = true;
-            }
-        }
 
-        protected void ddlRubro_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int idRubro;
-            ActualizarPrecio();
-            if (int.TryParse(ddlRubro.SelectedValue, out idRubro) && idRubro > 0)
-            {
-                // Cargar servicios relacionados con el rubro seleccionado
-                try
-                {
-                    var servicios = servicioNegocio.ListarPorRubro(idRubro);
+        //        if (idVehiculo > 0 && idRubro > 0 && idServicio > 0)
+        //        {
 
-                    if (servicios != null && servicios.Count > 0)
-                    {
-                        ddlServicio.DataSource = servicios;
-                        ddlServicio.DataTextField = "Nombre";
-                        ddlServicio.DataValueField = "Id";
-                        ddlServicio.DataBind();
-                        ddlServicio.Items.Insert(0, new ListItem("Seleccione un servicio", "0"));
-                    }
-                    else
-                    {
-                        ddlServicio.Items.Clear();
-                        ddlServicio.Items.Insert(0, new ListItem("No hay servicios disponibles", "0"));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    lblMessage.Text = "Error al cargar los servicios: " + ex.Message;
-                    lblMessage.CssClass = "text-danger";
-                    lblMessage.Visible = true;
-                }
-            }
-            else
-            {
-                // Limpiar el dropdown si no se selecciona un rubro válido
-                ddlServicio.Items.Clear();
-                ddlServicio.Items.Insert(0, new ListItem("Seleccione un rubro primero", "0"));
-            }
-        }
+        //            TurnoNegocio turnoNegocio = new TurnoNegocio();
+        //            decimal precio = turnoNegocio.obtenerPrecio(idVehiculo, idRubro, idServicio);
 
-        private void CargarHorariosDisponibles()
+
+        //            txtPrecio.Text = precio.ToString();
+        //        }
+        //        else
+        //        {
+        //            txtPrecio.Text = string.Empty;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = "Error al actualizar el precio: " + ex.Message;
+        //        lblMessage.CssClass = "text-danger";
+        //        lblMessage.Visible = true;
+        //    }
+        //}
+
+        private void CargarHorariosDisponibles(DateTime fecha)
         {
             try
             {
@@ -294,14 +248,15 @@ namespace tp_cuatrimestral_equipo_17A
         {
             try
             {
+                //hacer validaciones de valores de los dropdown y textbox, que sea un valor no nullo o distinto de 0 el value.
                 Turno nuevoTurno = new Turno
                 {
                     Usuario = new Usuario { Id = int.Parse(ddlUsuario.SelectedValue) },
                     Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) },
                     Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) },
                     Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) },
-                    FechaHora = new FechaHora { Fecha = DateTime.Parse(ddlFechaHora.SelectedValue) },
-                    Estado = new EstadoTurnos { Id = int.Parse(ddlEstado.SelectedValue) } 
+                    Fecha = armarFecha(),
+                    Estado = new EstadoTurnos { Id = int.Parse(ddlEstado.SelectedValue) }
                 };
 
                 if (turnoNegocio.Agregar(nuevoTurno))
@@ -317,7 +272,6 @@ namespace tp_cuatrimestral_equipo_17A
                 }
 
                 lblMessage.Visible = true;
-                CargarTurnos(); 
             }
             catch (Exception ex)
             {
@@ -326,93 +280,6 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMessage.Visible = true;
             }
         }
-
-
-        protected void gvTurnos_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "Editar")
-            {
-                int idTurno = Convert.ToInt32(e.CommandArgument);
-
-                Turno turno = turnoNegocio.ObtenerPorId(idTurno);
-
-                if (turno != null)
-                {
-                    // Cargar los datos en el formulario
-                    ddlUsuario.SelectedValue = turno.Usuario.Id.ToString();
-                    ddlVehiculo.SelectedValue = turno.Vehiculo.Codigo.ToString();
-                    ddlRubro.SelectedValue = turno.Rubro.Id.ToString();
-
-                    // Cargar los servicios correspondientes al rubro seleccionado
-                    int idRubro = turno.Rubro.Id;
-                    var servicios = servicioNegocio.ListarPorRubro(idRubro);
-
-                    ddlServicio.DataSource = servicios;
-                    ddlServicio.DataTextField = "Nombre";
-                    ddlServicio.DataValueField = "Id";
-                    ddlServicio.DataBind();
-                    ddlServicio.Items.Insert(0, new ListItem("Seleccione un servicio", "0"));
-
-                    // Validar si el servicio existe en el DropDownList antes de asignarlo
-                    ListItem item = ddlServicio.Items.FindByValue(turno.Servicio.Id.ToString());
-                    if (item != null)
-                    {
-                        ddlServicio.SelectedValue = turno.Servicio.Id.ToString();
-                    }
-                    else
-                    {
-                        lblMessage.Text = "El servicio asociado al turno no está disponible.";
-                        lblMessage.CssClass = "text-warning";
-                        lblMessage.Visible = true;
-                    }
-
-                    ddlFechaHora.Text = turno.FechaHora.Fecha.ToString("yyyy-MM-dd");
-                    ddlEstado.SelectedValue = turno.Estado.Id.ToString();
-
-                    // Establecer el ID del turno en el HiddenField
-                    hfTurnoId.Value = turno.Id.ToString();
-
-                    // Cambiar visibilidad de los botones
-                    btnModificar.Visible = true;
-                    btnAgregar.Visible = false;
-                }
-                else
-                {
-                    lblMessage.Text = "No se encontró el turno para editar.";
-                    lblMessage.CssClass = "text-warning";
-                    lblMessage.Visible = true;
-                }
-            }
-            else if (e.CommandName == "Eliminar")
-            {
-                int idTurno = Convert.ToInt32(e.CommandArgument);
-                try
-                {
-                    if (turnoNegocio.Eliminar(idTurno))
-                    {
-                        lblMessage.Text = "Turno eliminado correctamente.";
-                        lblMessage.CssClass = "text-success";
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Error al eliminar el turno.";
-                        lblMessage.CssClass = "text-danger";
-                    }
-
-                    lblMessage.Visible = true;
-                    CargarTurnos(); // Refrescar el GridView
-                }
-                catch (Exception ex)
-                {
-                    lblMessage.Text = $"Error al eliminar el turno: {ex.Message}";
-                    lblMessage.CssClass = "text-danger";
-                    lblMessage.Visible = true;
-                }
-            }
-        }
-
-
-
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
@@ -434,7 +301,7 @@ namespace tp_cuatrimestral_equipo_17A
                     Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) },
                     Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) },
                     Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) },
-                    FechaHora = new FechaHora { Fecha = DateTime.Parse(ddlFechaHora.SelectedValue) },
+                    Fecha = DateTime.Parse(ddlFechaHora.SelectedValue),
                     Estado = new EstadoTurnos { Id = int.Parse(ddlEstado.SelectedValue) }
                 };
 
@@ -453,7 +320,6 @@ namespace tp_cuatrimestral_equipo_17A
                 }
 
                 lblMessage.Visible = true;
-                CargarTurnos(); // Refrescar el listado
             }
             catch (Exception ex)
             {
@@ -462,6 +328,135 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMessage.Visible = true;
             }
         }
+
+        protected void txtFecha_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Herramientas herramientas = new Herramientas();
+                validarFechaCliente();
+                if (herramientas.esAdmin(Session["Empleado"]))
+                {
+                    validarFechaAdmin();
+                }
+                else
+                {
+                    validarFechaCliente();
+                }
+
+                CargarHorariosDisponibles(Convert.ToDateTime(txtFecha.Text));
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = $"Error al verificar fecha: {ex.Message}";
+                lblMessage.CssClass = "text-danger";
+                lblMessage.Visible = true;
+            }
+
+
+        }
+
+        public void validarFechaCliente()
+        {
+            try
+            {
+                bool validado = true;
+                DateTime dFecha = Convert.ToDateTime(txtFecha.Text);
+                DateTime dFechaValidacion = DateTime.Now.Date;
+                DateTime dFechaDosDias = DateTime.Now.AddDays(2).Date;
+
+                if (dFecha.DayOfWeek != DayOfWeek.Sunday) // es domingo
+                {
+                    if (dFecha >= dFechaValidacion)
+                    {
+                        if (dFecha > dFechaDosDias)
+                        {
+                            lblMessage.Text = $"Error al verificar fecha: Solo puede sacar turnos a dos días posteriores a la fecha actual";
+                            lblMessage.CssClass = "text-danger";
+                            lblMessage.Visible = true;
+                            validado = false;
+                        }
+                    }
+                    else
+                    {
+                        lblMessage.Text = $"Error al verificar fecha: la Fecha debe ser mayor a la actual ";
+                        lblMessage.CssClass = "text-danger";
+                        lblMessage.Visible = true;
+                        validado = false;
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = $"Error al verificar fecha: Solo puede sacar turnos de Lunes a Sábados";
+                    lblMessage.CssClass = "text-danger";
+                    lblMessage.Visible = true;
+                    validado = false;
+                }
+
+                if (!validado) txtFecha.Text = DateTime.Now.ToString();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        public void validarFechaAdmin()
+        {
+            try
+            {
+                bool validado = true;
+                DateTime dFecha = Convert.ToDateTime(txtFecha.Text);
+                DateTime dFechaDosDias = DateTime.Now.AddDays(2).Date;
+
+
+                if (dFecha.DayOfWeek != DayOfWeek.Sunday) // es domingo
+                {
+                    if (dFecha > dFechaDosDias)
+                    {
+                        lblMessage.Text = $"Error al verificar fecha: Solo puede sacar turnos a dos días posteriores a la fecha actual";
+                        lblMessage.CssClass = "text-danger";
+                        lblMessage.Visible = true;
+                        validado = false;
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = $"Error al verificar fecha: Solo puede sacar turnos de Lunes a Sábados";
+                    lblMessage.CssClass = "text-danger";
+                    lblMessage.Visible = true;
+                    validado = false;
+                }
+
+
+                if (!validado) txtFecha.Text = DateTime.Now.ToString();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        public DateTime armarFecha()
+        {
+            DateTime fech = DateTime.Now;   
+            try
+            {
+                
+
+                DateTime fechaBase = DateTime.Parse(txtFecha.Text);
+                string horaSeleccionada = ddlFechaHora.SelectedItem.Text;
+                TimeSpan hora = TimeSpan.Parse(horaSeleccionada);
+
+                DateTime fechaCompleta = fechaBase.Add(hora);
+                
+                return fechaCompleta;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return fech;
+        }
+
     }
 }
- 

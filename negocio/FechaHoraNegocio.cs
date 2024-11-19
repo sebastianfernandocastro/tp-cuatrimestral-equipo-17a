@@ -71,7 +71,7 @@ namespace negocio
             List<FechaHora> lista = new List<FechaHora>();
             try
             {
-                string query = "SELECT Id, Fecha, Hora, Disponible FROM FechaHora";
+                string query = "SELECT Id,  Hora, Disponible FROM FechaHora";
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
 

@@ -82,6 +82,7 @@
     <Content Include="Empleados.aspx" />
     <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioEmpleado.aspx" />
+    <Content Include="TurnosListado.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="MiPerfil.aspx" />
@@ -153,6 +154,13 @@
     </Compile>
     <Compile Include="FormularioEmpleado.aspx.designer.cs">
       <DependentUpon>FormularioEmpleado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TurnosListado.aspx.cs">
+      <DependentUpon>TurnosListado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TurnosListado.aspx.designer.cs">
+      <DependentUpon>TurnosListado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

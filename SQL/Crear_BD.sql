@@ -33,10 +33,8 @@ create table NivelAcceso(
 )
 insert into NivelAcceso (Descripcion) values('Admin'), ('Empleado')
 
-
-CREATE TABLE FechaHora (
+CREATE TABLE HorariosTurnos (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    Fecha DATE NOT NULL,
     Hora TIME NOT NULL,
     Disponible BIT NOT NULL
 );
@@ -92,16 +90,14 @@ CREATE TABLE Turnos (
     IdRubro INT NOT NULL,
     IdServicio INT NOT NULL,
     Aclaracion NVARCHAR(MAX),
-    FechaHoraId INT NOT NULL,
+    FechaHora DateTime NOT NULL,
     IdEstado INT NOT NULL,
     Precio INT NOT NULL,
     CONSTRAINT FK_Turno_Cliente FOREIGN KEY (IdCliente) REFERENCES Usuarios(Id),
     CONSTRAINT FK_Turno_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(Id),
     CONSTRAINT FK_Turno_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(Id),
     CONSTRAINT FK_Turno_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(Id),
-    CONSTRAINT FK_Turno_FechaHora FOREIGN KEY (FechaHoraId) REFERENCES FechaHora(Id),
-    CONSTRAINT FK_Turno_Estado FOREIGN KEY (IdEstado) REFERENCES EstadosTurnos(Id),
-    CONSTRAINT FK_Turno_Precio FOREIGN KEY (PrecioId) REFERENCES Precios(Id)
+    CONSTRAINT FK_Turno_Estado FOREIGN KEY (IdEstado) REFERENCES EstadoTurnos(Id),
 );
 
 CREATE TABLE Precios (
@@ -268,19 +264,25 @@ VALUES
 ((SELECT Id FROM Rubros WHERE Nombre = 'Detailing'), (SELECT Id FROM Servicios WHERE Nombre = 'Detailing Completo'));
 
 --agregar horarios y fechas
-INSERT INTO FechaHora (Fecha, Hora, Disponible)
+drop table HorariosTurnos
+delete from HorariosTurnos
+INSERT INTO HorariosTurnos(Hora, Disponible)
 VALUES 
-('2024-12-12', '08:00:00', 1),
-('2024-12-12', '09:00:00', 1),
-('2024-12-12', '10:00:00', 1),
-('2024-12-12', '11:00:00', 1),
-('2024-12-12', '12:00:00', 1),
-('2024-12-12', '13:00:00', 1),
-('2024-12-12', '14:00:00', 1),
-('2024-12-12', '15:00:00', 1),
-('2024-12-12', '16:00:00', 1),
-('2024-12-12', '17:00:00', 1),
-('2024-12-12', '18:00:00', 1);
+('08:00:00', 1),
+('09:00:00', 1),
+('10:00:00', 1),
+('11:00:00', 1),
+('12:00:00', 1),
+('13:00:00', 1),
+('14:00:00', 1),
+('15:00:00', 1),
+('16:00:00', 1),
+('17:00:00', 1),
+('18:00:00', 1),
+('19:00:00', 1);
+
+select *from HorariosTurnos
+
 
 SELECT R.Nombre AS Rubro, S.Nombre AS Servicio
 FROM Rubros R

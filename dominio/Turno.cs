@@ -14,7 +14,8 @@ namespace dominio
         public Rubro Rubro { get; set; }
         public Servicio Servicio { get; set; }
         public string Aclaracion { get; set; }
-        public FechaHora FechaHora { get; set; }
+        public DateTime Fecha { get; set; }
+        public TimeSpan Hora { get; set; }
         public EstadoTurnos Estado { get; set; }
         public decimal Precio { get; set; }
     }
