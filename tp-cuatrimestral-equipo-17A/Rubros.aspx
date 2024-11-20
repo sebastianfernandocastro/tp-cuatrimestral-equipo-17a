@@ -1,0 +1,77 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Rubros.aspx.cs" Inherits="tp_cuatrimestral_equipo_17A.Rubros" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Gestión de Rubros</title>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="container mt-4">
+        <h2>Gestión de Rubros</h2>
+
+        <asp:Label ID="lblMensaje" runat="server" CssClass="alert" Visible="false"></asp:Label>
+
+        <!-- GridView para listar los rubros -->
+        <asp:GridView ID="dgvRubros" runat="server" DataKeyNames="Id"
+        CssClass="table" AutoGenerateColumns="false"
+        OnSelectedIndexChanged="dgvRubros_SelectedIndexChanged"
+        OnPageIndexChanging="dgvRubros_PageIndexChanging"
+        AllowPaging="True" PageSize="5">
+        <Columns>
+            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+            <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
+            <asp:BoundField HeaderText="Id Imagen" DataField="IdImagen" />
+            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
+            <asp:TemplateField HeaderText="Acción">
+                <ItemTemplate>
+                    <a href="#" onclick="return confirmarEliminar(this);" data-id='<%# Eval("Id") %>'>Eliminar</a>
+                </ItemTemplate>
+            </asp:TemplateField>
+
+
+        </Columns>
+    </asp:GridView>
+
+        <asp:HiddenField ID="hfRubroId" runat="server" />
+        <asp:Button ID="btnConfirmarEliminar" runat="server" Text="Eliminar Confirmado" 
+                    OnClick="btnConfirmarEliminar_Click" style="display:none;" />
+
+        <a href="FormularioRubro.aspx" class="btn btn-primary mt-3">Agregar Rubro</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmarEliminar(linkElement) {
+            event.preventDefault();
+
+            // Obtener el ID desde el atributo `data-id`
+            var idRubro = linkElement.getAttribute("data-id");
+
+            // Validar el ID
+            if (!idRubro) {
+                Swal.fire('Error', 'No se pudo obtener el ID del rubro.', 'error');
+                return false;
+            }
+
+            // Asignar el ID al HiddenField
+            document.getElementById('<%= hfRubroId.ClientID %>').value = idRubro;
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No podrás deshacer esta acción.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('<%= btnConfirmarEliminar.ClientID %>').click();
+        }
+    });
+
+            return false;
+        }
+
+
+    </script>
+</asp:Content>

@@ -20,12 +20,12 @@ namespace negocio
         {
             try
             {
-                string query = "INSERT INTO Rubros (Id, Nombre, Descripcion) VALUES (@Id, @Nombre, @Descripcion)";
+                string query = "INSERT INTO Rubros (Nombre, Descripcion, IdImagen) VALUES (@Nombre, @Descripcion, @IdImagen)";
 
                 accesoDatos.setearConsulta(query);
-                accesoDatos.setearParametro("@Id", nuevoRubro.Id);
                 accesoDatos.setearParametro("@Nombre", nuevoRubro.Nombre);
                 accesoDatos.setearParametro("@Descripcion", nuevoRubro.Descripcion);
+                accesoDatos.setearParametro("@IdImagen", nuevoRubro.IdImagen);
 
                 accesoDatos.EjecutarAccion();
                 return true;
@@ -36,6 +36,7 @@ namespace negocio
                 return false;
             }
         }
+
 
         public List<Rubro> Listar()
         {
@@ -73,12 +74,13 @@ namespace negocio
         {
             try
             {
-                string query = "UPDATE Rubros SET Nombre = @Nombre, Descripcion = @Descripcion WHERE Id = @Id";
+                string query = "UPDATE Rubros SET Nombre = @Nombre, Descripcion = @Descripcion, IdImagen = @IdImagen WHERE Id = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", rubroModificado.Id);
                 accesoDatos.setearParametro("@Nombre", rubroModificado.Nombre);
                 accesoDatos.setearParametro("@Descripcion", rubroModificado.Descripcion);
+                accesoDatos.setearParametro("@IdImagen", rubroModificado.IdImagen);
 
                 accesoDatos.EjecutarAccion();
                 return true;
@@ -89,6 +91,7 @@ namespace negocio
                 return false;
             }
         }
+
 
         public bool Eliminar(int Id)
         {
