@@ -83,6 +83,9 @@ CREATE TABLE RubroServicio (
     CONSTRAINT FK_RubroServicio_Servicio FOREIGN KEY (IdServicio) REFERENCES Servicios(Id)
 );
 
+ALTER TABLE Turnos
+ALTER COLUMN Precio DECIMAL(10, 2) NOT NULL;
+
 CREATE TABLE Turnos (
     Id INT PRIMARY KEY IDENTITY(1,1),
     IdCliente INT NOT NULL,
@@ -92,7 +95,7 @@ CREATE TABLE Turnos (
     Aclaracion NVARCHAR(MAX),
     FechaHora DateTime NOT NULL,
     IdEstado INT NOT NULL,
-    Precio INT NOT NULL,
+    Precio DECIMAL(10, 2) NOT NULL,
     CONSTRAINT FK_Turno_Cliente FOREIGN KEY (IdCliente) REFERENCES Usuarios(Id),
     CONSTRAINT FK_Turno_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(Id),
     CONSTRAINT FK_Turno_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(Id),
