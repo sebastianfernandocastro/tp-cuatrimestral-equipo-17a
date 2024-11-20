@@ -11,15 +11,15 @@
         <div class="row mb-3">
             <div class="col-md-4">
                 <asp:Label ID="lblTipoVehiculo" runat="server" AssociatedControlID="ddlTipoVehiculo" Text="Tipo de Vehículo"></asp:Label>
-                <asp:DropDownList ID="ddlTipoVehiculo" runat="server" CssClass="form-control"></asp:DropDownList>
+                <asp:DropDownList ID="ddlTipoVehiculo" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlTipoVehiculo_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
             </div>
             <div class="col-md-4">
                 <asp:Label ID="lblRubro" runat="server" AssociatedControlID="ddlRubro" Text="Rubro"></asp:Label>
-                <asp:DropDownList ID="ddlRubro" runat="server" CssClass="form-control"></asp:DropDownList>
+                <asp:DropDownList ID="ddlRubro" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRubro_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
             </div>
             <div class="col-md-4">
                 <asp:Label ID="lblServicio" runat="server" AssociatedControlID="ddlServicio" Text="Servicio"></asp:Label>
-                <asp:DropDownList ID="ddlServicio" runat="server" CssClass="form-control"></asp:DropDownList>
+                <asp:DropDownList ID="ddlServicio" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlServicio_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
             </div>
         </div>
 

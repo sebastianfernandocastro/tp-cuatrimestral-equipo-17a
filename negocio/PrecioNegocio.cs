@@ -147,5 +147,29 @@ namespace negocio
             }
         }
 
+        public int ObtenerPrecioxCampos(int idRubro, int idServicio, int idVehiculo)
+        {
+            int id = 0;
+            try
+            {
+                string query = "SELECT Id from Precios where IdRubro = " + idRubro + " and IdTipoVehiculo= " + idVehiculo + " and IdServicio= " + idServicio;
+                accesoDatos.setearConsulta(query);
+
+                accesoDatos.EjecutarLectura();
+                if (accesoDatos.Lector.Read())
+                {
+                    id = (int)accesoDatos.Lector["Id"];
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener IdFechaHora: {ex.Message}");
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return id;
+        }
     }
 }
