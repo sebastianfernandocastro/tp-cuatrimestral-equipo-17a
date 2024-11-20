@@ -1,4 +1,5 @@
-﻿using negocio;
+﻿using dominio;
+using negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,29 @@ namespace tp_cuatrimestral_equipo_17A
         public void cargarEmpleados()
         {
             UsuarioNegocio negocio = new UsuarioNegocio();
-            dgvEmpleados.DataSource = negocio.ListarEmpleados();
-            dgvEmpleados.DataBind();
+            try
+            {
+                List<Empleado> listaEmp = negocio.ListarEmpleados();
+
+                if (!String.IsNullOrEmpty(txtFiltro.Text)) listaEmp = listaEmp.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.Apellido.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.legajo.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.NombreUsuario.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+
+                dgvEmpleados.DataSource = listaEmp;
+                dgvEmpleados.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "error al cargar Empleados.";
+                lblMessage.CssClass = "text-warning";
+                lblMessage.Visible = true;
+            }
 
         }
 
         protected void dgvEmpleados_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvEmpleados.PageIndex = e.NewPageIndex;
-            dgvEmpleados.DataBind();
+            cargarEmpleados();
         }
 
         protected void dgvEmpleados_SelectedIndexChanged(object sender, EventArgs e)
@@ -37,13 +52,13 @@ namespace tp_cuatrimestral_equipo_17A
             Response.Redirect("FormularioEmpleado.aspx?id=" + id);
         }
 
-  
+
 
         protected void btnConfirmarEliminar_Click(object sender, EventArgs e)
         {
             try
             {
-                string idEmpleado = ""; 
+                string idEmpleado = "";
                 idEmpleado = hfEmpleadoId.Value;
 
                 if (!String.IsNullOrEmpty(idEmpleado))
@@ -56,12 +71,18 @@ namespace tp_cuatrimestral_equipo_17A
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                lblMessage.Text = "error al eliminar Empleado.";
+                lblMessage.CssClass = "text-warning";
+                lblMessage.Visible = true;
             }
 
 
 
+        }
+
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            cargarEmpleados();
         }
     }
 }
