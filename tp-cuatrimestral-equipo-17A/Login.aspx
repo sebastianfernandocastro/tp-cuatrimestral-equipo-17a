@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <div class="container mt-5">
+      <div class="container mt-5" style="height:73.4vh; align-content:center;">
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card">
@@ -13,16 +13,10 @@
                         <h3>Login</h3>
                     </div>
                     <div class="card-body">
-                       <%--Mensaje de error--%>
                         <asp:Label ID="lblMsgError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
-
-                         <%--Formulario de Login--%>
                         <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control mb-3" Placeholder="Usuario" />
                         <asp:TextBox ID="txtContraseña" runat="server" TextMode="Password" CssClass="form-control mb-3" Placeholder="Contraseña" />
-                        
                         <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-success w-100" Text="Iniciar Sesión" OnClick="btnLogin_Click" />
-
-                     
                     </div>
                 </div>
                 <br />
