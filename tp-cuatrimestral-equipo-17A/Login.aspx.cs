@@ -56,18 +56,18 @@ namespace tp_cuatrimestral_equipo_17A
                 if(usu.tipo == 1)
                 {
                     Session.Add("cliente", cl);
-                    Response.Redirect("Turnos.aspx", false);
+                    Response.Redirect("Default.aspx", false);
                 }
                 else
                 {
                     Session.Add("empleado", emp);
-                    Response.Redirect("Turnos.aspx", false);
+                    Response.Redirect("TurnosListado.aspx", false);
                 }
             }
             else
             {
                 lblMsgError.Visible = true;
-                lblMsgError.Text = "Usuario o contraseña incorrectos.";
+                lblMsgError.Text = "Usuario y contraseña incorrectos o usuario inhabilitado.";
             }
 
         }

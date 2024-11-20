@@ -22,7 +22,7 @@
                 <br />
                 <div class="text-center">
                     <p>¿No tienes una cuenta?</p>
-                    <a href="Registrarse.aspx?Accion=1">Registrarse</a>
+                    <a href="MiPerfil.aspx">Registrarse</a>
                 </div>
             </div>
         </div>

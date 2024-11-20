@@ -15,7 +15,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Legajo,NivelAcceso, Tipo,estado from Usuarios where Usuario = @usuario and Contrasenia = @contrasenia");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Legajo,NivelAcceso, Tipo,estado from Usuarios where Usuario = @usuario and Contrasenia = @contrasenia and estado = 1");
                 datos.Comando.Parameters.AddWithValue("@usuario", usu.NombreUsuario);
                 datos.Comando.Parameters.AddWithValue("@contrasenia", usu.Contraseña);
                 datos.EjecutarLectura();

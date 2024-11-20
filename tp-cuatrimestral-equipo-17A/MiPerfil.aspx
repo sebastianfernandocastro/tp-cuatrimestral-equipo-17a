@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <%if (usu.tipo == 1)
+        <%if (usu == null || usu.tipo == 1)
 
             { %>
         <div class="row mb-3">

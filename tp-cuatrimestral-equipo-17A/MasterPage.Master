@@ -50,11 +50,14 @@
                         <%=empleado.Nombre%>
                     </a>
                     <ul class="dropdown-menu" style="background-color: #222222;">
-                        <li><a class="dropdown-item" href="MiPerfil.aspx">Usuarios</a></li>
-                        <li><a class="dropdown-item" href="Turnos.aspx">Turnos</a></li>
-                        <li><a class="dropdown-item" href="">Vehiculos</a></li>
+                        <li><a class="dropdown-item" href="MiPerfil.aspx">Mi Perfil</a></li>
+                        <li><a class="dropdown-item" href="Clientes.aspx">Clientes</a></li>
+                        <li><a class="dropdown-item" href="Empleados.aspx">Empleados</a></li>
+                        <li><a class="dropdown-item" href="Precios.aspx">Precios</a></li>
                         <li><a class="dropdown-item" href="">Rubros</a></li>
                         <li><a class="dropdown-item" href="">Servicios</a></li>
+                        <li><a class="dropdown-item" href="TurnosListado.aspx">Turnos</a></li>
+                        <li><a class="dropdown-item" href="">Vehiculos</a></li>
                         <li>
                             <asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>
@@ -81,7 +84,7 @@
                     </a>
                     <ul class="dropdown-menu" style="background-color: #222222;">
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Mi Perfil</a></li>
-                        <li><a class="dropdown-item" href="Turnos.aspx">Mis Turnos</a></li>
+                        <li><a class="dropdown-item" href="TurnosListado.aspx">Mis Turnos</a></li>
                         <li>
                             <asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion2" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>
