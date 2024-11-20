@@ -23,7 +23,6 @@ namespace tp_cuatrimestral_equipo_17A
             dgvEmpleados.DataSource = negocio.ListarEmpleados();
             dgvEmpleados.DataBind();
 
-            //si no tiene datos poner un texto no hay registros...
         }
 
         protected void dgvEmpleados_PageIndexChanging(object sender, GridViewPageEventArgs e)

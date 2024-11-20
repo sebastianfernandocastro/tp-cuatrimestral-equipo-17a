@@ -112,6 +112,8 @@ CREATE TABLE Precios (
 );
 
 
+select * from Precios
+
 INSERT INTO Precios (IdTipoVehiculo, IdRubro, IdServicio, Precio)
 VALUES
 -- COUPE

@@ -82,6 +82,8 @@
     <Content Include="Empleados.aspx" />
     <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioEmpleado.aspx" />
+    <Content Include="FormularioPrecio.aspx" />
+    <Content Include="Precios.aspx" />
     <Content Include="Styles\SeleccionarServicio.css" />
     <Content Include="TurnosListado.aspx" />
     <Content Include="Global.asax" />
@@ -155,6 +157,20 @@
     </Compile>
     <Compile Include="FormularioEmpleado.aspx.designer.cs">
       <DependentUpon>FormularioEmpleado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioPrecio.aspx.cs">
+      <DependentUpon>FormularioPrecio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioPrecio.aspx.designer.cs">
+      <DependentUpon>FormularioPrecio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Precios.aspx.cs">
+      <DependentUpon>Precios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Precios.aspx.designer.cs">
+      <DependentUpon>Precios.aspx</DependentUpon>
     </Compile>
     <Compile Include="TurnosListado.aspx.cs">
       <DependentUpon>TurnosListado.aspx</DependentUpon>
