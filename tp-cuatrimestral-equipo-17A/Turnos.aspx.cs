@@ -45,19 +45,23 @@ namespace tp_cuatrimestral_equipo_17A
 
                 if (turno != null)
                 {
-                    ddlRubro.SelectedValue = turno.Rubro.Id.ToString();
-                    ddlUsuario.SelectedValue = turno.Usuario.Id.ToString();
                     ddlVehiculo.SelectedValue = turno.Vehiculo.Id.ToString();
+                    ddlRubro.SelectedValue = turno.Rubro.Id.ToString();
+                    
+                    if(ddlRubro != null && Convert.ToInt32(ddlRubro.SelectedValue) > 0) cargarServicioxIdRubroElegido();
+                    
+                    ddlUsuario.SelectedValue = turno.Usuario.Id.ToString();
                     ddlServicio.SelectedValue = turno.Servicio.Id.ToString();
                     ddlEstado.SelectedValue = turno.Estado.Id.ToString();
-                    txtFecha.Text = turno.Fecha.ToString();
+                    txtFecha.Text = turno.Fecha.ToString("yyyy-MM-dd");
                     //ddlFechaHora.SelectedValue = turno.Hora.ToString();
-                    ddlFechaHora.SelectedValue = "1";
+                    ddlFechaHora.SelectedValue = fechaHoraNegocio.ObtenerIdFechaHoraxHora(turno.Hora).ToString();
+                    txtPrecio.Text = turno.Precio.ToString();
                     if (usu.tipo == 1) ddlEstado.Enabled = false;
                     else ddlEstado.Enabled = true;
                 }
 
-                cargarPrecio();
+                //cargarPrecio();
             }
 
         }
@@ -131,8 +135,7 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMessage.Visible = true;
             }
         }
-
-        protected void ddlRubro_SelectedIndexChanged(object sender, EventArgs e)
+        public void cargarServicioxIdRubroElegido()
         {
             int idRubro;
             txtPrecio.Text = "0";
@@ -171,6 +174,20 @@ namespace tp_cuatrimestral_equipo_17A
                 ddlServicio.Items.Clear();
                 ddlServicio.Items.Insert(0, new ListItem("Seleccione un rubro primero", "0"));
             }
+        }
+        protected void ddlRubro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                cargarServicioxIdRubroElegido();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error al cargar los servicios: " + ex.Message;
+                lblMessage.CssClass = "text-danger";
+                lblMessage.Visible = true;
+            }
+           
         }
 
         protected void ddlServicio_SelectedIndexChanged(object sender, EventArgs e)

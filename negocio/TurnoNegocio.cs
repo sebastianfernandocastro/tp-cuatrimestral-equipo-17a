@@ -52,7 +52,7 @@ namespace negocio
             try
             {
                 string query = @"
-                SELECT T.Id, T.IdCliente, T.IdTipoVehiculo, T.IdRubro, T.IdServicio, FechaHora Fecha, T.IdEstado, et.descripcion descripEstado , T.Aclaracion,
+                SELECT T.Id, T.IdCliente, T.IdTipoVehiculo, T.IdRubro, T.IdServicio, FechaHora Fecha, T.IdEstado, et.descripcion descripEstado , T.Aclaracion,precio,
                        U.Nombre AS ClienteNombre,
                        TV.Nombre AS VehiculoNombre,
                        R.Nombre AS RubroNombre,
@@ -81,7 +81,7 @@ namespace negocio
                         },
                         Vehiculo = new TipoVehiculo
                         {
-                            Codigo = (int)accesoDatos.Lector["IdTipoVehiculo"],
+                            Id = (int)accesoDatos.Lector["IdTipoVehiculo"],
                             Nombre = accesoDatos.Lector["VehiculoNombre"].ToString()
                         },
                         Rubro = new Rubro
@@ -100,6 +100,7 @@ namespace negocio
                             descripcion = accesoDatos.Lector["descripEstado"].ToString()
                         },
                         Aclaracion = accesoDatos.Lector["Aclaracion"].ToString(),
+                        Precio = (decimal)accesoDatos.Lector["Precio"]
                     };
                     turno.Fecha = (DateTime)accesoDatos.Lector["Fecha"];
                     //DateTime fech = DateTime.Parse(accesoDatos.Lector["Fecha"].ToString("dd/MM/yyyy"));
@@ -129,7 +130,7 @@ namespace negocio
                        TV.Id AS IdVehiculo, TV.Nombre AS Vehiculo,
                        R.Id AS IdRubro, R.Nombre AS Rubro,
                        S.Id AS IdServicio, S.Nombre AS Servicio,
-                       T.FechaHora, T.IdEstado, et.descripcion descripEstado, T.Aclaracion
+                       T.FechaHora, T.IdEstado, et.descripcion descripEstado, T.Aclaracion,t.precio
                 FROM Turnos T
                 INNER JOIN Usuarios U ON T.IdCliente = U.Id
                 INNER JOIN TipoVehiculo TV ON T.IdTipoVehiculo = TV.Id
@@ -153,7 +154,7 @@ namespace negocio
                         },
                         Vehiculo = new TipoVehiculo
                         {
-                            Codigo = (int)accesoDatos.Lector["IdVehiculo"],
+                            Id = (int)accesoDatos.Lector["IdVehiculo"],
                             Nombre = accesoDatos.Lector["Vehiculo"].ToString()
                         },
                         Rubro = new Rubro
@@ -175,6 +176,7 @@ namespace negocio
                     };
                     turno.Fecha = (DateTime)accesoDatos.Lector["FechaHora"];
                     turno.Hora = new TimeSpan(turno.Fecha.Hour, turno.Fecha.Minute, 0);
+                    turno.Precio = (decimal)accesoDatos.Lector["Precio"];
                 }
             }
             catch (Exception ex)

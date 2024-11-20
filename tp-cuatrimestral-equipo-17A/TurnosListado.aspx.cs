@@ -79,7 +79,7 @@ namespace tp_cuatrimestral_equipo_17A
                 try
                 {
 
-                    if (Session["empleado"] != null || turno.Estado.Id == 1)
+                    if (Session["empleado"] != null || (Session["cliente"] != null && turno.Estado.Id == 1))
                     {
                         eliminar(idTurno);
                         lblMessage.Visible = true;

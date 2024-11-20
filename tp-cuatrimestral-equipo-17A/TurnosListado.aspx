@@ -23,6 +23,7 @@
                         <asp:BoundField DataField="Estado.Descripcion" HeaderText="Estado" />
                         <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" HtmlEncode="false" />
                         <asp:BoundField DataField="Hora" HeaderText="Hora" />
+                        <asp:BoundField DataField="Precio" HeaderText="Precio" />
                         <asp:BoundField DataField="Aclaracion" HeaderText="Aclaración" />
                         <asp:TemplateField>
                             <ItemTemplate>
@@ -34,8 +35,8 @@
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'
-                                    CssClass="btn btn-danger btn-sm" Text="Eliminar"
-                                    OnClientClick="return confirm('¿Está seguro de que desea eliminar este turno?');">
+                                    CssClass="btn btn-danger btn-sm" Text="Cancelar"
+                                    OnClientClick="return confirm('¿Está seguro de que desea cancelar este turno?');">
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>

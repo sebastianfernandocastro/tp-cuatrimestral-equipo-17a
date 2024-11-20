@@ -175,5 +175,29 @@ namespace negocio
             }
             return lista;
         }
+        public int ObtenerIdFechaHoraxHora(TimeSpan hora)
+        {
+            int id = 0;
+            try
+            {
+                string query = "SELECT Id FROM FechaHora WHERE hORA = '" + hora + "'";
+                accesoDatos.setearConsulta(query);
+
+                accesoDatos.EjecutarLectura();
+                if (accesoDatos.Lector.Read())
+                {
+                    id = (int)accesoDatos.Lector["Id"];
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener IdFechaHora: {ex.Message}");
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return id;
+        }
     }
 }
