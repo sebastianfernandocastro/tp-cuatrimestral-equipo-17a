@@ -14,10 +14,10 @@ namespace negocio
 
         public FechaHoraNegocio()
         {
-            accesoDatos = new AccesoDatos(); 
+            accesoDatos = new AccesoDatos();
         }
 
-        
+
         public bool Agregar(FechaHora nuevaFechaHora)
         {
             try
@@ -34,7 +34,7 @@ namespace negocio
             }
             catch (Exception ex)
             {
-               
+
                 Console.WriteLine("Error al agregar FechaHora: " + ex.Message);
                 return false;
             }
@@ -80,7 +80,7 @@ namespace negocio
                     FechaHora fechaHora = new FechaHora
                     {
                         Id = (int)accesoDatos.Lector["Id"],
-                        Fecha = accesoDatos.Lector["Fecha"] != DBNull.Value ? (DateTime)accesoDatos.Lector["Fecha"] : DateTime.MinValue,
+                        //Fecha = accesoDatos.Lector["Fecha"] != DBNull.Value ? (DateTime)accesoDatos.Lector["Fecha"] : DateTime.MinValue,
                         Hora = (TimeSpan)accesoDatos.Lector["Hora"],
                         Disponible = (bool)accesoDatos.Lector["Disponible"]
                     };
@@ -138,6 +138,42 @@ namespace negocio
                 Console.WriteLine("Error al eliminar FechaHora: " + ex.Message);
                 return false;
             }
+        }
+
+        public List<FechaHora> ListarHoraDisponible(DateTime fecha, string idTurno = "")
+        {
+            List<FechaHora> lista = new List<FechaHora>();
+            try
+            {
+                string query = "select * from (select f.Id ,f.Hora,case when (select count(*) from Turnos t " +
+                    "where cast(t.FechaHora as time) = f.Hora and cast(t.FechaHora as date) = cast('" + fecha + "' as date) ";
+                if (!String.IsNullOrEmpty(idTurno)) query += " and t.Id <> " + idTurno + " ";
+                query += ") >= 3 then 0 else 1 end as Disponible from FechaHora f ) as Resultado where Disponible = 1";
+
+                accesoDatos.setearConsulta(query);
+                accesoDatos.EjecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    FechaHora fechaHora = new FechaHora();
+
+                    fechaHora.Id = (int)accesoDatos.Lector["Id"];
+                    //Fecha = accesoDatos.Lector["Fecha"] != DBNull.Value ? (DateTime)accesoDatos.Lector["Fecha"] : DateTime.MinValue,
+                    fechaHora.Hora = (TimeSpan)accesoDatos.Lector["Hora"];
+                    //fechaHora.Disponible = (bool)accesoDatos.Lector["Disponible"];
+
+                    lista.Add(fechaHora);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al listar FechaHora: " + ex.Message);
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return lista;
         }
     }
 }

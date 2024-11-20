@@ -78,14 +78,11 @@ namespace negocio
             List<Servicio> lista = new List<Servicio>();
             try
             {
-                string query = @"
-            SELECT s.Id, s.Nombre, s.Descripcion, s.Tiempo, s.Precio 
-            FROM Servicios s
-            INNER JOIN RubroServicio rs ON rs.IdServicio = s.Id
-            WHERE rs.IdRubro = @IdRubro";
+                string query = " SELECT s.Id, s.Nombre, s.Descripcion, s.Tiempo FROM Servicios s " +
+                    "INNER JOIN RubroServicio rs ON rs.IdServicio = s.Id " +
+                    "WHERE rs.IdRubro = " + idRubro;
 
                 accesoDatos.setearConsulta(query);
-                accesoDatos.setearParametro("@IdRubro", idRubro);
                 accesoDatos.EjecutarLectura();
 
                 while (accesoDatos.Lector.Read())
@@ -96,7 +93,7 @@ namespace negocio
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
                         Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
-                        Precio = (decimal)accesoDatos.Lector["Precio"]
+                        //Precio = (decimal)accesoDatos.Lector["Precio"]
                     };
                     lista.Add(nuevoServicio);
                 }

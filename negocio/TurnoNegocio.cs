@@ -22,8 +22,8 @@ namespace negocio
             try
             {
                 string query = @"
-        INSERT INTO Turnos (IdCliente, IdTipoVehiculo, IdRubro, IdServicio, IdFechaHora, IdEstado, Aclaracion)
-        VALUES (@IdCliente, @IdTipoVehiculo, @IdRubro, @IdServicio, @IdFechaHora, @Estado, @Aclaracion)";
+        INSERT INTO Turnos (IdCliente, IdTipoVehiculo, IdRubro, IdServicio, FechaHora, IdEstado, Aclaracion,precio)
+        VALUES (@IdCliente, @IdTipoVehiculo, @IdRubro, @IdServicio, @IdFechaHora, @Estado, @Aclaracion,@precio)";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@IdCliente", nuevoTurno.Usuario.Id);
@@ -32,7 +32,8 @@ namespace negocio
                 accesoDatos.setearParametro("@IdServicio", nuevoTurno.Servicio.Id);
                 accesoDatos.setearParametro("@IdFechaHora", nuevoTurno.Fecha);
                 accesoDatos.setearParametro("@Estado", nuevoTurno.Estado.Id);
-                accesoDatos.setearParametro("@Aclaracion", nuevoTurno.Aclaracion ?? "");
+                accesoDatos.setearParametro("@precio", nuevoTurno.Precio);
+                accesoDatos.setearParametro("@Aclaracion", nuevoTurno.Aclaracion);
 
                 accesoDatos.EjecutarAccion();
                 return true;
