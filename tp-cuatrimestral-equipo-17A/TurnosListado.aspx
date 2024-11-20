@@ -5,10 +5,22 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-4">
 
-         <h2>Listado de Turnos</h2>
+        <h2>Listado de Turnos</h2>
 
-                <!-- Mensaje de error o éxito -->
-        <asp:Label ID="lblMessage" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+        <div class="row mt-3">
+            <div class="col-md-1">
+                <asp:Label ID="lblFiltro" runat="server" Text="filtro:"></asp:Label>
+            </div>
+            <div class="col-md-6">
+                <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" CssClass="form-control" />
+
+            </div>
+        </div>
+
+        <!-- Mensaje de error o éxito -->
+        <div class="row mt-3">
+            <asp:Label ID="lblMessage" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+        </div>
 
         <div class="row mt-3">
             <div class="col-md-12">
@@ -45,6 +57,9 @@
 
             </div>
         </div>
+
+        <%--<a href="FormularioPrecio.aspx" class="btn btn-primary mt-3">Agregar Precio</a>--%>
+        <asp:Button Text="Agregar turno" CssClass="btn btn-primary mt-3" ID="btnAgregar" OnClick="btnAgregar_Click" runat="server" />
 
     </div>
 </asp:Content>

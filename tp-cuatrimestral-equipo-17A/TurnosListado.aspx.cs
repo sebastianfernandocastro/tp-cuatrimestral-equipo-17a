@@ -34,6 +34,8 @@ namespace tp_cuatrimestral_equipo_17A
 
                 if (turnos != null && turnos.Count > 0)
                 {
+                    if(!String.IsNullOrEmpty(txtFiltro.Text)) turnos = turnos.FindAll(x => x.Usuario.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.Servicio.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.Rubro.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.Vehiculo.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+
                     gvTurnos.DataSource = turnos;
                     //gvTurnos.Columns["Fecha"].DefaultCellStyle.Format = "dd/MM/yyyy";
                     gvTurnos.DataBind();
@@ -113,6 +115,23 @@ namespace tp_cuatrimestral_equipo_17A
             {
                 lblMessage.Text = "Error al cancelar el turno.";
                 lblMessage.CssClass = "text-danger";
+            }
+        }
+
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            CargarTurnos();
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Session["empleado"] != null) Response.Redirect("Turnos.aspx", false);
+                else Response.Redirect("SeleccionarVehiculo.aspx", false);
+            }
+            catch (Exception ex)
+            {
             }
         }
     }
