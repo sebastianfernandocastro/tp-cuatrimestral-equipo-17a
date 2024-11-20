@@ -21,6 +21,7 @@
                 <asp:BoundField HeaderText="Rubro" DataField="RubroNombre" />
                 <asp:BoundField HeaderText="Servicio" DataField="ServicioNombre" />
                 <asp:BoundField HeaderText="Precio" DataField="PrecioValor" DataFormatString="{0:C}" />
+                <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
                 <asp:TemplateField HeaderText="Acción">
                     <ItemTemplate>
                         <a href="#" onclick="return confirmarEliminar(this);" data-id='<%# Eval("Id") %>'>Eliminar</a>
