@@ -14,6 +14,7 @@ namespace tp_cuatrimestral_equipo_17A
         private TurnoNegocio turnoNegocio = new TurnoNegocio();
         private Turno turno = null;
         private ServicioNegocio servicioNegocio = new ServicioNegocio();
+        private Herramientas herramientos = new Herramientas();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,11 +30,19 @@ namespace tp_cuatrimestral_equipo_17A
                 calendarInput.Attributes["max"] = tomorrowFormatted;
             }
 
-            ddlServicio.DataSource = servicioNegocio.Listar();
-            ddlServicio.DataTextField = "Nombre";
-            ddlServicio.DataValueField = "Id";  
-            ddlServicio.DataBind();
-            ddlServicio.Items.Insert(0, new ListItem("Seleccione un servicio", "0"));
+
+
+            if (Session["IdRubro"] != null)
+            {
+                ddlServicio.DataSource = servicioNegocio.ListarPorRubro((int)Session["IdRubro"]);
+                ddlServicio.DataTextField = "Nombre";
+                ddlServicio.DataValueField = "Id";
+                ddlServicio.DataBind();
+                ddlServicio.Items.Insert(0, new ListItem("Seleccione un servicio", "0"));
+            }
+
+            
+            
         }
 
         protected void ddlServicio_SelectedIndexChanged(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using dominio;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -83,9 +84,9 @@ namespace negocio
             {
                 if (emp.Id != 0 && emp.Estado == 1 && emp.nivelAcceso.Id == 1) return true;
             }
-            
+
             return false;
 
-        }
+        } 
     }
 }

@@ -25,9 +25,8 @@
                 <div style="width: 33.33%;">
                     <nav class="navMenu">
                         <a href="Default.aspx">Inicio</a>
-                        <a href="#">Nosotros</a>
-                        <a href="#">Trabajos</a>
-                        <a href="SeleccionarVehiculo.aspx">Turnos</a>
+                        <a href="#">NUESTRO TRABAJOS</a>
+                        <a style=font-size: 27px;" href="SeleccionarVehiculo.aspx">SOLICITAR TURNO</a>
                         <div class="dot"></div>
                     </nav>
                 </div>
@@ -56,7 +55,8 @@
                         <li><a class="dropdown-item" href="">Vehiculos</a></li>
                         <li><a class="dropdown-item" href="">Rubros</a></li>
                         <li><a class="dropdown-item" href="">Servicios</a></li>
-                        <li><asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
+                        <li>
+                            <asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>
                 </div>
                 <%break;
@@ -68,7 +68,8 @@
                     <ul class="dropdown-menu" style="background-color: #222222;">
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Turnos</a></li>
                         <li><a class="dropdown-item" href="Turnos.aspx">Usuarios</a></li>
-                        <li><asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion1" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
+                        <li>
+                            <asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion1" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>
                 </div>
                 <%break;
@@ -81,14 +82,15 @@
                     <ul class="dropdown-menu" style="background-color: #222222;">
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Mi Perfil</a></li>
                         <li><a class="dropdown-item" href="Turnos.aspx">Mis Turnos</a></li>
-                        <li><asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion2" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
+                        <li>
+                            <asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion2" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>
                 </div>
                 <%break;
                     } %>
             </div>
         </header>
-        <div style="display: flex;  justify-content: center; padding-top: 5px;">
+        <div style="display: flex; justify-content: center; padding-top: 5px;">
             <div style="width: 60%;">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
@@ -118,24 +120,24 @@
             bottom: 0;
             width: 100%;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-            margin-top:5px;
+            margin-top: 5px;
         }
 
-        #siteFooter .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+            #siteFooter .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
 
-        #siteFooter a {
-            color: #4caf50;
-            text-decoration: none;
-            margin: 0 5px;
-        }
+            #siteFooter a {
+                color: #4caf50;
+                text-decoration: none;
+                margin: 0 5px;
+            }
 
-        #siteFooter a:hover {
-            text-decoration: underline;
-        }
+                #siteFooter a:hover {
+                    text-decoration: underline;
+                }
     </style>
 </body>
 
