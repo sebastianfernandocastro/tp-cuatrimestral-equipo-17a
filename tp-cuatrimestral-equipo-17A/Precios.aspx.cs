@@ -12,6 +12,7 @@ namespace tp_cuatrimestral_equipo_17A
 {
     public partial class Precios : System.Web.UI.Page
     {
+        List<Precio> listaPrecios = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,12 +21,14 @@ namespace tp_cuatrimestral_equipo_17A
             }
         }
 
-        private void CargarPrecios()
+        private void CargarPrecios(string filtroPrecios = "")
         {
             PrecioNegocio precioNegocio = new PrecioNegocio();
             try
             {
-                List<Precio> listaPrecios = precioNegocio.ListarPrecios();
+                listaPrecios = precioNegocio.ListarPrecios();
+
+                if (!String.IsNullOrEmpty(filtroPrecios) || !String.IsNullOrEmpty(txtFiltro.Text)) listaPrecios = listaPrecios.FindAll(x => x.RubroNombre.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.ServicioNombre.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.TipoVehiculoNombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
 
                 dgvPrecios.DataSource = listaPrecios;
                 dgvPrecios.DataBind();
@@ -75,12 +78,25 @@ namespace tp_cuatrimestral_equipo_17A
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error al eliminar: {ex.Message}");
-                throw ex;
+                //throw ex;
             }
         }
 
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CargarPrecios(txtFiltro.Text);
+                //if (String.IsNullOrEmpty(txtFiltro.Text)) CargarPrecios();
+                //else
+                //{
+                //    listaPrecios.F
+                //}
+            }
+            catch (Exception ex)
+            {
 
-
-
+            }
+        }
     }
 }
