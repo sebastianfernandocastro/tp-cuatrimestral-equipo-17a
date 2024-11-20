@@ -202,7 +202,8 @@ namespace negocio
                     IdServicio = @IdServicio,
                     FechaHora = @Fecha,
                     IdEstado = @Estado,
-                    Aclaracion = @Aclaracion
+                    Aclaracion = @Aclaracion,
+                    Precio = @Precio
                 WHERE Id = @Id";
 
                 accesoDatos.setearConsulta(query);
@@ -214,6 +215,7 @@ namespace negocio
                 accesoDatos.setearParametro("@Fecha", turno.Fecha);
                 accesoDatos.setearParametro("@Estado", turno.Estado.Id);
                 accesoDatos.setearParametro("@Aclaracion", turno.Aclaracion);
+                accesoDatos.setearParametro("@Precio", turno.Precio);
 
                 accesoDatos.EjecutarAccion();
                 return true;

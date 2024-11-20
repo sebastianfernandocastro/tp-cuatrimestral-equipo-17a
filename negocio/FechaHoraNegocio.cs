@@ -146,7 +146,7 @@ namespace negocio
             try
             {
                 string query = "select * from (select f.Id ,f.Hora,case when (select count(*) from Turnos t " +
-                    "where cast(t.FechaHora as time) = f.Hora and cast(t.FechaHora as date) = cast('" + fecha + "' as date) ";
+                    "where cast(t.FechaHora as time) = f.Hora and cast(t.FechaHora as date) = cast('" + fecha + "' as date) and IdEstado <> 4 ";
                 if (!String.IsNullOrEmpty(idTurno)) query += " and t.Id <> " + idTurno + " ";
                 query += ") >= 3 then 0 else 1 end as Disponible from FechaHora f ) as Resultado where Disponible = 1";
 
