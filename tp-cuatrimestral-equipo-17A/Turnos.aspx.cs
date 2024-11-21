@@ -393,6 +393,21 @@ namespace tp_cuatrimestral_equipo_17A
         }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
+            Herramientas herramientas = new Herramientas();
+            string Mensaje = "";
+            string Mail = "";
+            string NombreUsuario = "";
+
+            try
+            {
+                Mensaje = "Hola " + (string)cli.Nombre + " tu turno para el dia " + (string)txtFecha.Text + " a sido creado con EXITO!. Puedes modificarlo en la seccion de Mis Turnos";
+                Mail = (string)cli.Mail;
+                NombreUsuario = (string)cli.NombreUsuario;
+            }
+            catch (Exception ex)
+            {
+            }
+
             try
             {
                 //hacer validaciones de valores de los dropdown y textbox, que sea un valor no nullo o distinto de 0 el value.
@@ -416,9 +431,17 @@ namespace tp_cuatrimestral_equipo_17A
                         {
                             lblMessage.Text = "Turno agregado correctamente.";
                             lblMessage.CssClass = "text-success";
-                            //LimpiarFormulario(); // Limpiar el formulario
+                            try
+                            {
+                                herramientas.enviarMail(Mail, Mensaje, NombreUsuario);
+
+                            }
+                            catch (Exception ex)
+                            {
+                            }
 
                             Response.Redirect("TurnosListado.aspx", false);
+                             
                         }
                         else
                         {

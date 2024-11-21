@@ -39,13 +39,13 @@ namespace negocio
             }
         }
 
-        public void enviarMail(string mail, string nombre)
+        public void enviarMail(string mail, string bodyText, string nombre)
         {
-            var fromAddress = new MailAddress("tpwebsebastiancastro@gmail.com", "CompumundoHMR");
+            var fromAddress = new MailAddress("tpwebsebastiancastro@gmail.com", "Lavadero los 3 locos que quieren aprobar esta bella materia");
             var toAddress = new MailAddress(mail, nombre);
             const string fromPassword = "vyml wcpm vtko uvem";
-            const string subject = "¡Gran sorteo CompumundoHMR!";
-            string body = $"¡Felicidades {nombre} ya estas participando del Gran Premio!";
+            const string subject = "¡Tu turno a sido agendado con EXITO!";
+            string body = bodyText;
 
             var smtp = new SmtpClient
             {

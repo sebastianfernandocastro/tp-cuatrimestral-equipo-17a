@@ -84,6 +84,7 @@
     <Content Include="FormularioEmpleado.aspx" />
     <Content Include="FormularioPrecio.aspx" />
     <Content Include="FormularioRubro.aspx" />
+    <Content Include="NuestrosTrabajos.aspx" />
     <Content Include="Precios.aspx" />
     <Content Include="Rubros.aspx" />
     <Content Include="Styles\SeleccionarServicio.css" />
@@ -173,6 +174,13 @@
     </Compile>
     <Compile Include="FormularioRubro.aspx.designer.cs">
       <DependentUpon>FormularioRubro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NuestrosTrabajos.aspx.cs">
+      <DependentUpon>NuestrosTrabajos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuestrosTrabajos.aspx.designer.cs">
+      <DependentUpon>NuestrosTrabajos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Precios.aspx.cs">
       <DependentUpon>Precios.aspx</DependentUpon>
