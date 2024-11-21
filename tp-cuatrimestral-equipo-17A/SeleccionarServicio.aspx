@@ -61,15 +61,16 @@
             outline: none;
         }
 
-        input[type="date"]:disabled {
-            background-color: #eaeaea;
-            cursor: not-allowed;
-        }
+            input[type="date"]:disabled {
+                background-color: #eaeaea;
+                cursor: not-allowed;
+            }
     </style>
     <div class="container">
+
         <div class="box" id="calendario">
             <h2>Calendario</h2>
-            <asp:TextBox ID="calendarInput" runat="server" CssClass="calendar" TextMode="Date"></asp:TextBox>
+            <asp:TextBox ID="calendarInput" runat="server" CssClass="calendar" AutoPostBack="true" OnTextChanged="calendarInput_TextChanged" TextMode="Date"></asp:TextBox>
         </div>
         <div class="box" id="servicio">
             <h2>Servicios</h2>
@@ -79,19 +80,14 @@
         </div>
         <div class="box" id="horario">
             <h2>Horario</h2>
-            <select>
-                <option>09:00 AM</option>
-                <option>09:30 AM</option>
-                <option>10:00 AM</option>
-                <option>10:30 AM</option>
-                <option>11:00 AM</option>
-                <option>11:30 AM</option>
-                <option>02:00 PM</option>
-
-            </select>
+            <asp:DropDownList ID="ddlHora" runat="server" CssClass="form-select"></asp:DropDownList>
         </div>
         <div class="box" id="confirmacion" style="align-content: center;">
-            <asp:Button CssClass="btn btn-secondary" Text="Reservar" runat="server" />
+            <asp:Button CssClass="btn btn-secondary" ID="btnReservar" OnClick="btnReservar_Click" Text="Reservar" runat="server" />
+        </div>
+
+        <div class="row mt-3">
+            <asp:Label ID="lblMessage" runat="server" />
         </div>
     </div>
 

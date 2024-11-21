@@ -72,6 +72,7 @@
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnAgregar" runat="server" Text="Agregar Turno" CssClass="btn btn-primary" OnClick="btnAgregar_Click" />
                 <asp:Button ID="btnModificar" runat="server" Text="Modificar Turno" CssClass="btn btn-secondary" OnClick="btnModificar_Click" Visible="false" />
+                <a href="TurnosListado.aspx" class="btn btn-light">Salir</a>
             </div>
         </div>
     </div>

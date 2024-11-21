@@ -22,6 +22,7 @@ namespace tp_cuatrimestral_equipo_17A
         private FechaHoraNegocio fechaHoraNegocio = new FechaHoraNegocio();
         private EstadoTurnosNegocio EstadoTurnoNegocio = new EstadoTurnosNegocio();
         private string id = null;
+        private string clturn = null;
         private Usuario usu = null;
         private Turno turno = null;
         private Cliente cli = null;
@@ -32,39 +33,107 @@ namespace tp_cuatrimestral_equipo_17A
             cli = (Cliente)Session["cliente"];
 
             id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+            // si viene desde turnos cliente
+            clturn = Request.QueryString["clturn"] != null ? Request.QueryString["clturn"].ToString() : "";
+
             if (!Page.IsPostBack)
             {
-                CargarListas();
-                txtFecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                CargarHorariosDisponibles(DateTime.Now.Date);
+                try
+                {
+                    CargarListas();
+                    txtFecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                    CargarHorariosDisponibles(DateTime.Now.Date);
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Error al cargar la página: " + ex.Message;
+                    lblMessage.CssClass = "text-danger";
+                    lblMessage.Visible = true;
+                }
             }
+
             if (!IsPostBack && !String.IsNullOrEmpty(id))
             {
-                //cargar precio ....
-                turno = turnoNegocio.ObtenerPorId(Convert.ToInt32(id));
 
-                if (turno != null)
+                try
                 {
-                    ddlVehiculo.SelectedValue = turno.Vehiculo.Id.ToString();
-                    ddlRubro.SelectedValue = turno.Rubro.Id.ToString();
-                    
-                    if(ddlRubro != null && Convert.ToInt32(ddlRubro.SelectedValue) > 0) cargarServicioxIdRubroElegido();
-                    
-                    ddlUsuario.SelectedValue = turno.Usuario.Id.ToString();
-                    ddlServicio.SelectedValue = turno.Servicio.Id.ToString();
-                    ddlEstado.SelectedValue = turno.Estado.Id.ToString();
-                    txtFecha.Text = turno.Fecha.ToString("yyyy-MM-dd");
-                    //ddlFechaHora.SelectedValue = turno.Hora.ToString();
-                    ddlFechaHora.SelectedValue = fechaHoraNegocio.ObtenerIdFechaHoraxHora(turno.Hora).ToString();
-                    txtPrecio.Text = turno.Precio.ToString();
-                    txtAclaraciones.Text = turno.Aclaracion;
+                    turno = turnoNegocio.ObtenerPorId(Convert.ToInt32(id));
 
-                    if (usu.tipo == 1) ddlEstado.Enabled = false;
-                    else ddlEstado.Enabled = true;
-                
-                    btnAgregar.Text = "Modifica";
+                    if (turno != null)
+                    {
+                        ddlVehiculo.SelectedValue = turno.Vehiculo.Id.ToString();
+                        ddlRubro.SelectedValue = turno.Rubro.Id.ToString();
+
+                        if (ddlRubro != null && Convert.ToInt32(ddlRubro.SelectedValue) > 0) cargarServicioxIdRubroElegido();
+
+                        ddlUsuario.SelectedValue = turno.Usuario.Id.ToString();
+                        ddlServicio.SelectedValue = turno.Servicio.Id.ToString();
+                        ddlEstado.SelectedValue = turno.Estado.Id.ToString();
+                        txtFecha.Text = turno.Fecha.ToString("yyyy-MM-dd");
+                        //ddlFechaHora.SelectedValue = turno.Hora.ToString();
+                        ddlFechaHora.SelectedValue = fechaHoraNegocio.ObtenerIdFechaHoraxHora(turno.Hora).ToString();
+                        txtPrecio.Text = turno.Precio.ToString();
+                        txtAclaraciones.Text = turno.Aclaracion;
+
+                        if (usu.tipo == 1)
+                        {
+                            ddlEstado.Enabled = false;
+                            ddlUsuario.Enabled = false;
+                        }
+                        else
+                        {
+                            ddlEstado.Enabled = true;
+                            ddlUsuario.Enabled = true;
+                        }
+
+                        btnAgregar.Text = "Modifica";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Error al cargar  el turno: " + ex.Message;
+                    lblMessage.CssClass = "text-danger";
+                    lblMessage.Visible = true;
                 }
                 //cargarPrecio();
+            }
+            else if (!IsPostBack && !String.IsNullOrEmpty(clturn) && clturn == "1")
+            {
+                try
+                {
+                    if (Session["IdTipoVehiculo"] != null && Session["IdRubro"] != null && Session["servicio"] != null && Session["fecha"] != null && Session["hora"] != null)
+                    {
+                        ddlUsuario.SelectedValue = usu.Id.ToString();
+                        ddlVehiculo.SelectedValue = Session["IdTipoVehiculo"].ToString();
+                        ddlRubro.SelectedValue = Session["IdRubro"].ToString();
+
+                        ddlServicio.SelectedValue = Session["servicio"].ToString();
+                        txtFecha.Text = Session["fecha"].ToString();
+
+                        CargarHorariosDisponibles(Convert.ToDateTime(Session["fecha"]));
+
+                        ddlFechaHora.SelectedValue = Session["hora"].ToString();
+
+                        ddlEstado.SelectedValue = "1";
+
+                        cargarPrecio();
+
+                        ddlEstado.Enabled = false;
+                        ddlUsuario.Enabled = false;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Error al cargar datos del turno ";
+                        lblMessage.CssClass = "text-danger";
+                        lblMessage.Visible = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Error al cargar el turno: " + ex.Message;
+                    lblMessage.CssClass = "text-danger";
+                    lblMessage.Visible = true;
+                }
             }
 
         }
@@ -190,7 +259,7 @@ namespace tp_cuatrimestral_equipo_17A
                 lblMessage.CssClass = "text-danger";
                 lblMessage.Visible = true;
             }
-           
+
         }
 
         protected void ddlServicio_SelectedIndexChanged(object sender, EventArgs e)
@@ -441,7 +510,7 @@ namespace tp_cuatrimestral_equipo_17A
             try
             {
                 Herramientas herramientas = new Herramientas();
-                validarFechaCliente();
+                //validarFechaCliente();
                 if (herramientas.esAdmin(Session["Empleado"]))
                 {
                     validarFechaAdmin();
