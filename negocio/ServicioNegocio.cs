@@ -21,14 +21,12 @@ namespace negocio
         {
             try
             {
-                string query = "INSERT INTO Servicios (Id, Nombre, Descripcion, Tiempo, Precio) VALUES (@Id, @Nombre, @Descripcion, @Precio, @Tiempo, @Precio)";
+                string query = "INSERT INTO Servicios (Id, Nombre, Descripcion, Tiempo) VALUES (@Id, @Nombre, @Descripcion, @Tiempo)";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", nuevoServicio.Id);
                 accesoDatos.setearParametro("@Nombre", nuevoServicio.Nombre);
                 accesoDatos.setearParametro("@Descripcion", nuevoServicio.Descripcion);
-                accesoDatos.setearParametro("@Tiempo", nuevoServicio.Tiempo);
-                accesoDatos.setearParametro("@Precio", nuevoServicio.Precio);
 
                 accesoDatos.EjecutarAccion();
                 return true;
@@ -45,7 +43,7 @@ namespace negocio
             List<Servicio> lista = new List<Servicio>();
             try
             {
-                string query = "SELECT Id, Nombre, Descripcion, Tiempo, Precio FROM Servicios";
+                string query = "SELECT Id, Nombre, Descripcion, Tiempo FROM Servicios";
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
 
@@ -57,7 +55,6 @@ namespace negocio
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
                         Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
-                        Precio = (decimal)accesoDatos.Lector["Precio"]
                     };
                     lista.Add(nuevoServicio);
                 }
@@ -72,7 +69,6 @@ namespace negocio
             }
             return lista;
         }
-
         public List<Servicio> ListarPorRubro(int idRubro)
         {
             List<Servicio> lista = new List<Servicio>();
@@ -93,7 +89,6 @@ namespace negocio
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
                         Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
-                        //Precio = (decimal)accesoDatos.Lector["Precio"]
                     };
                     lista.Add(nuevoServicio);
                 }
@@ -116,14 +111,13 @@ namespace negocio
         {
             try
             {
-                string query = "UPDATE Servicios SET Nombre = @Nombre, Descripcion = @Descripcion, Tiempo = @Tiempo, Precio =  @Precio WHERE Id = @Id";
+                string query = "UPDATE Servicios SET Nombre = @Nombre, Descripcion = @Descripcion, Tiempo = @Tiempo WHERE Id = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Codigo", ServicioModificado.Id);
                 accesoDatos.setearParametro("@Nombre", ServicioModificado.Nombre);
                 accesoDatos.setearParametro("@Descripcion", ServicioModificado.Descripcion);
                 accesoDatos.setearParametro("@Tiempo", ServicioModificado.Tiempo);
-                accesoDatos.setearParametro("@Precio", ServicioModificado.Precio);
 
 
                 accesoDatos.EjecutarAccion();

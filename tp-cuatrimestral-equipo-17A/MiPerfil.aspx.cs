@@ -22,11 +22,11 @@ namespace tp_cuatrimestral_equipo_17A
 
             if (!IsPostBack)
             {
-                if (!Herramientas.sesionActiva(usu))
-                {
-                    Response.Redirect("Login.aspx", false);
-                    Response.End();
-                }
+                //if (!Herramientas.sesionActiva(usu))
+                //{
+                //    Response.Redirect("Login.aspx", false);
+                //    Response.End();
+                //}
                 
 
                 if (usu != null)
@@ -36,6 +36,10 @@ namespace tp_cuatrimestral_equipo_17A
                     txtUsuario.Text = usu.NombreUsuario;
                     txtId.Text = usu.Id.ToString();
                     txtContraseña.Text = usu.Contraseña;
+                }
+                else
+                {
+                    btnEditar.Text = "Registrarse";
                 }
 
             }
@@ -88,7 +92,27 @@ namespace tp_cuatrimestral_equipo_17A
                 if (validaciones())
                 {
                     UsuarioNegocio negocio = new UsuarioNegocio();
-                    if(usu.tipo == 1)//modifico cliente
+
+
+                    if(usu == null)
+                    {
+                        cl = new Cliente();
+
+                        cl.Nombre = txtNombre.Text;
+                        cl.Apellido = txtApellido.Text;
+                        cl.DNI = txtDNI.Text;
+                        cl.NombreUsuario = txtUsuario.Text;
+                        cl.Contraseña = txtContraseña.Text;
+                        cl.Mail = txtEmail.Text;
+                        cl.Telefono = txtTelefono.Text;
+
+                        negocio.agregarCliente(cl);
+
+                        usu = new Usuario();
+                        usu.NombreUsuario = cl.NombreUsuario;
+                        usu.Contraseña = cl.Contraseña;
+                    }
+                    else if(usu.tipo == 1)//modifico cliente
                     {
                         cl.Nombre = txtNombre.Text;
                         cl.Apellido = txtApellido.Text;
@@ -161,7 +185,7 @@ namespace tp_cuatrimestral_equipo_17A
             }
                 UsuarioNegocio negocio = new UsuarioNegocio();
 
-            if (usu.tipo == 1)
+            if (usu == null || usu.tipo == 1)
             {
                 if (txtDNI.Text.Trim() == null || txtDNI.Text.Trim() == "")
                 {

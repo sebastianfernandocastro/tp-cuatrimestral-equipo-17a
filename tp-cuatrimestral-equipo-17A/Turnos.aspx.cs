@@ -35,7 +35,7 @@ namespace tp_cuatrimestral_equipo_17A
             if (!Page.IsPostBack)
             {
                 CargarListas();
-                txtFecha.Text = DateTime.Now.ToString();
+                txtFecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 CargarHorariosDisponibles(DateTime.Now.Date);
             }
             if (!IsPostBack && !String.IsNullOrEmpty(id))
@@ -57,10 +57,13 @@ namespace tp_cuatrimestral_equipo_17A
                     //ddlFechaHora.SelectedValue = turno.Hora.ToString();
                     ddlFechaHora.SelectedValue = fechaHoraNegocio.ObtenerIdFechaHoraxHora(turno.Hora).ToString();
                     txtPrecio.Text = turno.Precio.ToString();
+                    txtAclaraciones.Text = turno.Aclaracion;
+
                     if (usu.tipo == 1) ddlEstado.Enabled = false;
                     else ddlEstado.Enabled = true;
+                
+                    btnAgregar.Text = "Modifica";
                 }
-
                 //cargarPrecio();
             }
 
@@ -328,30 +331,52 @@ namespace tp_cuatrimestral_equipo_17A
                 if (validaciones())
                 {
 
-                    Turno nuevoTurno = new Turno();
-                    nuevoTurno.Usuario = new Usuario { Id = int.Parse(ddlUsuario.SelectedValue) };
-                    nuevoTurno.Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) };
-                    nuevoTurno.Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) };
-                    nuevoTurno.Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) };
-                    nuevoTurno.Fecha = armarFecha();
-                    nuevoTurno.Estado = new EstadoTurnos { Id = int.Parse(ddlEstado.SelectedValue) };
-                    nuevoTurno.Aclaracion = txtAclaraciones.Text;
-                    nuevoTurno.Precio = Convert.ToDecimal(txtPrecio.Text);
+                    Turno turno = new Turno();
+                    turno.Usuario = new Usuario { Id = int.Parse(ddlUsuario.SelectedValue) };
+                    turno.Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) };
+                    turno.Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) };
+                    turno.Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) };
+                    turno.Fecha = armarFecha();
+                    turno.Estado = new EstadoTurnos { Id = int.Parse(ddlEstado.SelectedValue) };
+                    turno.Aclaracion = txtAclaraciones.Text;
+                    turno.Precio = Convert.ToDecimal(txtPrecio.Text);
 
-
-                    if (turnoNegocio.Agregar(nuevoTurno))
+                    if (String.IsNullOrEmpty(id))
                     {
-                        lblMessage.Text = "Turno agregado correctamente.";
-                        lblMessage.CssClass = "text-success";
-                        //LimpiarFormulario(); // Limpiar el formulario
+                        if (turnoNegocio.Agregar(turno))
+                        {
+                            lblMessage.Text = "Turno agregado correctamente.";
+                            lblMessage.CssClass = "text-success";
+                            //LimpiarFormulario(); // Limpiar el formulario
 
-                        Response.Redirect("TurnosListado.aspx", false);
+                            Response.Redirect("TurnosListado.aspx", false);
+                        }
+                        else
+                        {
+                            lblMessage.Text = "Error al agregar el turno.";
+                            lblMessage.CssClass = "text-danger";
+                        }
                     }
                     else
                     {
-                        lblMessage.Text = "Error al agregar el turno.";
-                        lblMessage.CssClass = "text-danger";
+                        turno.Id = Convert.ToInt32(id);
+
+                        if (turnoNegocio.Modificar(turno))
+                        {
+                            lblMessage.Text = "Turno modificado correctamente.";
+                            lblMessage.CssClass = "text-success";
+                            //btnModificar.Visible = false;
+                            //btnAgregar.Visible = true;
+
+                            Response.Redirect("TurnosListado.aspx", false);
+                        }
+                        else
+                        {
+                            lblMessage.Text = "Error al modificar el turno.";
+                            lblMessage.CssClass = "text-danger";
+                        }
                     }
+
                 }
 
                 lblMessage.Visible = true;
@@ -392,9 +417,8 @@ namespace tp_cuatrimestral_equipo_17A
                 {
                     lblMessage.Text = "Turno modificado correctamente.";
                     lblMessage.CssClass = "text-success";
-                    //LimpiarFormulario();
-                    btnModificar.Visible = false;
-                    btnAgregar.Visible = true;
+                    //btnModificar.Visible = false;
+                    //btnAgregar.Visible = true;
                 }
                 else
                 {

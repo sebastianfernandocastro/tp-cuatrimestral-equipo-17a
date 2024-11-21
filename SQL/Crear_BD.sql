@@ -245,28 +245,59 @@ INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LUBRICENTRO','Servici
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('MECANICA','Servicio: Mecanica integral', 14)
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('CUBIERTAS','Servicio: Cambio de cubiertas, alineacion y balanceo', 15)
 
-INSERT INTO Servicios (Nombre, Descripcion, Tiempo)
-VALUES 
-('Lavado Básico', 'Limpieza exterior rápida', 0.5),
-('Lavado Premium', 'Limpieza exterior e interior completa', 1.0),
-('Pulido y Encerado', 'Pulido exterior y aplicación de cera protectora', 2.0),
-('Cambio de Aceite', 'Cambio de aceite y revisión básica del motor', 1.5),
-('Detailing Completo', 'Limpieza a fondo de todo el vehículo', 4.0);
+INSERT INTO Servicios (Nombre, Descripcion, Tiempo) VALUES 
+-- Lavadero (ID Rubro 1)
+('Lavado Completo', 'Lavado interior y exterior de vehículos', 2.5),
+('Lavado Exterior', 'Solo limpieza externa del vehículo', 1.5),
+('Lavado Motor', 'Limpieza del motor con productos especiales', 1.0),
+('Lavado Alfombras', 'Limpieza profunda de alfombras del vehículo', 1.2),
+('Pulido y Encerado', 'Pulido y encerado completo de la carrocería', 3.0),
+
+-- Detailing (ID Rubro 2)
+('Pulido Detallado', 'Pulido especializado para brillo y corrección de pintura', 4.0),
+('Protección Cerámica', 'Aplicación de revestimiento cerámico', 5.0),
+('Lavado Premium', 'Lavado detallado con productos de alta calidad', 2.0),
+('Limpieza Interior Profunda', 'Desinfección y limpieza de tapizados y plásticos', 3.0),
+('Restauración Faros', 'Restauración de ópticas opacas', 1.5),
+
+-- Lubricentro (ID Rubro 3)
+('Cambio de Aceite', 'Sustitución de aceite y filtro', 0.5),
+('Cambio de Filtros', 'Reemplazo de filtros de aire y combustible', 0.8),
+('Engrase de Partes', 'Lubricación de partes móviles', 1.0),
+('Revisión de Líquidos', 'Chequeo y llenado de líquidos esenciales', 0.7),
+('Cambio de Aceite Sintético', 'Cambio de aceite sintético para motores modernos', 0.6),
+
+-- Mecánica (ID Rubro 4)
+('Revisión General', 'Diagnóstico completo del vehículo', 1.5),
+('Cambio de Pastillas de Freno', 'Reemplazo de pastillas de freno delanteras o traseras', 2.0),
+('Alineación y Balanceo', 'Ajuste de suspensión y balanceo de ruedas', 1.5),
+('Reparación de Suspensión', 'Reparación de amortiguadores y partes relacionadas', 3.5),
+('Cambio de Correa', 'Sustitución de correa de distribución', 4.0),
+
+-- Gomería (ID Rubro 5)
+('Cambio de Neumáticos', 'Reemplazo de neumáticos', 1.0),
+('Reparación de Pinchazos', 'Reparación de pinchaduras en neumáticos', 0.5),
+('Inflado de Neumáticos', 'Ajuste de presión de neumáticos', 0.2),
+('Rotación de Neumáticos', 'Cambio de posición de las ruedas', 1.0),
+('Balanceo de Ruedas', 'Equilibrado dinámico de ruedas', 1.2);
 
 
-INSERT INTO RubroServicio (IdRubro, IdServicio)
-VALUES 
-((SELECT Id FROM Rubros WHERE Nombre = 'LAVADERO'), (SELECT Id FROM Servicios WHERE Nombre = 'Lavado Básico')),
-((SELECT Id FROM Rubros WHERE Nombre = 'LAVADERO'), (SELECT Id FROM Servicios WHERE Nombre = 'Lavado Premium')),
-((SELECT Id FROM Rubros WHERE Nombre = 'LAVADERO'), (SELECT Id FROM Servicios WHERE Nombre = 'Pulido y Encerado'));
 
-INSERT INTO RubroServicio (IdRubro, IdServicio)
-VALUES 
-((SELECT Id FROM Rubros WHERE Nombre = 'LUBRICENTRO'), (SELECT Id FROM Servicios WHERE Nombre = 'Cambio de Aceite'));
+INSERT INTO RubroServicio (IdRubro, IdServicio) VALUES 
+-- Lavadero
+(1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
 
-INSERT INTO RubroServicio (IdRubro, IdServicio)
-VALUES 
-((SELECT Id FROM Rubros WHERE Nombre = 'Detailing'), (SELECT Id FROM Servicios WHERE Nombre = 'Detailing Completo'));
+-- Detailing
+(2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
+
+-- Lubricentro
+(3, 11), (3, 12), (3, 13), (3, 14), (3, 15),
+
+-- Mecánica
+(4, 16), (4, 17), (4, 18), (4, 19), (4, 20),
+
+-- Gomería
+(5, 21), (5, 22), (5, 23), (5, 24), (5, 25);
 
 --agregar horarios y fechas
 drop table HorariosTurnos

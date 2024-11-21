@@ -8,48 +8,60 @@
     <div class="container mt-4">
         <h2>Gestión de Precios</h2>
 
+        <div class="row mb-3">
+            <div class="col-md-1">
+                <asp:Label ID="lblFiltro" runat="server" Text="filtro:"></asp:Label>
+            </div>
+            <div class="col-md-6">
+                <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" CssClass="form-control" />
 
-        <asp:Label ID="lblMensaje" runat="server" CssClass="alert" Visible="false"></asp:Label>
+            </div>
+        </div>
 
-        <asp:GridView ID="dgvPrecios" runat="server" DataKeyNames="Id"
-            CssClass="table" AutoGenerateColumns="false"
-            OnSelectedIndexChanged="dgvPrecios_SelectedIndexChanged"
-            OnPageIndexChanging="dgvPrecios_PageIndexChanging"
-            AllowPaging="True" PageSize="5">
-            <Columns>
-                <asp:BoundField HeaderText="Tipo de Vehículo" DataField="TipoVehiculoNombre" />
-                <asp:BoundField HeaderText="Rubro" DataField="RubroNombre" />
-                <asp:BoundField HeaderText="Servicio" DataField="ServicioNombre" />
-                <asp:BoundField HeaderText="Precio" DataField="PrecioValor"  />
-                <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
-                <asp:TemplateField HeaderText="Acción">
-                    <ItemTemplate>
-                        <a href="#" onclick="return confirmarEliminar(this);" data-id='<%# Eval("Id") %>'>Eliminar</a>
-                    </ItemTemplate>
-                </asp:TemplateField>
+        <div class="row mb-3">
+            <asp:Label ID="lblMensaje" runat="server" CssClass="alert" Visible="false"></asp:Label>
+        </div>
+
+        <div class="row mb-3">
+
+            <asp:GridView ID="dgvPrecios" runat="server" DataKeyNames="Id"
+                CssClass="table" AutoGenerateColumns="false"
+                OnSelectedIndexChanged="dgvPrecios_SelectedIndexChanged"
+                OnPageIndexChanging="dgvPrecios_PageIndexChanging"
+                AllowPaging="True" PageSize="5">
+                <Columns>
+                    <asp:BoundField HeaderText="Tipo de Vehículo" DataField="TipoVehiculoNombre" />
+                    <asp:BoundField HeaderText="Rubro" DataField="RubroNombre" />
+                    <asp:BoundField HeaderText="Servicio" DataField="ServicioNombre" />
+                    <asp:BoundField HeaderText="Precio" DataField="PrecioValor" />
+                    <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
+                    <asp:TemplateField HeaderText="Acción">
+                        <ItemTemplate>
+                            <a href="#" onclick="return confirmarEliminar(this);" data-id='<%# Eval("Id") %>'>Eliminar</a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
 
-            </Columns>
-        </asp:GridView>
+                </Columns>
+            </asp:GridView>
 
-
+        </div>
 
         <asp:HiddenField ID="hfPrecioId" runat="server" />
 
+            <asp:Button ID="btnConfirmarEliminar" runat="server" Text="Eliminar Confirmado"
+                OnClick="btnConfirmarEliminar_Click" Style="display: none;" />
 
-        <asp:Button ID="btnConfirmarEliminar" runat="server" Text="Eliminar Confirmado"
-            OnClick="btnConfirmarEliminar_Click" Style="display: none;" />
-
-        <a href="FormularioPrecio.aspx" class="btn btn-primary mt-3">Agregar Precio</a>
+            <a href="FormularioPrecio.aspx" class="btn btn-primary mt-3">Agregar Precio</a>
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmarEliminar(linkElement) {
-            event.preventDefault(); 
+            event.preventDefault();
 
-            
+
             var idPrecio = linkElement.getAttribute("data-id");
 
 

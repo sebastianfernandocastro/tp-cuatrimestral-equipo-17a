@@ -31,9 +31,6 @@
             height: 150px;
         }
 
-        .box:hover {
-            transform: scale(1.1);
-        }
 
 
         @media (max-width: 768px) {
@@ -82,7 +79,6 @@
         </div>
         <div class="box" id="horario">
             <h2>Horario</h2>
-            <!-- Aquí puedes insertar horarios -->
             <select>
                 <option>09:00 AM</option>
                 <option>09:30 AM</option>
@@ -98,4 +94,5 @@
             <asp:Button CssClass="btn btn-secondary" Text="Reservar" runat="server" />
         </div>
     </div>
+
 </asp:Content>

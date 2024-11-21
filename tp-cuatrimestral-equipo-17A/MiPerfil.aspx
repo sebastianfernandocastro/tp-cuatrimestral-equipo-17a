@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-4">
-        <h2>Registrarse</h2>
+        <h2>Mi Perfíl</h2>
         <asp:Label ID="lblMensage" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 
         <asp:TextBox ID="txtId" runat="server" Visible="false" CssClass="form-control"></asp:TextBox>
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <%if (usu.tipo == 1)
+        <%if (usu == null || usu.tipo == 1)
 
             { %>
         <div class="row mb-3">
