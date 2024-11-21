@@ -271,7 +271,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where Tipo = 1 and estado = 1");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where Tipo = 1 and estado = 1 and id = " + id);
                 datos.EjecutarLectura();
 
                 Cliente cl = new Cliente();

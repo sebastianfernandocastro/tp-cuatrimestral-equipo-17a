@@ -398,15 +398,6 @@ namespace tp_cuatrimestral_equipo_17A
             string Mail = "";
             string NombreUsuario = "";
 
-            try
-            {
-                Mensaje = "Hola " + (string)cli.Nombre + " tu turno para el dia " + (string)txtFecha.Text + " a sido creado con EXITO!. Puedes modificarlo en la seccion de Mis Turnos";
-                Mail = (string)cli.Mail;
-                NombreUsuario = (string)cli.NombreUsuario;
-            }
-            catch (Exception ex)
-            {
-            }
 
             try
             {
@@ -417,7 +408,7 @@ namespace tp_cuatrimestral_equipo_17A
 
                     Turno turno = new Turno();
                     turno.Usuario = new Usuario { Id = int.Parse(ddlUsuario.SelectedValue) };
-                    turno.Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) };
+                    turno.Vehiculo = new TipoVehiculo { Id = int.Parse(ddlVehiculo.SelectedValue) };
                     turno.Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) };
                     turno.Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) };
                     turno.Fecha = armarFecha();
@@ -431,14 +422,16 @@ namespace tp_cuatrimestral_equipo_17A
                         {
                             lblMessage.Text = "Turno agregado correctamente.";
                             lblMessage.CssClass = "text-success";
-                            try
-                            {
-                                herramientas.enviarMail(Mail, Mensaje, NombreUsuario);
 
-                            }
-                            catch (Exception ex)
-                            {
-                            }
+                            if(cli == null) cli = usuarioNegocio.ObtenerClienteById(turno.Usuario.Id);
+
+                            Mensaje = "Hola " + (string)cli.Nombre + " tu turno para el dia " + (string)txtFecha.Text + " a sido creado con EXITO!. Puedes modificarlo en la seccion de Mis Turnos";
+                            Mail = (string)cli.Mail;
+                            NombreUsuario = (string)cli.NombreUsuario;
+
+                            herramientas.enviarMail(Mail, Mensaje, NombreUsuario);
+
+                            
 
                             Response.Redirect("TurnosListado.aspx", false);
                              
@@ -498,7 +491,7 @@ namespace tp_cuatrimestral_equipo_17A
                 {
                     Id = int.Parse(hfTurnoId.Value),
                     Usuario = new Usuario { Id = int.Parse(ddlUsuario.SelectedValue) },
-                    Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) },
+                    Vehiculo = new TipoVehiculo { Id = int.Parse(ddlVehiculo.SelectedValue) },
                     Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) },
                     Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) },
                     Fecha = DateTime.Parse(ddlFechaHora.SelectedValue),
