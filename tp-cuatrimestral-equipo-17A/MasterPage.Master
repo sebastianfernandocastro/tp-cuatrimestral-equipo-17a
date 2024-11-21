@@ -54,7 +54,7 @@
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Usuarios</a></li>
                         <li><a class="dropdown-item" href="Turnos.aspx">Turnos</a></li>
                         <li><a class="dropdown-item" href="">Vehiculos</a></li>
-                        <li><a class="dropdown-item" href="">Rubros</a></li>
+                        <li><a class="dropdown-item" href="Rubros.aspx">Rubros</a></li>
                         <li><a class="dropdown-item" href="">Servicios</a></li>
                         <li><asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>

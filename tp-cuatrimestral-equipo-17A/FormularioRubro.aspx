@@ -7,10 +7,8 @@
     <div class="container mt-4">
         <h2>Formulario Rubro</h2>
 
-        <!-- Mensaje de error o éxito -->
         <asp:Label ID="lblMensaje" runat="server" CssClass="alert" Visible="false"></asp:Label>
 
-        <!-- Campo oculto para el Id del rubro -->
         <asp:HiddenField ID="hfRubroId" runat="server" />
 
         <!-- Nombre -->
@@ -31,6 +29,15 @@
             <asp:DropDownList ID="ddlIdImagen" runat="server" CssClass="form-control"></asp:DropDownList>
         </div>
 
+        <!-- Estado -->
+        <div class="form-group">
+            <asp:Label ID="lblEstado" runat="server" AssociatedControlID="ddlEstado" Text="Estado:"></asp:Label>
+            <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control">
+                <asp:ListItem Text="Activo" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Inactivo" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+
         <!-- Botones -->
         <div>
             <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
@@ -38,3 +45,4 @@
         </div>
     </div>
 </asp:Content>
+

@@ -9,26 +9,41 @@
 
         <asp:Label ID="lblMensaje" runat="server" CssClass="alert" Visible="false"></asp:Label>
 
-        <!-- GridView para listar los rubros -->
-        <asp:GridView ID="dgvRubros" runat="server" DataKeyNames="Id"
-        CssClass="table" AutoGenerateColumns="false"
+    <asp:GridView ID="dgvRubros" runat="server" DataKeyNames="Id"
+        CssClass="table" AutoGenerateColumns="false" 
         OnSelectedIndexChanged="dgvRubros_SelectedIndexChanged"
         OnPageIndexChanging="dgvRubros_PageIndexChanging"
+        OnRowCommand="dgvRubros_RowCommand"
         AllowPaging="True" PageSize="5">
         <Columns>
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
             <asp:BoundField HeaderText="Id Imagen" DataField="IdImagen" />
+             <asp:BoundField HeaderText="Estado" DataField="Estado" 
+            DataFormatString="{0:Activo;Inactivo}" />
             <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
-            <asp:TemplateField HeaderText="Acción">
+            <asp:TemplateField HeaderText="Eliminar">
                 <ItemTemplate>
                     <a href="#" onclick="return confirmarEliminar(this);" data-id='<%# Eval("Id") %>'>Eliminar</a>
                 </ItemTemplate>
             </asp:TemplateField>
-
+            <asp:TemplateField HeaderText="Acciones">
+                <ItemTemplate>
+                    <asp:Button
+                        ID="btnActivar"
+                        runat="server"
+                        Text='<%# Eval("Estado").ToString() == "1" ? "Desactivar" : "Activar" %>'
+                        CssClass="btn btn-sm btn-warning"
+                        CommandName="ToggleEstado"
+                        CommandArgument='<%# Eval("Id") %>' 
+                        data-id='<%# Eval("Id") %>'/>
+                       
+                </ItemTemplate>
+            </asp:TemplateField>
 
         </Columns>
     </asp:GridView>
+
 
         <asp:HiddenField ID="hfRubroId" runat="server" />
         <asp:Button ID="btnConfirmarEliminar" runat="server" Text="Eliminar Confirmado" 
@@ -42,16 +57,12 @@
         function confirmarEliminar(linkElement) {
             event.preventDefault();
 
-            // Obtener el ID desde el atributo `data-id`
             var idRubro = linkElement.getAttribute("data-id");
 
-            // Validar el ID
             if (!idRubro) {
                 Swal.fire('Error', 'No se pudo obtener el ID del rubro.', 'error');
                 return false;
             }
-
-            // Asignar el ID al HiddenField
             document.getElementById('<%= hfRubroId.ClientID %>').value = idRubro;
 
             Swal.fire({

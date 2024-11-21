@@ -25,7 +25,6 @@ namespace tp_cuatrimestral_equipo_17A
         {
             try
             {
-                RubroNegocio rubroNegocio = new RubroNegocio();
                 List<Rubro> listaRubros = rubroNegocio.Listar();
 
                 dgvRubros.DataSource = listaRubros;
@@ -40,6 +39,58 @@ namespace tp_cuatrimestral_equipo_17A
         }
 
 
+        protected void dgvRubros_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "ToggleEstado")
+            {
+                try
+                {
+                    
+                    if (int.TryParse(e.CommandArgument.ToString(), out int id))
+                    {
+                        Rubro rubro = rubroNegocio.ObtenerPorId(id);
+                        if (rubro != null)
+                        {
+                            rubro.Estado = rubro.Estado == 1 ? 0 : 1;
+
+                            if (rubroNegocio.Modificar(rubro))
+                            {
+                                lblMensaje.Text = rubro.Estado == 1
+                                    ? "Rubro activado correctamente."
+                                    : "Rubro desactivado correctamente.";
+                                lblMensaje.CssClass = "text-success";
+                            }
+                            else
+                            {
+                                lblMensaje.Text = "No se pudo actualizar el estado del rubro.";
+                                lblMensaje.CssClass = "text-danger";
+                            }
+                        }
+                        else
+                        {
+                            lblMensaje.Text = "No se encontró el rubro.";
+                            lblMensaje.CssClass = "text-warning";
+                        }
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "El ID del rubro no es válido.";
+                        lblMensaje.CssClass = "text-danger";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMensaje.Text = "Error al cambiar el estado del rubro: " + ex.Message;
+                    lblMensaje.CssClass = "text-danger";
+                }
+                finally
+                {
+                    lblMensaje.Visible = true;
+                    CargarRubros(); 
+                }
+            }
+        }
+
         protected void dgvRubros_SelectedIndexChanged(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(dgvRubros.SelectedDataKey.Value);
@@ -47,8 +98,8 @@ namespace tp_cuatrimestral_equipo_17A
         }
         protected void dgvRubros_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            dgvRubros.PageIndex = e.NewPageIndex; // Cambiar el índice de la página
-            CargarRubros(); // Recargar los datos en el GridView
+            dgvRubros.PageIndex = e.NewPageIndex; 
+            CargarRubros(); 
         }
 
         protected void btnConfirmarEliminar_Click(object sender, EventArgs e)

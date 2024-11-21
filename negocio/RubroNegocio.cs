@@ -20,12 +20,13 @@ namespace negocio
         {
             try
             {
-                string query = "INSERT INTO Rubros (Nombre, Descripcion, IdImagen) VALUES (@Nombre, @Descripcion, @IdImagen)";
+                string query = "INSERT INTO Rubros (Nombre, Descripcion, IdImagen, Estado) VALUES (@Nombre, @Descripcion, @IdImagen, @Estado)";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Nombre", nuevoRubro.Nombre);
                 accesoDatos.setearParametro("@Descripcion", nuevoRubro.Descripcion);
                 accesoDatos.setearParametro("@IdImagen", nuevoRubro.IdImagen);
+                accesoDatos.setearParametro("@Estado", nuevoRubro.Estado);
 
                 accesoDatos.EjecutarAccion();
                 return true;
@@ -43,17 +44,18 @@ namespace negocio
             List<Rubro> lista = new List<Rubro>();
             try
             {
-                accesoDatos.setearConsulta("SELECT Id, Nombre, Descripcion, IdImagen FROM Rubros");
+                accesoDatos.setearConsulta("SELECT Id, Nombre, Descripcion, IdImagen, Estado FROM Rubros");
                 accesoDatos.EjecutarLectura();
 
                 while (accesoDatos.Lector.Read())
                 {
                     Rubro nuevoRubro = new Rubro
                     {
-                        Id = (int)accesoDatos.Lector["Id"], 
+                        Id = (int)accesoDatos.Lector["Id"],
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                        IdImagen = (int)accesoDatos.Lector["IdImagen"] 
+                        IdImagen = (int)accesoDatos.Lector["IdImagen"],
+                        Estado = (int)accesoDatos.Lector["Estado"]
                     };
                     lista.Add(nuevoRubro);
                 }
@@ -74,13 +76,14 @@ namespace negocio
         {
             try
             {
-                string query = "UPDATE Rubros SET Nombre = @Nombre, Descripcion = @Descripcion, IdImagen = @IdImagen WHERE Id = @Id";
+                string query = "UPDATE Rubros SET Nombre = @Nombre, Descripcion = @Descripcion, IdImagen = @IdImagen, Estado = @Estado WHERE Id = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", rubroModificado.Id);
                 accesoDatos.setearParametro("@Nombre", rubroModificado.Nombre);
                 accesoDatos.setearParametro("@Descripcion", rubroModificado.Descripcion);
                 accesoDatos.setearParametro("@IdImagen", rubroModificado.IdImagen);
+                accesoDatos.setearParametro("@Estado", rubroModificado.Estado);
 
                 accesoDatos.EjecutarAccion();
                 return true;
@@ -97,7 +100,7 @@ namespace negocio
         {
             try
             {
-                string query = "DELETE FROM Rubros WHERE Id = @Id";
+                string query = "UPDATE Rubros SET Estado = 0 WHERE Id = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", Id);
@@ -111,5 +114,39 @@ namespace negocio
                 return false;
             }
         }
+
+        public Rubro ObtenerPorId(int id)
+        {
+            Rubro rubro = null;
+            try
+            {
+                string query = "SELECT Id, Nombre, Descripcion, IdImagen, Estado FROM Rubros WHERE Id = @Id";
+                accesoDatos.setearConsulta(query);
+                accesoDatos.setearParametro("@Id", id);
+                accesoDatos.EjecutarLectura();
+
+                if (accesoDatos.Lector.Read())
+                {
+                    rubro = new Rubro
+                    {
+                        Id = (int)accesoDatos.Lector["Id"],
+                        Nombre = accesoDatos.Lector["Nombre"].ToString(),
+                        Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
+                        IdImagen = (int)accesoDatos.Lector["IdImagen"],
+                        Estado = (int)accesoDatos.Lector["Estado"]
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener Rubro por ID: " + ex.Message);
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return rubro;
+        }
+
     }
 }
