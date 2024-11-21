@@ -65,6 +65,32 @@ namespace negocio
                 smtp.Send(message);
             }
         }
+        public void enviarMailRecuperacion(string mail, string bodyText, string nombre)
+        {
+            var fromAddress = new MailAddress("tpwebsebastiancastro@gmail.com", "Lavadero los 3 locos que quieren aprobar esta bella materia");
+            var toAddress = new MailAddress(mail, nombre);
+            const string fromPassword = "vyml wcpm vtko uvem";
+            const string subject = "Te enviamos tus datos de usuario.";
+            string body = bodyText;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+            }
+        }
 
 
         public static bool sesionActiva(object user)

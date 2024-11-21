@@ -1,11 +1,11 @@
-﻿<%@ Page Title="Login" Language="C#"  MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="tp_cuatrimestral_equipo_17A.Login" %>
+﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="tp_cuatrimestral_equipo_17A.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Turnos</title>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <div class="container mt-5" style="height:73.4vh; align-content:center;">
+    <div class="container mt-5" style="height: 73.4vh; align-content: center;">
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card">
@@ -23,6 +23,9 @@
                 <div class="text-center">
                     <p>¿No tienes una cuenta?</p>
                     <a href="MiPerfil.aspx">Registrarse</a>
+                    <p>Ingresa tu mail y te reenviaremos tus datos a tu casilla.</p>
+                    <asp:TextBox ID="txbMail" TextMode="Email" runat="server"></asp:TextBox>
+                    <asp:Button ID="btnRecuperar" Text="Recuperar" runat="server" OnClick="btnRecuperar_Click" />
                 </div>
             </div>
         </div>
