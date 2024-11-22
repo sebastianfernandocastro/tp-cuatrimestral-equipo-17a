@@ -43,7 +43,7 @@ namespace tp_cuatrimestral_equipo_17A
                 div.Attributes["class"] = "divisorVehiculos";
                 for (int b = auxiliar; b < vehiculos.Count; b++)
                 {
-                    Imagen img  = imagenes.Find(o => o.Id == vehiculos[b].IdImagen);
+                    Imagen img  = imagenes.Find(o => o.Id == vehiculos[b].imagen.Id);
                     ImageButton imgButton = new ImageButton
                     {
                         ID = $"{vehiculos[b].Id}",

@@ -19,7 +19,7 @@ namespace tp_cuatrimestral_equipo_17A
         {
             Herramientas herramientas = new Herramientas();
 
-            if (!(Page is Login || Page is Default || Page is About || Page is Registrarse || Page is MiPerfil))
+            if (!(Page is Login || Page is Default || Page is About || Page is Registrarse || Page is NuestrosTrabajos || Page is MiPerfil))
             {
                 if (!Herramientas.sesionActiva(Session["usuario"]))
                     Response.Redirect("Login.aspx", false);

@@ -25,7 +25,7 @@ namespace negocio
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Nombre", nuevoRubro.Nombre);
                 accesoDatos.setearParametro("@Descripcion", nuevoRubro.Descripcion);
-                accesoDatos.setearParametro("@IdImagen", nuevoRubro.IdImagen);
+                accesoDatos.setearParametro("@IdImagen", nuevoRubro.imagen.Id);
                 accesoDatos.setearParametro("@Estado", nuevoRubro.Estado);
 
                 accesoDatos.EjecutarAccion();
@@ -39,24 +39,32 @@ namespace negocio
         }
 
 
-        public List<Rubro> Listar()
+        public List<Rubro> Listar(int inactivos = 0)
         {
             List<Rubro> lista = new List<Rubro>();
             try
             {
-                accesoDatos.setearConsulta("SELECT Id, Nombre, Descripcion, IdImagen, Estado FROM Rubros");
+                string consulta = " SELECT r.Id, r.Nombre, r.Descripcion, r.IdImagen,img.UrlImagen ,r.Estado FROM Rubros " +
+                    " inner join Imagenes img on r.IdImagen = img.Id ";
+                if (inactivos == 0) consulta += " where r.estado = 1 ";
+                else consulta += " where r.estado = 0";
+
+                accesoDatos.setearConsulta(consulta);
                 accesoDatos.EjecutarLectura();
 
                 while (accesoDatos.Lector.Read())
                 {
-                    Rubro nuevoRubro = new Rubro
-                    {
-                        Id = (int)accesoDatos.Lector["Id"],
-                        Nombre = accesoDatos.Lector["Nombre"].ToString(),
-                        Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                        IdImagen = (int)accesoDatos.Lector["IdImagen"],
-                        Estado = (int)accesoDatos.Lector["Estado"]
-                    };
+                    Rubro nuevoRubro = new Rubro();
+
+                    nuevoRubro.Id = (int)accesoDatos.Lector["Id"];
+                    nuevoRubro.Nombre = accesoDatos.Lector["Nombre"].ToString();
+                    nuevoRubro.Descripcion = accesoDatos.Lector["Descripcion"].ToString();
+                    nuevoRubro.imagen = new Imagen();
+                    nuevoRubro.imagen.Id = (int)accesoDatos.Lector["IdImagen"];
+                    nuevoRubro.imagen.UrlImagen = (string)accesoDatos.Lector["UrlImagen"];
+                    nuevoRubro.Estado = (int)accesoDatos.Lector["Estado"];
+
+
                     lista.Add(nuevoRubro);
                 }
             }
@@ -82,7 +90,7 @@ namespace negocio
                 accesoDatos.setearParametro("@Id", rubroModificado.Id);
                 accesoDatos.setearParametro("@Nombre", rubroModificado.Nombre);
                 accesoDatos.setearParametro("@Descripcion", rubroModificado.Descripcion);
-                accesoDatos.setearParametro("@IdImagen", rubroModificado.IdImagen);
+                accesoDatos.setearParametro("@IdImagen", rubroModificado.imagen.Id);
                 accesoDatos.setearParametro("@Estado", rubroModificado.Estado);
 
                 accesoDatos.EjecutarAccion();
@@ -127,14 +135,15 @@ namespace negocio
 
                 if (accesoDatos.Lector.Read())
                 {
-                    rubro = new Rubro
-                    {
-                        Id = (int)accesoDatos.Lector["Id"],
-                        Nombre = accesoDatos.Lector["Nombre"].ToString(),
-                        Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                        IdImagen = (int)accesoDatos.Lector["IdImagen"],
-                        Estado = (int)accesoDatos.Lector["Estado"]
-                    };
+                    rubro = new Rubro();
+                    
+                    rubro.Id = (int)accesoDatos.Lector["Id"];
+                    rubro.Nombre = accesoDatos.Lector["Nombre"].ToString();
+                    rubro.Descripcion = accesoDatos.Lector["Descripcion"].ToString();
+                    rubro.imagen = new Imagen();
+                    rubro.imagen.Id = (int)accesoDatos.Lector["IdImagen"];
+                    rubro.Estado = (int)accesoDatos.Lector["Estado"];
+                    
                 }
             }
             catch (Exception ex)

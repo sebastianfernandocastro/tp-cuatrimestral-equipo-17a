@@ -37,7 +37,7 @@ namespace tp_cuatrimestral_equipo_17A
 
             for(int i=0; i<rubros.Count; i++)
             {
-                Imagen img = imagenes.Find(o => o.Id == rubros[i].IdImagen);
+                Imagen img = imagenes.Find(o => o.Id == rubros[i].imagen.Id);
                 ImageButton imageButton = new ImageButton
                 {
                     ID = $"{rubros[i].Id}",

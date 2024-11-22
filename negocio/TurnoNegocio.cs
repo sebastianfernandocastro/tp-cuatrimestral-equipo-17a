@@ -27,7 +27,7 @@ namespace negocio
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@IdCliente", nuevoTurno.Usuario.Id);
-                accesoDatos.setearParametro("@IdTipoVehiculo", nuevoTurno.Vehiculo.Codigo);
+                accesoDatos.setearParametro("@IdTipoVehiculo", nuevoTurno.Vehiculo.Id);
                 accesoDatos.setearParametro("@IdRubro", nuevoTurno.Rubro.Id);
                 accesoDatos.setearParametro("@IdServicio", nuevoTurno.Servicio.Id);
                 accesoDatos.setearParametro("@IdFechaHora", nuevoTurno.Fecha);
@@ -209,7 +209,7 @@ namespace negocio
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", turno.Id);
                 accesoDatos.setearParametro("@IdCliente", turno.Usuario.Id);
-                accesoDatos.setearParametro("@IdTipoVehiculo", turno.Vehiculo.Codigo);
+                accesoDatos.setearParametro("@IdTipoVehiculo", turno.Vehiculo.Id);
                 accesoDatos.setearParametro("@IdRubro", turno.Rubro.Id);
                 accesoDatos.setearParametro("@IdServicio", turno.Servicio.Id);
                 accesoDatos.setearParametro("@Fecha", turno.Fecha);

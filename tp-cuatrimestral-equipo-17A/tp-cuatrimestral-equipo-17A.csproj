@@ -84,9 +84,12 @@
     <Content Include="FormularioEmpleado.aspx" />
     <Content Include="FormularioPrecio.aspx" />
     <Content Include="FormularioRubro.aspx" />
+    <Content Include="FormularioVehiculo.aspx" />
+    <Content Include="NuestrosTrabajos.aspx" />
     <Content Include="Precios.aspx" />
     <Content Include="Rubros.aspx" />
     <Content Include="Styles\SeleccionarServicio.css" />
+    <Content Include="Vehiculo.aspx" />
     <Content Include="TurnosListado.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
@@ -174,6 +177,20 @@
     <Compile Include="FormularioRubro.aspx.designer.cs">
       <DependentUpon>FormularioRubro.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FormularioVehiculo.aspx.cs">
+      <DependentUpon>FormularioVehiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioVehiculo.aspx.designer.cs">
+      <DependentUpon>FormularioVehiculo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NuestrosTrabajos.aspx.cs">
+      <DependentUpon>NuestrosTrabajos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuestrosTrabajos.aspx.designer.cs">
+      <DependentUpon>NuestrosTrabajos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Precios.aspx.cs">
       <DependentUpon>Precios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -187,6 +204,13 @@
     </Compile>
     <Compile Include="Rubros.aspx.designer.cs">
       <DependentUpon>Rubros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vehiculo.aspx.cs">
+      <DependentUpon>Vehiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vehiculo.aspx.designer.cs">
+      <DependentUpon>Vehiculo.aspx</DependentUpon>
     </Compile>
     <Compile Include="TurnosListado.aspx.cs">
       <DependentUpon>TurnosListado.aspx</DependentUpon>

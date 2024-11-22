@@ -24,7 +24,7 @@ namespace tp_cuatrimestral_equipo_17A
                     int id;
                     if (int.TryParse(Request.QueryString["id"], out id))
                     {
-                        CargarDatosFormulario(id); 
+                        CargarDatosFormulario(id);
                     }
                     else
                     {
@@ -45,8 +45,8 @@ namespace tp_cuatrimestral_equipo_17A
 
 
                 ddlIdImagen.DataSource = listaImagenes;
-                ddlIdImagen.DataTextField = "UrlImagen"; 
-                ddlIdImagen.DataValueField = "Id"; 
+                ddlIdImagen.DataTextField = "UrlImagen";
+                ddlIdImagen.DataValueField = "Id";
                 ddlIdImagen.DataBind();
 
                 ddlIdImagen.Items.Insert(0, new ListItem("-- Selecciona una imagen --", "0"));
@@ -70,7 +70,7 @@ namespace tp_cuatrimestral_equipo_17A
                     hfRubroId.Value = rubro.Id.ToString();
                     txtNombre.Text = rubro.Nombre;
                     txtDescripcion.Text = rubro.Descripcion;
-                    ddlIdImagen.SelectedValue = rubro.IdImagen.ToString();
+                    ddlIdImagen.SelectedValue = rubro.imagen.Id.ToString();
                     ddlEstado.SelectedValue = rubro.Estado.ToString();
                 }
                 else
@@ -92,13 +92,13 @@ namespace tp_cuatrimestral_equipo_17A
         {
             try
             {
-                Rubro rubro = new Rubro
-                {
-                    Nombre = txtNombre.Text,
-                    Descripcion = txtDescripcion.Text,
-                    IdImagen = int.Parse(ddlIdImagen.SelectedValue),
-                    Estado = int.Parse(ddlEstado.SelectedValue)
-                };
+                Rubro rubro = new Rubro();
+
+                rubro.Nombre = txtNombre.Text;
+                rubro.Descripcion = txtDescripcion.Text;
+                rubro.imagen.Id = int.Parse(ddlIdImagen.SelectedValue);
+                rubro.Estado = int.Parse(ddlEstado.SelectedValue);
+
 
                 if (!string.IsNullOrEmpty(hfRubroId.Value))
                 {
@@ -106,7 +106,7 @@ namespace tp_cuatrimestral_equipo_17A
                     rubroNegocio.Modificar(rubro);
                     lblMensaje.Text = "Rubro modificado con éxito.";
                 }
-                else 
+                else
                 {
                     rubroNegocio.Agregar(rubro);
                     lblMensaje.Text = "Rubro agregado con éxito.";

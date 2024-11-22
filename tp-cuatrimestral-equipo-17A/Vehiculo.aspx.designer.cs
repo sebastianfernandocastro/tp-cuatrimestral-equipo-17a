@@ -11,61 +11,70 @@ namespace tp_cuatrimestral_equipo_17A
 {
 
 
-    public partial class Login
+    public partial class Vehiculo
     {
 
         /// <summary>
-        /// Control lblMsgError.
+        /// Control lblFiltro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMsgError;
+        protected global::System.Web.UI.WebControls.Label lblFiltro;
 
         /// <summary>
-        /// Control txtUsuario.
+        /// Control txtFiltro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtFiltro;
 
         /// <summary>
-        /// Control txtContraseña.
+        /// Control lblMensaje.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContraseña;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
-        /// Control btnLogin.
+        /// Control cbxInactivos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.CheckBox cbxInactivos;
 
         /// <summary>
-        /// Control txbMail.
+        /// Control dgvVehiculos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbMail;
+        protected global::System.Web.UI.WebControls.GridView dgvVehiculos;
 
         /// <summary>
-        /// Control btnRecuperar.
+        /// Control hfVehiculoId.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRecuperar;
+        protected global::System.Web.UI.WebControls.HiddenField hfVehiculoId;
+
+        /// <summary>
+        /// Control btnConfirmarEliminar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnConfirmarEliminar;
     }
 }
