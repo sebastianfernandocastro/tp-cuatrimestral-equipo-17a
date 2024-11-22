@@ -44,7 +44,7 @@ namespace negocio
             List<Rubro> lista = new List<Rubro>();
             try
             {
-                string consulta = " SELECT r.Id, r.Nombre, r.Descripcion, r.IdImagen,img.UrlImagen ,r.Estado FROM Rubros " +
+                string consulta = " SELECT r.Id, r.Nombre, r.Descripcion, r.IdImagen,img.UrlImagen ,r.Estado FROM Rubros r " +
                     " inner join Imagenes img on r.IdImagen = img.Id ";
                 if (inactivos == 0) consulta += " where r.estado = 1 ";
                 else consulta += " where r.estado = 0";
