@@ -110,11 +110,13 @@ namespace tp_cuatrimestral_equipo_17A
             {
                 lblMessage.Text = "Turno cancelado correctamente.";
                 lblMessage.CssClass = "text-success";
+                lblMessage.Visible = true;
             }
             else
             {
                 lblMessage.Text = "Error al cancelar el turno.";
                 lblMessage.CssClass = "text-danger";
+                lblMessage.Visible = true;
             }
         }
 
@@ -132,7 +134,29 @@ namespace tp_cuatrimestral_equipo_17A
             }
             catch (Exception ex)
             {
+                lblMessage.Text = "Error al agregar el turno.";
+                lblMessage.CssClass = "text-danger";
+                lblMessage.Visible = true;
             }
         }
+
+        protected void gvTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvTurnos.PageIndex = e.NewPageIndex;
+                CargarTurnos();
+
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error al paginar turnos.";
+                lblMessage.CssClass = "text-danger";
+                lblMessage.Visible = true;
+
+            }
+        }
+
+        
     }
 }

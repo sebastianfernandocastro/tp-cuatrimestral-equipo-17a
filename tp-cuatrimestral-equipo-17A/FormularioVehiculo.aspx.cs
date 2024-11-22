@@ -81,6 +81,27 @@ namespace tp_cuatrimestral_equipo_17A
             {
                 TipoVehiculo vehiculo = new TipoVehiculo();
 
+                if (String.IsNullOrEmpty(txtNombre.Text))
+                {
+                    lblMensaje.Text = "Debe completar el nombre";
+                    lblMensaje.CssClass = "text-danger";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+                else if (ddlImagen == null || ddlImagen.SelectedValue == null || ddlImagen.SelectedValue == "0")
+                {
+                    lblMensaje.Text = "Debe seleccionar una imagen";
+                    lblMensaje.CssClass = "text-danger";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+                else if (ddlEstado == null || ddlEstado.SelectedValue == null || ddlEstado.SelectedValue == "0")
+                {
+                    lblMensaje.Text = "Debe seleccionar una Estado";
+                    lblMensaje.CssClass = "text-danger";
+                    lblMensaje.Visible = true;
+                    return;
+                }
 
                 vehiculo.Nombre = txtNombre.Text;
                 vehiculo.Descripcion = txtDescripcion.Text;

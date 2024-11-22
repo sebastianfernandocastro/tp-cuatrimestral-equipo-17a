@@ -37,7 +37,9 @@ namespace negocio
             FROM Precios AS P
             INNER JOIN TipoVehiculo AS TV ON P.IdTipoVehiculo = TV.Id
             INNER JOIN Rubros AS R ON P.IdRubro = R.Id
-            INNER JOIN Servicios AS S ON P.IdServicio = S.Id;");
+            INNER JOIN Servicios AS S ON P.IdServicio = S.Id
+            where s.Estado = 1 and R.Estado = 1 and Tv.Estado = 1            
+;");
 
                 datos.EjecutarLectura();
 

@@ -25,7 +25,9 @@
         <div class="row mt-3">
             <div class="col-md-12">
                 <asp:GridView ID="gvTurnos" runat="server" CssClass="table table-striped" AutoGenerateColumns="false"
-                    OnRowCommand="gvTurnos_RowCommand" DataKeyNames="Id">
+                    OnRowCommand="gvTurnos_RowCommand" DataKeyNames="Id"
+                    OnPageIndexChanging="gvTurnos_PageIndexChanging"
+                     AllowPaging="True" PageSize="5">
                     <Columns>
                         <%--<asp:BoundField DataField="Id" HeaderText="ID" />--%>
                         <asp:BoundField DataField="Usuario.Nombre" HeaderText="Cliente" />

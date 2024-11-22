@@ -50,21 +50,18 @@
                         <%=empleado.Nombre%>
                     </a>
                     <ul class="dropdown-menu" style="background-color: #222222;">
-<<<<<<< HEAD
-                        <li><a class="dropdown-item" href="MiPerfil.aspx">Usuarios</a></li>
-                        <li><a class="dropdown-item" href="Turnos.aspx">Turnos</a></li>
-                        <li><a class="dropdown-item" href="">Vehiculos</a></li>
-                        <li><a class="dropdown-item" href="Rubros.aspx">Rubros</a></li>
-=======
+                        <%--<li><a class="dropdown-item" href="MiPerfil.aspx">Usuarios</a></li>--%>
+                        <%--<li><a class="dropdown-item" href="Turnos.aspx">Turnos</a></li>--%>
+                        <%--<li><a class="dropdown-item" href="">Vehiculos</a></li>--%>
+                        <%--<li><a class="dropdown-item" href="Rubros.aspx">Rubros</a></li>--%>
                         <li><a class="dropdown-item" href="MiPerfil.aspx">Mi Perfil</a></li>
                         <li><a class="dropdown-item" href="Clientes.aspx">Clientes</a></li>
                         <li><a class="dropdown-item" href="Empleados.aspx">Empleados</a></li>
                         <li><a class="dropdown-item" href="Precios.aspx">Precios</a></li>
-                        <li><a class="dropdown-item" href="">Rubros</a></li>
->>>>>>> 03f406b1da44eee72d47cb2eb5be970a141f06f8
-                        <li><a class="dropdown-item" href="">Servicios</a></li>
+                        <li><a class="dropdown-item" href="Rubros.aspx">Rubros</a></li>
+                        <li><a class="dropdown-item" href="Servicios.aspx">Servicios</a></li>
                         <li><a class="dropdown-item" href="TurnosListado.aspx">Turnos</a></li>
-                        <li><a class="dropdown-item" href="">Vehiculos</a></li>
+                        <li><a class="dropdown-item" href="Vehiculo.aspx">Vehiculos</a></li>
                         <li>
                             <asp:LinkButton CssClass="dropdown-item" ID="btnCerrarSesion" OnClick="CerrarSesion" runat="server">Cerrar sesion</asp:LinkButton></li>
                     </ul>

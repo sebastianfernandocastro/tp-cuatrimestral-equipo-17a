@@ -62,6 +62,7 @@ namespace negocio
                     tipoVehiculo.imagen = new Imagen();
                     tipoVehiculo.imagen.Id = accesoDatos.Lector["IdImagen"] != DBNull.Value ? (int)accesoDatos.Lector["IdImagen"] : 0;
                     tipoVehiculo.imagen.UrlImagen = accesoDatos.Lector["UrlImagen"] != DBNull.Value ? (string)accesoDatos.Lector["UrlImagen"] : "";
+                    tipoVehiculo.Estado = (int)accesoDatos.Lector["Estado"];
 
                     lista.Add(tipoVehiculo);
                 }
