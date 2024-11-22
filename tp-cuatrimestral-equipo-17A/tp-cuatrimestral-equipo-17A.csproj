@@ -84,10 +84,8 @@
     <Content Include="FormularioEmpleado.aspx" />
     <Content Include="FormularioPrecio.aspx" />
     <Content Include="FormularioRubro.aspx" />
-    <Content Include="FormularioServicio.aspx" />
     <Content Include="Precios.aspx" />
     <Content Include="Rubros.aspx" />
-    <Content Include="Servicios.aspx" />
     <Content Include="Styles\SeleccionarServicio.css" />
     <Content Include="TurnosListado.aspx" />
     <Content Include="Global.asax" />
@@ -176,13 +174,6 @@
     <Compile Include="FormularioRubro.aspx.designer.cs">
       <DependentUpon>FormularioRubro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="FormularioServicio.aspx.cs">
-      <DependentUpon>FormularioServicio.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FormularioServicio.aspx.designer.cs">
-      <DependentUpon>FormularioServicio.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Precios.aspx.cs">
       <DependentUpon>Precios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -196,13 +187,6 @@
     </Compile>
     <Compile Include="Rubros.aspx.designer.cs">
       <DependentUpon>Rubros.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Servicios.aspx.cs">
-      <DependentUpon>Servicios.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Servicios.aspx.designer.cs">
-      <DependentUpon>Servicios.aspx</DependentUpon>
     </Compile>
     <Compile Include="TurnosListado.aspx.cs">
       <DependentUpon>TurnosListado.aspx</DependentUpon>

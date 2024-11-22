@@ -94,7 +94,7 @@ namespace tp_cuatrimestral_equipo_17A
             ServicioNegocio servicioNegocio = new ServicioNegocio();
             try
             {
-                ddlServicio.DataSource = servicioNegocio.ListarTodos();
+                ddlServicio.DataSource = servicioNegocio.Listar();
                 ddlServicio.DataTextField = "Nombre";
                 ddlServicio.DataValueField = "Id";
                 ddlServicio.DataBind();

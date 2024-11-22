@@ -60,45 +60,6 @@ namespace negocio
 
         }
 
-        public int ObtenerUltimoId()
-        {
-            try
-            {
-                // Ejecuta una consulta para obtener el último ID insertado
-                setearConsulta("SELECT SCOPE_IDENTITY() AS UltimoId");
-                EjecutarLectura();
-
-                if (Lector.Read())
-                {
-                    return Convert.ToInt32(Lector["UltimoId"]);
-                }
-
-                throw new Exception("No se pudo obtener el último ID insertado.");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el último ID: " + ex.Message);
-            }
-            finally
-            {
-                CerrarConexion();
-            }
-        }
-
-        public int EjecutarAccionConResultado()
-        {
-            try
-            {
-                return comando.ExecuteNonQuery(); // Devuelve el número de filas afectadas
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al ejecutar la acción: " + ex.Message);
-            }
-        }
-
-
-
         //Convierte los datos de Artiuclo para poder ser leidos por la BBDD.
         //public void ConvertirDatos(Articulo articulo)
         //{
