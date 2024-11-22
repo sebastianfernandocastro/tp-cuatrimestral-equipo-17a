@@ -106,7 +106,7 @@ namespace tp_cuatrimestral_equipo_17A
                         ddlUsuario.SelectedValue = usu.Id.ToString();
                         ddlVehiculo.SelectedValue = Session["IdTipoVehiculo"].ToString();
                         ddlRubro.SelectedValue = Session["IdRubro"].ToString();
-
+                        cargarServicioxIdRubroElegido();
                         ddlServicio.SelectedValue = Session["servicio"].ToString();
                         txtFecha.Text = Session["fecha"].ToString();
 

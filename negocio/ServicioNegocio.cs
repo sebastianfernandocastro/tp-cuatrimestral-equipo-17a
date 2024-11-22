@@ -133,7 +133,7 @@ namespace negocio
             {
                 string query = " SELECT s.Id, s.Nombre, s.Descripcion FROM Servicios s " +
                     "INNER JOIN RubroServicio rs ON rs.IdServicio = s.Id " +
-                    "WHERE rs.IdRubro = " + idRubro;
+                    "WHERE s.Estado = 1 and rs.IdRubro = " + idRubro;
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
