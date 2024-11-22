@@ -44,10 +44,11 @@ namespace negocio
             List<TipoVehiculo> lista = new List<TipoVehiculo>();
             try
             {
-                string query = "SELECT Id, Nombre, Descripcion, IdImagen FROM TipoVehiculo";
+                string query = "SELECT tv.Id, tv.Nombre, tv.Descripcion, tv.IdImagen, tv.Estado, img.UrlImagen FROM TipoVehiculo tv " +
+                    "inner join Imagenes img on tv.IdImagen = img.Id   ";
 
-                if (inactivo == 1) query += " where estado = 0 ";
-                else query += " where estado = 1 ";
+                if (inactivo == 1) query += " where tv.estado = 0 ";
+                else query += " where tv.estado = 1 ";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
@@ -61,6 +62,7 @@ namespace negocio
                     tipoVehiculo.Descripcion = accesoDatos.Lector["Descripcion"].ToString();
                     tipoVehiculo.imagen = new Imagen();
                     tipoVehiculo.imagen.Id = accesoDatos.Lector["IdImagen"] != DBNull.Value ? (int)accesoDatos.Lector["IdImagen"] : 0;
+                    tipoVehiculo.imagen.UrlImagen = accesoDatos.Lector["UrlImagen"] != DBNull.Value ? (string)accesoDatos.Lector["UrlImagen"] : "";
 
                     lista.Add(tipoVehiculo);
                 }
@@ -138,7 +140,7 @@ namespace negocio
         {
             try
             {
-                string query = "DELETE FROM TipoVehiculo WHERE Id = @Id";
+                string query = "update TipoVehiculo set estado = 0 WHERE Id = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", id);
