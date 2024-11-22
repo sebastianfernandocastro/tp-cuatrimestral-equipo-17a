@@ -22,9 +22,10 @@ namespace negocio
         {
             try
             {
-                string queryServicio = " INSERT INTO Servicios (DECLARE @NewIdServicio INT; " +
-                    " INSERT INTO Servicios (Nombre, Descripcion, Tiempo, Estado) " +
-                    " VALUES (@Nombre, @Descripcion, @Tiempo, @Estado); " +
+                //string queryServicio = " INSERT INTO Servicios (DECLARE @NewIdServicio INT; " +
+                string queryServicio = " DECLARE @NewIdServicio INT; " +
+                    " INSERT INTO Servicios (Nombre, Descripcion, Estado) " +
+                    " VALUES (@Nombre, @Descripcion,@Estado); " +
                     " SET @NewIdServicio = SCOPE_IDENTITY();" +
                     " INSERT INTO RubroServicio (IdRubro, IdServicio)VALUES (@IdRubro, @NewIdServicio) ";
 
@@ -32,7 +33,6 @@ namespace negocio
                 accesoDatos.setearParametro("@Id", nuevoServicio.Id);
                 accesoDatos.setearParametro("@Nombre", nuevoServicio.Nombre);
                 accesoDatos.setearParametro("@Descripcion", nuevoServicio.Descripcion);
-                accesoDatos.setearParametro("@Tiempo", nuevoServicio.Tiempo);
                 accesoDatos.setearParametro("@IdRubro", idRubro);
                 accesoDatos.setearParametro("@Estado", nuevoServicio.Estado);
                 accesoDatos.EjecutarAccion();
@@ -55,7 +55,7 @@ namespace negocio
             List<Servicio> lista = new List<Servicio>();
             try
             {
-                string query = @"SELECT s.Id, s.Nombre, s.Descripcion, s.Tiempo, s.Precio, s.Estado 
+                string query = @"SELECT s.Id, s.Nombre, s.Descripcion, r.Nombre nombreRubro ,s.Precio, s.Estado 
                          FROM Servicios s
                          INNER JOIN RubroServicio rs ON rs.IdServicio = s.Id
                          INNER JOIN Rubros r ON r.Id = rs.IdRubro
@@ -64,14 +64,16 @@ namespace negocio
                 accesoDatos.EjecutarLectura();
                 while (accesoDatos.Lector.Read())
                 {
-                    Servicio nuevoServicio = new Servicio
-                    {
-                        Id = (int)accesoDatos.Lector["Id"],
-                        Nombre = accesoDatos.Lector["Nombre"].ToString(),
-                        Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                        Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
-                        Estado = (int)accesoDatos.Lector["Estado"]
-                    };
+                    Servicio nuevoServicio = new Servicio();
+
+                    nuevoServicio.Id = (int)accesoDatos.Lector["Id"];
+                    nuevoServicio.Nombre = accesoDatos.Lector["Nombre"].ToString();
+                    nuevoServicio.Descripcion = accesoDatos.Lector["Descripcion"].ToString();
+                    nuevoServicio.Estado = (int)accesoDatos.Lector["Estado"];
+
+                    nuevoServicio.rubro = new Rubro();
+                    nuevoServicio.rubro.Descripcion = accesoDatos.Lector["nombreRubro"].ToString();
+
                     lista.Add(nuevoServicio);
                 }
             }
@@ -91,7 +93,7 @@ namespace negocio
             try
             {
                 string query = @"
-            SELECT s.Id, s.Nombre, s.Descripcion, s.Tiempo, s.Estado
+            SELECT s.Id, s.Nombre, s.Descripcion , r.Nombre nombreRubro, s.Estado
             FROM Servicios s
             INNER JOIN RubroServicio rs ON rs.IdServicio = s.Id
             INNER JOIN Rubros r ON r.Id = rs.IdRubro
@@ -102,14 +104,15 @@ namespace negocio
                 accesoDatos.EjecutarLectura();
                 while (accesoDatos.Lector.Read())
                 {
-                    Servicio nuevoServicio = new Servicio
-                    {
-                        Id = (int)accesoDatos.Lector["Id"],
-                        Nombre = accesoDatos.Lector["Nombre"].ToString(),
-                        Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                        Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
-                        Estado = (int)accesoDatos.Lector["Estado"]
-                    };
+                    Servicio nuevoServicio = new Servicio();
+
+                    nuevoServicio.Id = (int)accesoDatos.Lector["Id"];
+                    nuevoServicio.Nombre = accesoDatos.Lector["Nombre"].ToString();
+                    nuevoServicio.Descripcion = accesoDatos.Lector["Descripcion"].ToString();
+                    nuevoServicio.Estado = (int)accesoDatos.Lector["Estado"];
+
+                    nuevoServicio.rubro = new Rubro();
+                    nuevoServicio.rubro.Descripcion = accesoDatos.Lector["nombreRubro"].ToString();
                     lista.Add(nuevoServicio);
                 }
             }
@@ -128,7 +131,7 @@ namespace negocio
             List<Servicio> lista = new List<Servicio>();
             try
             {
-                string query = " SELECT s.Id, s.Nombre, s.Descripcion, s.Tiempo FROM Servicios s " +
+                string query = " SELECT s.Id, s.Nombre, s.Descripcion FROM Servicios s " +
                     "INNER JOIN RubroServicio rs ON rs.IdServicio = s.Id " +
                     "WHERE rs.IdRubro = " + idRubro;
 
@@ -142,7 +145,6 @@ namespace negocio
                         Id = (int)accesoDatos.Lector["Id"],
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                        Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
                     };
                     lista.Add(nuevoServicio);
                 }
@@ -185,7 +187,7 @@ namespace negocio
         {
             try
             {
-                string query = "SELECT Id, Nombre, Descripcion, Tiempo, Estado FROM Servicios WHERE Id = @Id";
+                string query = "SELECT Id, Nombre, Descripcion, Estado FROM Servicios WHERE Id = @Id";
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", id);
                 accesoDatos.EjecutarLectura();
@@ -196,7 +198,6 @@ namespace negocio
                         Id = (int)accesoDatos.Lector["Id"],
                         Nombre = accesoDatos.Lector["Nombre"].ToString(),
                         Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                        Tiempo = (decimal)accesoDatos.Lector["Tiempo"],
                         Estado = (int)accesoDatos.Lector["Estado"]
                     };
                 }
@@ -218,14 +219,13 @@ namespace negocio
         {
             try
             {
-                string query = "UPDATE Servicios SET Nombre = @Nombre, Descripcion = @Descripcion, Tiempo = @Tiempo, Estado = @Estado WHERE Id = @Id " +
+                string query = "UPDATE Servicios SET Nombre = @Nombre, Descripcion = @Descripcion,  Estado = @Estado WHERE Id = @Id " +
                     "UPDATE RubroServicio SET IdRubro = @IdRubro WHERE IdServicio = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", servicioModificado.Id);
                 accesoDatos.setearParametro("@Nombre", servicioModificado.Nombre);
                 accesoDatos.setearParametro("@Descripcion", servicioModificado.Descripcion);
-                accesoDatos.setearParametro("@Tiempo", servicioModificado.Tiempo);
                 accesoDatos.setearParametro("@Estado", servicioModificado.Estado);
                 accesoDatos.setearParametro("@IdRubro", idRubro);
 

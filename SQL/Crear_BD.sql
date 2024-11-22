@@ -49,6 +49,7 @@ CREATE TABLE TipoVehiculo (
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(MAX),
     IdImagen INT,
+	Estado int
     CONSTRAINT FK_TipoVehiculo_Imagen FOREIGN KEY (IdImagen) REFERENCES Imagenes(Id)
 );
 
@@ -70,12 +71,14 @@ CREATE TABLE TipoVehiculoRubro (
     CONSTRAINT FK_TipoVehiculoRubro_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(Id)
 );
 
+ALTER TABLE Servicios
+DROP COLUMN Tiempo;
 CREATE TABLE Servicios (
     Id INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(MAX),
-    Tiempo DECIMAL(5, 2) NOT NULL
 );
+ALTER TABLE Servicios ADD Estado INT NOT NULL DEFAULT 1;
 
 CREATE TABLE RubroServicio (
     Id INT PRIMARY KEY IDENTITY(1,1),

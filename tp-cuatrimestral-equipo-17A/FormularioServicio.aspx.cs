@@ -14,8 +14,8 @@ namespace tp_cuatrimestral_equipo_17A
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-                CargarRubros();
             {
+                CargarRubros();
                 if (Request.QueryString["id"] != null)
                 {
                     int id = int.Parse(Request.QueryString["id"]);
@@ -37,8 +37,12 @@ namespace tp_cuatrimestral_equipo_17A
                 {
                     txtNombre.Text = servicio.Nombre;
                     txtDescripcion.Text = servicio.Descripcion;
-                    txtTiempo.Text = servicio.Tiempo.ToString("F2");
                     ddlEstado.SelectedValue = servicio.Estado.ToString();
+
+                    RubroNegocio rubroNegocio = new RubroNegocio();
+                    
+                    ddlRubro.SelectedValue = rubroNegocio.ObtenerIdporIdServicio(servicio.Id).ToString();
+
                 }
                 else
                 {
@@ -71,6 +75,11 @@ namespace tp_cuatrimestral_equipo_17A
         {
             try
             {
+                if (String.IsNullOrEmpty(txtNombre.Text))
+                {
+                    MostrarMensaje("Debe completar el nombre del servicio.", "text-danger");
+                    return;
+                }
                 if (ddlRubro.SelectedValue == "0")
                 {
                     MostrarMensaje("Debe seleccionar un rubro.", "text-danger");
@@ -80,7 +89,6 @@ namespace tp_cuatrimestral_equipo_17A
                 {
                     Nombre = txtNombre.Text.Trim(),
                     Descripcion = txtDescripcion.Text.Trim(),
-                    Tiempo = decimal.Parse(txtTiempo.Text.Trim()),
                     Estado = int.Parse(ddlEstado.SelectedValue)
                 };
                 int idRubro = int.Parse(ddlRubro.SelectedValue);
@@ -95,6 +103,8 @@ namespace tp_cuatrimestral_equipo_17A
                     servicioNegocio.Agregar(servicio, idRubro);
                     MostrarMensaje("Servicio agregado correctamente.", "text-success");
                 }
+
+                Response.Redirect("Servicios.aspx", false);
             }
             catch (Exception ex)
             {

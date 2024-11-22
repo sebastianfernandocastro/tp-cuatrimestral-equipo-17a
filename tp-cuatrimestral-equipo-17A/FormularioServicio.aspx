@@ -16,10 +16,6 @@
             <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
         <div class="mb-3">
-            <asp:Label ID="lblTiempo" runat="server" AssociatedControlID="txtTiempo" Text="Tiempo (horas)"></asp:Label>
-            <asp:TextBox ID="txtTiempo" runat="server" CssClass="form-control"></asp:TextBox>
-        </div>
-        <div class="mb-3">
             <asp:Label ID="lblRubro" runat="server" AssociatedControlID="ddlRubro" Text="Rubro"></asp:Label>
             <asp:DropDownList ID="ddlRubro" runat="server" CssClass="form-control">
             </asp:DropDownList>

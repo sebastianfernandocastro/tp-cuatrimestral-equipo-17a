@@ -9,11 +9,13 @@
         <asp:Label ID="lblMensaje" runat="server" CssClass="alert" Visible="false"></asp:Label>
         
         <asp:GridView ID="dgvServicios" runat="server" DataKeyNames="Id" AutoGenerateColumns="false"
-            OnRowCommand="dgvServicios_RowCommand" AllowPaging="True" PageSize="5" CssClass="table">
+            OnRowCommand="dgvServicios_RowCommand" AllowPaging="True" PageSize="5" CssClass="table"
+            OnSelectedIndexChanged="dgvServicios_SelectedIndexChanged"
+            OnPageIndexChanging="dgvServicios_PageIndexChanging"> 
             <Columns>
                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                 <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
-                <asp:BoundField HeaderText="Tiempo (Horas)" DataField="Tiempo" DataFormatString="{0:F2}" />
+                <asp:BoundField HeaderText="Rubro" DataField="rubro.Descripcion" />
                 <asp:BoundField HeaderText="Estado" DataField="Estado" />
                 
                 <asp:TemplateField HeaderText="Acción">

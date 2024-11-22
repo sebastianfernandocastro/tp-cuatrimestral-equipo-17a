@@ -73,5 +73,12 @@ namespace tp_cuatrimestral_equipo_17A
             lblMensaje.Visible = true;
             CargarServicios();
         }
+
+        protected void dgvServicios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(dgvServicios.SelectedDataKey.Value);
+            Response.Redirect($"FormularioServicio.aspx?id={id}", false);
+        }
+
     }
 }

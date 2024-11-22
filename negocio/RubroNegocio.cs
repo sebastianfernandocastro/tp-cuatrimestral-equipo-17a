@@ -164,14 +164,14 @@ namespace negocio
                 if (accesoDatos.Lector.Read())
                 {
                     rubro = new Rubro();
-                    
+
                     rubro.Id = (int)accesoDatos.Lector["Id"];
                     rubro.Nombre = accesoDatos.Lector["Nombre"].ToString();
                     rubro.Descripcion = accesoDatos.Lector["Descripcion"].ToString();
                     rubro.imagen = new Imagen();
                     rubro.imagen.Id = (int)accesoDatos.Lector["IdImagen"];
                     rubro.Estado = (int)accesoDatos.Lector["Estado"];
-                    
+
                 }
             }
             catch (Exception ex)
@@ -183,6 +183,35 @@ namespace negocio
                 accesoDatos.CerrarConexion();
             }
             return rubro;
+        }
+
+        public int ObtenerIdporIdServicio(int idServicio)
+        {
+            int id = 0;
+            try
+            {
+                string query = "SELECT IdRubro  FROM RubroServicio WHERE IdServicio = @Id";
+                accesoDatos.setearConsulta(query);
+                accesoDatos.setearParametro("@Id", idServicio);
+                accesoDatos.EjecutarLectura();
+
+                if (accesoDatos.Lector.Read())
+                {
+
+                    id = (int)accesoDatos.Lector["IdRubro"];
+
+                }
+                return id;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener Rubro por ID: " + ex.Message);
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return id;
         }
 
     }
