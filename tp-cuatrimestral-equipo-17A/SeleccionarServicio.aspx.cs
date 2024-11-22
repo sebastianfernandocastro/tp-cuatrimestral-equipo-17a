@@ -37,16 +37,9 @@ namespace tp_cuatrimestral_equipo_17A
                     DateTime dFechaHoy = DateTime.Today;
                     DateTime dFechaHasta = dFechaHoy.AddDays(2);
 
-<<<<<<< Updated upstream
                     if (dFechaHasta.DayOfWeek == DayOfWeek.Sunday)
                     {
                         dFechaHasta = dFechaHasta.AddDays(-1); 
-=======
-                    // Si el día máximo cae en domingo, reduce el rango
-                    if (dFechaHasta.DayOfWeek == DayOfWeek.Sunday)
-                    {
-                        dFechaHasta = dFechaHasta.AddDays(-1); // Ajusta al sábado
->>>>>>> Stashed changes
                     }
 
                     string sFechHoy = dFechaHoy.ToString("yyyy-MM-dd");
@@ -61,13 +54,6 @@ namespace tp_cuatrimestral_equipo_17A
 
 
 
-<<<<<<< Updated upstream
-=======
-
-
-                    //ddlHora.SelectedValue = fechaHoraNegocio.ObtenerIdFechaHoraxHora(turno.Hora).ToString();
-
->>>>>>> Stashed changes
                     if (Session["IdRubro"] != null)
                     {
                         ddlServicio.DataSource = servicioNegocio.ListarPorRubro((int)Session["IdRubro"]);
