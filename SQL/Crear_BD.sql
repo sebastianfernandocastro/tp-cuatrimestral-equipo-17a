@@ -44,8 +44,8 @@ CREATE TABLE TipoVehiculo (
     Id INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(MAX),
-    IdImagen INT,
-	Estado int
+    IdImagen INT ,
+	Estado int,
     CONSTRAINT FK_TipoVehiculo_Imagen FOREIGN KEY (IdImagen) REFERENCES Imagenes(Id)
 );
 
@@ -54,28 +54,16 @@ CREATE TABLE Rubros (
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(MAX),
     IdImagen INT NOT NULL,
-    CONSTRAINT FK_Rubro_Imagen FOREIGN KEY (IdImagen) REFERENCES Imagenes(Id)
+    Estado INT NOT NULL DEFAULT(1),
+    CONSTRAINT FK_Rubro_Imagen FOREIGN KEY (IdImagen) REFERENCES Imagenes(Id)  
 );
-ALTER TABLE Rubros ADD Estado INT NOT NULL DEFAULT 1;
 
-
-CREATE TABLE TipoVehiculoRubro (
-    Id INT PRIMARY KEY IDENTITY(1,1),
-    IdTipoVehiculo INT NOT NULL,
-    IdRubro INT NOT NULL,
-    CONSTRAINT FK_TipoVehiculoRubro_TipoVehiculo FOREIGN KEY (IdTipoVehiculo) REFERENCES TipoVehiculo(Id),
-    CONSTRAINT FK_TipoVehiculoRubro_Rubro FOREIGN KEY (IdRubro) REFERENCES Rubros(Id)
-);
-ALTER TABLE TipoVehiculo ADD Estado INT NOT NULL DEFAULT 1;
-
-ALTER TABLE Servicios
-DROP COLUMN Tiempo;
 CREATE TABLE Servicios (
     Id INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(MAX),
+    Estado int not null DEFAULT(1)
 );
-ALTER TABLE Servicios ADD Estado INT NOT NULL DEFAULT 1;
 
 CREATE TABLE RubroServicio (
     Id INT PRIMARY KEY IDENTITY(1,1),
@@ -123,16 +111,9 @@ CREATE TABLE Precios (
 
 
 
-INSERT INTO Precios (IdTipoVehiculo, IdRubro, IdServicio, Precio)
-VALUES
 
 
-INSERT INTO EstadoTurnos (Descripcion)
-VALUES 
-    ('Pendiente'), 
-    ('En Proceso'),
-    ('Completado'), 
-    ('Cancelado');
+INSERT INTO EstadoTurnos (Descripcion) VALUES ('Pendiente'), ('En Proceso'), ('Completado'),  ('Cancelado');
 
 --ADMIN--
 insert into Usuarios (Nombre,Apellido,Usuario,Contrasenia,Tipo,DNI,MAIL,Telefono,Legajo,NivelAcceso,estado) values('admin','admin','admin','admin',2,null,null,null,'admin',1,1)
@@ -178,43 +159,61 @@ INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('LUBRICENTRO','Servici
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('MECANICA','Servicio: Mecanica integral', 14)
 INSERT INTO Rubros(Nombre, Descripcion, IdImagen) Values ('CUBIERTAS','Servicio: Cambio de cubiertas, alineacion y balanceo', 15)
 
-INSERT INTO Servicios (Nombre, Descripcion, Tiempo) VALUES 
+INSERT INTO Servicios (Nombre, Descripcion) VALUES 
 -- Lavadero (ID Rubro 1)
-('Lavado Completo', 'Lavado interior y exterior de vehículos', 2.5),
-('Lavado Exterior', 'Solo limpieza externa del vehículo', 1.5),
-('Lavado Motor', 'Limpieza del motor con productos especiales', 1.0),
-('Lavado Alfombras', 'Limpieza profunda de alfombras del vehículo', 1.2),
-('Pulido y Encerado', 'Pulido y encerado completo de la carrocería', 3.0),
+('Lavado Completo', 'Lavado interior y exterior de vehículos'),
+('Lavado Exterior', 'Solo limpieza externa del vehículo'),
+('Lavado Motor', 'Limpieza del motor con productos especiales'),
+('Lavado Alfombras', 'Limpieza profunda de alfombras del vehículo'),
+('Pulido y Encerado', 'Pulido y encerado completo de la carrocería'),
 
 -- Detailing (ID Rubro 2)
-('Pulido Detallado', 'Pulido especializado para brillo y corrección de pintura', 4.0),
-('Protección Cerámica', 'Aplicación de revestimiento cerámico', 5.0),
-('Lavado Premium', 'Lavado detallado con productos de alta calidad', 2.0),
-('Limpieza Interior Profunda', 'Desinfección y limpieza de tapizados y plásticos', 3.0),
-('Restauración Faros', 'Restauración de ópticas opacas', 1.5),
+('Pulido Detallado', 'Pulido especializado para brillo y corrección de pintura'),
+('Protección Cerámica', 'Aplicación de revestimiento cerámico'),
+('Lavado Premium', 'Lavado detallado con productos de alta calidad'),
+('Limpieza Interior Profunda', 'Desinfección y limpieza de tapizados y plásticos'),
+('Restauración Faros', 'Restauración de ópticas opacas'),
 
 -- Lubricentro (ID Rubro 3)
-('Cambio de Aceite', 'Sustitución de aceite y filtro', 0.5),
-('Cambio de Filtros', 'Reemplazo de filtros de aire y combustible', 0.8),
-('Engrase de Partes', 'Lubricación de partes móviles', 1.0),
-('Revisión de Líquidos', 'Chequeo y llenado de líquidos esenciales', 0.7),
-('Cambio de Aceite Sintético', 'Cambio de aceite sintético para motores modernos', 0.6),
+('Cambio de Aceite', 'Sustitución de aceite y filtro'),
+('Cambio de Filtros', 'Reemplazo de filtros de aire y combustible'),
+('Engrase de Partes', 'Lubricación de partes móviles'),
+('Revisión de Líquidos', 'Chequeo y llenado de líquidos esenciales'),
+('Cambio de Aceite Sintético', 'Cambio de aceite sintético para motores modernos'),
 
 -- Mecánica (ID Rubro 4)
-('Revisión General', 'Diagnóstico completo del vehículo', 1.5),
-('Cambio de Pastillas de Freno', 'Reemplazo de pastillas de freno delanteras o traseras', 2.0),
-('Alineación y Balanceo', 'Ajuste de suspensión y balanceo de ruedas', 1.5),
-('Reparación de Suspensión', 'Reparación de amortiguadores y partes relacionadas', 3.5),
-('Cambio de Correa', 'Sustitución de correa de distribución', 4.0),
+('Revisión General', 'Diagnóstico completo del vehículo'),
+('Cambio de Pastillas de Freno', 'Reemplazo de pastillas de freno delanteras o traseras'),
+('Alineación y Balanceo', 'Ajuste de suspensión y balanceo de ruedas'),
+('Reparación de Suspensión', 'Reparación de amortiguadores y partes relacionadas'),
+('Cambio de Correa', 'Sustitución de correa de distribución'),
 
 -- Gomería (ID Rubro 5)
-('Cambio de Neumáticos', 'Reemplazo de neumáticos', 1.0),
-('Reparación de Pinchazos', 'Reparación de pinchaduras en neumáticos', 0.5),
-('Inflado de Neumáticos', 'Ajuste de presión de neumáticos', 0.2),
-('Rotación de Neumáticos', 'Cambio de posición de las ruedas', 1.0),
-('Balanceo de Ruedas', 'Equilibrado dinámico de ruedas', 1.2);
+('Cambio de Neumáticos', 'Reemplazo de neumáticos'),
+('Reparación de Pinchazos', 'Reparación de pinchaduras en neumáticos'),
+('Inflado de Neumáticos', 'Ajuste de presión de neumáticos'),
+('Rotación de Neumáticos', 'Cambio de posición de las ruedas'),
+('Balanceo de Ruedas', 'Equilibrado dinámico de ruedas');
 
 
+INSERT INTO RubroServicio (IdRubro, IdServicio) VALUES 
+-- Lavadero
+(1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
+
+-- Detailing
+(2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
+
+-- Lubricentro
+(3, 11), (3, 12), (3, 13), (3, 14), (3, 15),
+
+-- Mecánica
+(4, 16), (4, 17), (4, 18), (4, 19), (4, 20),
+
+-- Gomería
+(5, 21), (5, 22), (5, 23), (5, 24), (5, 25);
+
+INSERT INTO Precios (IdTipoVehiculo, IdRubro, IdServicio, Precio)
+VALUES
 -- COUPE
 (1, 1, 1, 15.00), -- COUPE, LAVADERO, Lavado basico
 (1, 1, 2, 20.00), -- COUPE, LAVADERO, Lavado Premium
@@ -277,22 +276,6 @@ INSERT INTO Servicios (Nombre, Descripcion, Tiempo) VALUES
 (9, 1, 3, 50.00), -- FAMILIAR, LAVADERO, Pulido y Encerado
 (9, 2, 5, 75.00), -- FAMILIAR, DETAILING, Detailing Completo
 (9, 3, 4, 55.00); -- FAMILIAR, LUBRICENTRO, Cambio de Aceite
-
-INSERT INTO RubroServicio (IdRubro, IdServicio) VALUES 
--- Lavadero
-(1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
-
--- Detailing
-(2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
-
--- Lubricentro
-(3, 11), (3, 12), (3, 13), (3, 14), (3, 15),
-
--- Mecánica
-(4, 16), (4, 17), (4, 18), (4, 19), (4, 20),
-
--- Gomería
-(5, 21), (5, 22), (5, 23), (5, 24), (5, 25);
 
 --agregar horarios y fechas
 INSERT INTO FechaHora(Hora, Disponible)
