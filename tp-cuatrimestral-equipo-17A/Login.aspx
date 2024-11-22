@@ -25,7 +25,7 @@
                     <a href="MiPerfil.aspx">Registrarse</a>
                     <p>Ingresa tu mail y te reenviaremos tus datos a tu casilla.</p>
                     <asp:TextBox ID="txbMail" TextMode="Email" runat="server"></asp:TextBox>
-                    <asp:Button ID="btnRecuperar" Text="Recuperar" runat="server" OnClick="btnRecuperar_Click" />
+                    <asp:Button ID="btnRecuperar" Width="100" Text="RECUPERAR" runat="server" OnClick="btnRecuperar_Click" />
                 </div>
             </div>
         </div>

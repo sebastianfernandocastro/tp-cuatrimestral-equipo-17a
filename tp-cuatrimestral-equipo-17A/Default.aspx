@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div>
-        <div class="divContenedor" style="background-color: #222222; height: 150px; color: white; justify-content: center; align-items: center; font-size: 120px; margin-bottom: 5px;">
+        <div class="divContenedor" style="background-color: #222222; height: 100px; color: white; justify-content: center; align-items: center; font-size: 120px; margin-bottom: 5px;">
             <h1>NUESTROS SERVICIOS
             </h1>
         </div>

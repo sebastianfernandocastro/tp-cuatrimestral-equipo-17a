@@ -3,11 +3,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-    <div class="divContenedor" style="background-color: #222222; height: 150px; color: white; justify-content: center; align-items: center; font-size: 100px; margin-bottom: 5px;">
+    <div class="divContenedor" style="background-color: #222222; height: 100px; color: white; justify-content: center; align-items: center; font-size: 100px; margin-bottom: 5px;">
         <h1>SOBRE NOSOTROS</h1>
     </div>
     <div class="divContenedor" style="margin-bottom: 5px; align-items: center;">
-        <img style="width: 50%; height: 405px" src="https://iili.io/27EmC42.jpg" alt="Foto del local" />
+        <img style="width: 50%; border-radius: 0;height: 405px" src="https://iili.io/27EmC42.jpg" alt="Foto del local" />
         <div style="width: 50%; background-color: #222222; color: white; padding: 20px;">
             <h3>Nuestra Historia</h3>
             <p style="font-size: 18px; text-align: justify;">
