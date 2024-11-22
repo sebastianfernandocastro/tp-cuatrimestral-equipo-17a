@@ -4,14 +4,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-4">
     <h2>Gestión de Tipo de Vehiculos</h2>
-
     <div class="row mt-3">
         <div class="col-md-1">
             <asp:Label ID="lblFiltro" runat="server" Text="filtro:"></asp:Label>
         </div>
         <div class="col-md-6">
             <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" CssClass="form-control" />
-
         </div>
     </div>
     <div class="row mt-3">
@@ -22,7 +20,6 @@
             <asp:CheckBox Text="Mostrar Vehiculos Inactivos" AutoPostBack="true" ID="cbxInactivos" OnCheckedChanged="cbxInactivos_CheckedChanged" runat="server" />
         </div>
     </div>
-
     <div class="row mt-3">
         <asp:GridView ID="dgvVehiculos" runat="server" DataKeyNames="Id"
             CssClass="table" AutoGenerateColumns="false"
@@ -33,7 +30,7 @@
             <Columns>
                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                 <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
-                <asp:BoundField HeaderText="Url Imagen" DataField="IdImagen" />
+                <asp:BoundField HeaderText="Url Imagen" DataField="Imagen.UrlImagen" />
                 <asp:BoundField HeaderText="Estado" DataField="Estado"
                     DataFormatString="{0:Activo;Inactivo}" />
                 <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
@@ -66,27 +63,21 @@
             </Columns>
         </asp:GridView>
     </div>
-
     <asp:HiddenField ID="hfVehiculoId" runat="server" />
     <asp:Button ID="btnConfirmarEliminar" runat="server" Text="Eliminar Confirmado"
         OnClick="btnConfirmarEliminar_Click" Style="display: none;" />
-
     <a href="FormularioVehiculo.aspx" class="btn btn-primary mt-3">Agregar Vehiculo</a>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function confirmarEliminar(linkElement) {
         event.preventDefault();
-
         var idVehiculo = linkElement.getAttribute("data-id");
-
         if (!idVehiculo) {
             Swal.fire('Error', 'No se pudo obtener el ID del Vehiculo.', 'error');
             return false;
         }
         document.getElementById('<%= hfVehiculoId.ClientID %>').value = idVehiculo;
-
         Swal.fire({
             title: '¿Estás seguro?',
             text: "No podrás deshacer esta acción.",
@@ -101,10 +92,7 @@
                 document.getElementById('<%= btnConfirmarEliminar.ClientID %>').click();
             }
         });
-
         return false;
     }
-
-
 </script>
 </asp:Content>
