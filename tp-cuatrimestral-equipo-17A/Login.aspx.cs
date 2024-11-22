@@ -76,24 +76,5 @@ namespace tp_cuatrimestral_equipo_17A
         {
 
         }
-
-        protected void btnRecuperar_Click(object sender, EventArgs e)
-        {
-            UsuarioNegocio negocio = new UsuarioNegocio();
-            Cliente usu = new Cliente();
-            Herramientas herramientas = new Herramientas();
-
-            try
-            {
-                usu = negocio.ObtenerClienteByMail(txbMail.Text);
-                string datos = "Hola " + usu.Nombre + " tu usuario es: " + usu.NombreUsuario + " y tu contraseña: " + usu.Contraseña + ". ¡Esperamos haberte ayudado!";
-                herramientas.enviarMailRecuperacion(usu.Mail, datos, usu.Nombre);
-
-            }
-            catch (Exception ex)
-            {
-            }
-
-        }
     }
 }

@@ -21,10 +21,10 @@ namespace negocio
         {
             try
             {
-                string query = "INSERT INTO TipoVehiculo (Id, Nombre, Descripcion, Imagen,Estado) VALUES (@Id, @Nombre, @Descripcion, @Imagen,1)";
+                string query = "INSERT INTO TipoVehiculo (Codigo, Nombre, Descripcion, Imagen) VALUES (@Codigo, @Nombre, @Descripcion, @Imagen)";
 
                 accesoDatos.setearConsulta(query);
-                accesoDatos.setearParametro("@Id", nuevoTipoVehiculo.Id);
+                accesoDatos.setearParametro("@Codigo", nuevoTipoVehiculo.Codigo);
                 accesoDatos.setearParametro("@Nombre", nuevoTipoVehiculo.Nombre);
                 accesoDatos.setearParametro("@Descripcion", nuevoTipoVehiculo.Descripcion);
                 //accesoDatos.setearParametro("@Imagen", nuevoTipoVehiculo.Imagen);
@@ -39,16 +39,12 @@ namespace negocio
             }
         }
 
-        public List<TipoVehiculo> Listar(int inactivo = 0)
+        public List<TipoVehiculo> Listar()
         {
             List<TipoVehiculo> lista = new List<TipoVehiculo>();
             try
             {
                 string query = "SELECT Id, Nombre, Descripcion, IdImagen FROM TipoVehiculo";
-
-                if (inactivo == 1) query += " where estado = 0 ";
-                else query += " where estado = 1 ";
-
                 accesoDatos.setearConsulta(query);
                 accesoDatos.EjecutarLectura();
 
@@ -75,50 +71,18 @@ namespace negocio
             return lista;
         }
 
-        public TipoVehiculo ObtenerPorId(int id)
-        {
-            try
-            {
-                string query = "SELECT Id, Nombre, Descripcion, IdImagen FROM TipoVehiculo where id = " + id;
-
-                accesoDatos.setearConsulta(query);
-                accesoDatos.EjecutarLectura();
-
-                while (accesoDatos.Lector.Read())
-                {
-                    TipoVehiculo tipoVehiculo = new TipoVehiculo
-                    {
-                        Id = (int)accesoDatos.Lector["Id"],
-                        Nombre = accesoDatos.Lector["Nombre"].ToString(),
-                        Descripcion = accesoDatos.Lector["Descripcion"].ToString(),
-                        IdImagen = accesoDatos.Lector["IdImagen"] != DBNull.Value ? (int)accesoDatos.Lector["IdImagen"] : 0
-                    };
-                    return tipoVehiculo;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al listar TipoVehiculo: " + ex.Message);
-            }
-            finally
-            {
-                accesoDatos.CerrarConexion();
-            }
-            return null;
-        }
 
 
         public bool Modificar(TipoVehiculo tipoVehiculoModificado)
         {
             try
             {
-                string query = "UPDATE TipoVehiculo SET Nombre = @Nombre, Descripcion = @Descripcion, Imagen = @Imagen, Estado = @Estado WHERE Id = @Id";
+                string query = "UPDATE TipoVehiculo SET Nombre = @Nombre, Descripcion = @Descripcion, Imagen = @Imagen WHERE Codigo = @Codigo";
 
                 accesoDatos.setearConsulta(query);
-                accesoDatos.setearParametro("@Id", tipoVehiculoModificado.Id);
+                accesoDatos.setearParametro("@Codigo", tipoVehiculoModificado.Codigo);
                 accesoDatos.setearParametro("@Nombre", tipoVehiculoModificado.Nombre);
                 accesoDatos.setearParametro("@Descripcion", tipoVehiculoModificado.Descripcion);
-                accesoDatos.setearParametro("@Estado", tipoVehiculoModificado.Estado);
                 //accesoDatos.setearParametro("@Imagen", tipoVehiculoModificado.Imagen);
 
                 accesoDatos.EjecutarAccion();
@@ -131,14 +95,14 @@ namespace negocio
             }
         }
 
-        public bool Eliminar(int id)
+        public bool Eliminar(int codigo)
         {
             try
             {
-                string query = "DELETE FROM TipoVehiculo WHERE Id = @Id";
+                string query = "DELETE FROM TipoVehiculo WHERE Codigo = @Codigo";
 
                 accesoDatos.setearConsulta(query);
-                accesoDatos.setearParametro("@Id", id);
+                accesoDatos.setearParametro("@Codigo", codigo);
 
                 accesoDatos.EjecutarAccion();
                 return true;

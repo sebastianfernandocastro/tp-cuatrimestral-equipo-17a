@@ -393,12 +393,6 @@ namespace tp_cuatrimestral_equipo_17A
         }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Herramientas herramientas = new Herramientas();
-            string Mensaje = "";
-            string Mail = "";
-            string NombreUsuario = "";
-
-
             try
             {
                 //hacer validaciones de valores de los dropdown y textbox, que sea un valor no nullo o distinto de 0 el value.
@@ -408,7 +402,7 @@ namespace tp_cuatrimestral_equipo_17A
 
                     Turno turno = new Turno();
                     turno.Usuario = new Usuario { Id = int.Parse(ddlUsuario.SelectedValue) };
-                    turno.Vehiculo = new TipoVehiculo { Id = int.Parse(ddlVehiculo.SelectedValue) };
+                    turno.Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) };
                     turno.Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) };
                     turno.Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) };
                     turno.Fecha = armarFecha();
@@ -422,19 +416,9 @@ namespace tp_cuatrimestral_equipo_17A
                         {
                             lblMessage.Text = "Turno agregado correctamente.";
                             lblMessage.CssClass = "text-success";
-
-                            if(cli == null) cli = usuarioNegocio.ObtenerClienteById(turno.Usuario.Id);
-
-                            Mensaje = "Hola " + (string)cli.Nombre + " tu turno para el dia " + (string)txtFecha.Text + " a sido creado con EXITO!. Puedes modificarlo en la seccion de Mis Turnos";
-                            Mail = (string)cli.Mail;
-                            NombreUsuario = (string)cli.NombreUsuario;
-
-                            herramientas.enviarMail(Mail, Mensaje, NombreUsuario);
-
-                            
+                            //LimpiarFormulario(); // Limpiar el formulario
 
                             Response.Redirect("TurnosListado.aspx", false);
-                             
                         }
                         else
                         {
@@ -491,7 +475,7 @@ namespace tp_cuatrimestral_equipo_17A
                 {
                     Id = int.Parse(hfTurnoId.Value),
                     Usuario = new Usuario { Id = int.Parse(ddlUsuario.SelectedValue) },
-                    Vehiculo = new TipoVehiculo { Id = int.Parse(ddlVehiculo.SelectedValue) },
+                    Vehiculo = new TipoVehiculo { Codigo = int.Parse(ddlVehiculo.SelectedValue) },
                     Rubro = new Rubro { Id = int.Parse(ddlRubro.SelectedValue) },
                     Servicio = new Servicio { Id = int.Parse(ddlServicio.SelectedValue) },
                     Fecha = DateTime.Parse(ddlFechaHora.SelectedValue),

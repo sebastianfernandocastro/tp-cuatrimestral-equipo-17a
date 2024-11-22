@@ -39,16 +39,12 @@ namespace negocio
         }
 
 
-        public List<Rubro> Listar(int inactivos = 0)
+        public List<Rubro> Listar()
         {
             List<Rubro> lista = new List<Rubro>();
             try
             {
-                string consulta = " SELECT Id, Nombre, Descripcion, IdImagen, Estado FROM Rubros ";
-                if (inactivos == 0) consulta += " where estado = 1 ";
-                else consulta += " where estado = 0";
-
-                accesoDatos.setearConsulta(consulta);
+                accesoDatos.setearConsulta("SELECT Id, Nombre, Descripcion, IdImagen, Estado FROM Rubros");
                 accesoDatos.EjecutarLectura();
 
                 while (accesoDatos.Lector.Read())

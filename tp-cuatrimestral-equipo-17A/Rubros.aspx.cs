@@ -25,12 +25,7 @@ namespace tp_cuatrimestral_equipo_17A
         {
             try
             {
-                List<Rubro> listaRubros = new List<Rubro>();
-                    
-                if (cbxInactivos.Checked) listaRubros = rubroNegocio.Listar(1);
-                else listaRubros = rubroNegocio.Listar();
-
-                if (!String.IsNullOrEmpty(txtFiltro.Text)) listaRubros = listaRubros.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()) || x.Descripcion.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+                List<Rubro> listaRubros = rubroNegocio.Listar();
 
                 dgvRubros.DataSource = listaRubros;
                 dgvRubros.DataBind();
@@ -139,32 +134,5 @@ namespace tp_cuatrimestral_equipo_17A
             }
         }
 
-        protected void txtFiltro_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                CargarRubros();
-            }
-            catch (Exception ex)
-            {
-                lblMensaje.Text = "Error al filtrar rubros: " + ex.Message;
-                lblMensaje.CssClass = "text-danger";
-                lblMensaje.Visible = true;
-            }
-        }
-
-        protected void cbxInactivos_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                CargarRubros();
-            }
-            catch (Exception ex)
-            {
-                lblMensaje.Text = "Error al filtrar rubros: " + ex.Message;
-                lblMensaje.CssClass = "text-danger";
-                lblMensaje.Visible = true;
-            }
-        }
     }
 }

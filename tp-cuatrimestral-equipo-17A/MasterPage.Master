@@ -25,8 +25,8 @@
                 <div style="width: 33.33%;">
                     <nav class="navMenu">
                         <a href="Default.aspx">Inicio</a>
-                        <a href="NuestrosTrabajos.aspx">NUESTRO TRABAJOS</a>
-                        <a href="SeleccionarVehiculo.aspx">SOLICITAR TURNO</a>
+                        <a href="#">NUESTRO TRABAJOS</a>
+                        <a style=font-size: 27px;" href="SeleccionarVehiculo.aspx">SOLICITAR TURNO</a>
                         <div class="dot"></div>
                     </nav>
                 </div>

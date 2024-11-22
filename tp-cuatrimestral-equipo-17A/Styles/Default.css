@@ -30,25 +30,3 @@
     font-size:18px;
     margin: 20px;
 }
-
-    .divContenedor img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-
-    .divContenedor div {
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
-@media screen and (max-width: 768px) {
-    .divContenedor {
-        flex-direction: column;
-    }
-
-        .divContenedor div,
-        .divContenedor img {
-            width: 100%;
-        }
-}
