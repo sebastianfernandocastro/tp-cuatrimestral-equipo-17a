@@ -96,6 +96,7 @@ namespace tp_cuatrimestral_equipo_17A
 
                 rubro.Nombre = txtNombre.Text;
                 rubro.Descripcion = txtDescripcion.Text;
+                rubro.imagen = new Imagen();
                 rubro.imagen.Id = int.Parse(ddlIdImagen.SelectedValue);
                 rubro.Estado = int.Parse(ddlEstado.SelectedValue);
 

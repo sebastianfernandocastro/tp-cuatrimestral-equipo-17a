@@ -36,7 +36,7 @@
                 <Columns>
                     <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                     <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
-                    <asp:BoundField HeaderText="Id Imagen" DataField="IdImagen" />
+                    <asp:BoundField HeaderText="Url Imagen" DataField="Imagen.UrlImagen" />
                     <asp:BoundField HeaderText="Estado" DataField="Estado"
                         DataFormatString="{0:Activo;Inactivo}" />
                     <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
