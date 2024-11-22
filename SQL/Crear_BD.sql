@@ -33,7 +33,7 @@ create table NivelAcceso(
 )
 insert into NivelAcceso (Descripcion) values('Admin'), ('Empleado')
 
-CREATE TABLE HorariosTurnos (
+CREATE TABLE FechaHora (
     Id INT PRIMARY KEY IDENTITY(1,1),
     Hora TIME NOT NULL,
     Disponible BIT NOT NULL
@@ -52,7 +52,6 @@ CREATE TABLE TipoVehiculo (
     CONSTRAINT FK_TipoVehiculo_Imagen FOREIGN KEY (IdImagen) REFERENCES Imagenes(Id)
 );
 
-ALTER TABLE Rubros ADD Estado INT NOT NULL DEFAULT 1;
 CREATE TABLE Rubros (
     Id INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
@@ -60,6 +59,8 @@ CREATE TABLE Rubros (
     IdImagen INT NOT NULL,
     CONSTRAINT FK_Rubro_Imagen FOREIGN KEY (IdImagen) REFERENCES Imagenes(Id)
 );
+ALTER TABLE Rubros ADD Estado INT NOT NULL DEFAULT 1;
+
 
 CREATE TABLE TipoVehiculoRubro (
     Id INT PRIMARY KEY IDENTITY(1,1),
@@ -202,10 +203,11 @@ VALUES
 
 
 --ADMIN--
-INSERT INTO Usuarios (Nombre, Apellido, Usuario, Contrasenia, Tipo, DNI, MAIL, Telefono, Legajo, NivelAcceso, Estado) VALUES ('Admin', 'Admin', 'Admin', 'Admin', 1, '0', 'admin', '123456789', 'A001', 1, 1);
+insert into Usuarios (Nombre,Apellido,Usuario,Contrasenia,Tipo,DNI,MAIL,Telefono,Legajo,NivelAcceso,estado) values('admin','admin','admin','admin',2,null,null,null,'admin',1,1)
 INSERT INTO Usuarios (Nombre, Apellido, Usuario, Contrasenia, Tipo, DNI, MAIL, Telefono, Legajo, NivelAcceso, Estado) VALUES ('Miguel', 'Aitor', 'Miguel1', '12345', 3, '1', 'Trabajador', '12345678', 'A002', 2, 1);
 INSERT INTO Usuarios (Nombre, Apellido, Usuario, Contrasenia, Tipo, DNI, MAIL, Telefono, Legajo, NivelAcceso, Estado) VALUES ('Jose', 'Sanchez', 'Jose09', '1234', 2, '2', 'Cliente', '1234567', 'A003', 3, 1);
 
+delete from Usuarios
 
 --IMAGENES AUTOS--
 INSERT INTO Imagenes (UrlImagen) VALUES ('https://iili.io/2uFNYyx.png');
@@ -303,7 +305,7 @@ INSERT INTO RubroServicio (IdRubro, IdServicio) VALUES
 --agregar horarios y fechas
 drop table HorariosTurnos
 delete from HorariosTurnos
-INSERT INTO HorariosTurnos(Hora, Disponible)
+INSERT INTO FechaHora(Hora, Disponible)
 VALUES 
 ('08:00:00', 1),
 ('09:00:00', 1),
@@ -331,7 +333,3 @@ SELECT r.Nombre AS Rubro, s.Nombre AS Servicio
 FROM RubroServicio rs
 INNER JOIN Rubros r ON r.Id = rs.IdRubro
 INNER JOIN Servicios s ON s.Id = rs.IdServicio
-
-
-
-

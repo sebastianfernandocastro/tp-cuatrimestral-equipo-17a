@@ -271,7 +271,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where Tipo = 1 and estado = 1");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where Tipo = 1 and estado = 1 and id = " + id);
                 datos.EjecutarLectura();
 
                 Cliente cl = new Cliente();
@@ -291,6 +291,47 @@ namespace negocio
                     cl.Estado = (int)datos.Lector["Estado"];
 
                     
+                }
+
+                return cl;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public Cliente ObtenerClienteByMail(string Mail)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Mail, Telefono,Usuario,Contrasenia,Tipo,Estado from Usuarios where Mail = @Mail");
+                datos.setearParametro("@Mail", Mail);
+                datos.EjecutarLectura();
+
+                Cliente cl = new Cliente();
+
+                while (datos.Lector.Read())
+                {
+
+                    cl.Id = (int)datos.Lector["Id"];
+                    cl.Nombre = (string)datos.Lector["Nombre"];
+                    cl.Apellido = (string)datos.Lector["Apellido"];
+                    cl.DNI = (string)datos.Lector["DNI"];
+                    cl.Mail = (string)datos.Lector["Mail"];
+                    cl.Contraseña = (string)datos.Lector["Contrasenia"];
+                    cl.NombreUsuario = (string)datos.Lector["Usuario"];
+                    cl.Telefono = (string)datos.Lector["Telefono"];
+                    cl.tipo = (int)datos.Lector["Tipo"];
+                    cl.Estado = (int)datos.Lector["Estado"];
+
+
                 }
 
                 return cl;

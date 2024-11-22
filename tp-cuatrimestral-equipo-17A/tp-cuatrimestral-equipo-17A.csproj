@@ -84,11 +84,17 @@
     <Content Include="FormularioEmpleado.aspx" />
     <Content Include="FormularioPrecio.aspx" />
     <Content Include="FormularioRubro.aspx" />
+<<<<<<< HEAD
     <Content Include="FormularioServicio.aspx" />
+=======
+    <Content Include="FormularioVehiculo.aspx" />
+    <Content Include="NuestrosTrabajos.aspx" />
+>>>>>>> 4145e66ed0fc8681be879b6fd08b7c84c1dcb161
     <Content Include="Precios.aspx" />
     <Content Include="Rubros.aspx" />
     <Content Include="Servicios.aspx" />
     <Content Include="Styles\SeleccionarServicio.css" />
+    <Content Include="Vehiculo.aspx" />
     <Content Include="TurnosListado.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
@@ -176,12 +182,28 @@
     <Compile Include="FormularioRubro.aspx.designer.cs">
       <DependentUpon>FormularioRubro.aspx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="FormularioServicio.aspx.cs">
       <DependentUpon>FormularioServicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FormularioServicio.aspx.designer.cs">
       <DependentUpon>FormularioServicio.aspx</DependentUpon>
+=======
+    <Compile Include="FormularioVehiculo.aspx.cs">
+      <DependentUpon>FormularioVehiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioVehiculo.aspx.designer.cs">
+      <DependentUpon>FormularioVehiculo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NuestrosTrabajos.aspx.cs">
+      <DependentUpon>NuestrosTrabajos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuestrosTrabajos.aspx.designer.cs">
+      <DependentUpon>NuestrosTrabajos.aspx</DependentUpon>
+>>>>>>> 4145e66ed0fc8681be879b6fd08b7c84c1dcb161
     </Compile>
     <Compile Include="Precios.aspx.cs">
       <DependentUpon>Precios.aspx</DependentUpon>
@@ -197,12 +219,21 @@
     <Compile Include="Rubros.aspx.designer.cs">
       <DependentUpon>Rubros.aspx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Servicios.aspx.cs">
       <DependentUpon>Servicios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Servicios.aspx.designer.cs">
       <DependentUpon>Servicios.aspx</DependentUpon>
+=======
+    <Compile Include="Vehiculo.aspx.cs">
+      <DependentUpon>Vehiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vehiculo.aspx.designer.cs">
+      <DependentUpon>Vehiculo.aspx</DependentUpon>
+>>>>>>> 4145e66ed0fc8681be879b6fd08b7c84c1dcb161
     </Compile>
     <Compile Include="TurnosListado.aspx.cs">
       <DependentUpon>TurnosListado.aspx</DependentUpon>
