@@ -31,8 +31,7 @@
                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                 <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
                 <asp:BoundField HeaderText="Url Imagen" DataField="Imagen.UrlImagen" />
-                <asp:BoundField HeaderText="Estado" DataField="Estado"
-                    DataFormatString="{0:Activo;Inactivo}" />
+                <asp:BoundField HeaderText="Estado" DataField="Estado"/>
                 <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Modificar" />
                 <asp:TemplateField HeaderText="Acción">
                     <ItemTemplate>
@@ -42,24 +41,6 @@
                             data-id='<%# Eval("Id") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <%-- <asp:TemplateField HeaderText="Eliminar">
-            <ItemTemplate>
-                <a href="#" onclick="return confirmarEliminar(this);" data-id='<%# Eval("Id") %>'>Eliminar</a>
-            </ItemTemplate>
-        </asp:TemplateField>--%>
-                <%-- <asp:TemplateField HeaderText="Acciones">
-            <ItemTemplate>
-                <asp:Button
-                    ID="btnActivar"
-                    runat="server"
-                    Text='<%# Eval("Estado").ToString() == "1" ? "Desactivar" : "Activar" %>'
-                    CssClass="btn btn-sm btn-warning"
-                    CommandName="ToggleEstado"
-                    CommandArgument='<%# Eval("Id") %>' 
-                    data-id='<%# Eval("Id") %>'/>
-                   
-            </ItemTemplate>
-        </asp:TemplateField>--%>
             </Columns>
         </asp:GridView>
     </div>

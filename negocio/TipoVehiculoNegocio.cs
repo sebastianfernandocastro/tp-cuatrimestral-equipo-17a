@@ -21,13 +21,12 @@ namespace negocio
         {
             try
             {
-                string query = "INSERT INTO TipoVehiculo (Id, Nombre, Descripcion, Imagen,Estado) VALUES (@Id, @Nombre, @Descripcion, @Imagen,1)";
+                string query = "INSERT INTO TipoVehiculo (Nombre, Descripcion, IdImagen,Estado) VALUES ( @Nombre, @Descripcion, @IdImagen,1)";
 
                 accesoDatos.setearConsulta(query);
-                accesoDatos.setearParametro("@Id", nuevoTipoVehiculo.Id);
                 accesoDatos.setearParametro("@Nombre", nuevoTipoVehiculo.Nombre);
                 accesoDatos.setearParametro("@Descripcion", nuevoTipoVehiculo.Descripcion);
-                //accesoDatos.setearParametro("@Imagen", nuevoTipoVehiculo.Imagen);
+                accesoDatos.setearParametro("@IdImagen", nuevoTipoVehiculo.imagen.Id);
 
                 accesoDatos.EjecutarAccion();
                 return true;
@@ -117,7 +116,7 @@ namespace negocio
         {
             try
             {
-                string query = "UPDATE TipoVehiculo SET Nombre = @Nombre, Descripcion = @Descripcion, Imagen = @Imagen, Estado = @Estado WHERE Id = @Id";
+                string query = "UPDATE TipoVehiculo SET Nombre = @Nombre, Descripcion = @Descripcion, IdImagen = @Imagen, Estado = @Estado WHERE Id = @Id";
 
                 accesoDatos.setearConsulta(query);
                 accesoDatos.setearParametro("@Id", tipoVehiculoModificado.Id);
