@@ -71,6 +71,37 @@ namespace negocio
             return lista;
         }
 
+        public List<Rubro> ListarActivos()
+        {
+            List<Rubro> lista = new List<Rubro>();
+            try
+            {
+                string query = "SELECT Id, Nombre FROM Rubros WHERE Estado = 1";
+                accesoDatos.setearConsulta(query);
+                accesoDatos.EjecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Rubro rubro = new Rubro
+                    {
+                        Id = (int)accesoDatos.Lector["Id"],
+                        Nombre = accesoDatos.Lector["Nombre"].ToString()
+                    };
+                    lista.Add(rubro);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al listar rubros activos: " + ex.Message);
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+            }
+            return lista;
+        }
+
+
 
         public bool Modificar(Rubro rubroModificado)
         {
